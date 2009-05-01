@@ -1,0 +1,2566 @@
+include, plotscr.hsd
+include, scancode.hsi
+include, baconthulhu.hsi
+
+#-----------------------------------------------------------------------
+
+global variable(0, recursion)
+global variable(1, growth cycles)
+global variable(3, effects)
+global variable(4, hero atk frames)
+global variable(5, metadata)
+global variable(6, find x)
+global variable(7, find y)
+global variable(8, generating)
+global variable(9, stairs ignore)
+global variable(10, update counter)
+global variable(11, spawn x)
+global variable(12, spawn y)
+global variable(13, meters)
+global variable(14, health meter)
+global variable(15, stamina meter)
+global variable(16, monster meter)
+global variable(17, monster meter ticks)
+global variable(18, regen state)
+global variable(19, select menu done)
+global variable(20, current monster hp)
+global variable(21, current monster max)
+global variable(22, spawn cultist x)
+global variable(23, spawn cultist y)
+global variable(24, spawn misa x)
+global variable(25, spawn misa y)
+global variable(26, spawn bacontologist x)
+global variable(27, spawn bacontologist y)
+global variable(28, baconthulhu dead)
+
+#-----------------------------------------------------------------------
+
+# string constants
+define constant(1, msg) # +4 strings used by console
+define constant(6, money str)
+define constant(7, tmp str)
+
+# timer constants
+define constant(0, main loop timer)
+define constant(1, temp timer)
+define constant(2, spawn timer)
+define constant(3, regen timer)
+define constant(4, victory timer)
+define constant(5, monster meter timer)
+define constant(6, spawn cultist timer)
+define constant(7, spawn misa timer)
+define constant(8, spawn bacontologist timer)
+define constant(9, end of game timer)
+
+# using NPC extra data as bitsets
+define constant(0, nbit:deadend)
+define constant(1, nbit:justturned)
+
+# hero frames
+define constant(1, hero walking)
+define constant(4, hero attacking)
+define constant(11, hero celebrating)
+
+# non-monster npcs
+define constant(97, bacontologist)
+define constant(98, misa the hamster)
+define constant(99, robed cultist)
+
+# special monsters
+define constant(35, bacon body)
+
+# walkabout effects
+define constant(7, effect:miss)
+define constant(3, effect:punch)
+define constant(5, effect:sword)
+define constant(6, effect:axe)
+define constant(15, effect:tofu)
+define constant(14, effect:bacon explosion)
+
+# attack effects
+define constant(0, teleport cloud)
+
+# weapon effects
+define constant(1, magic:fire)
+define constant(2, magic:bat)
+define constant(3, magic:monarch)
+define constant(4, magic:love)
+
+# regen constants
+define constant(0, regen:stamina)
+define constant(1, regen:health)
+define constant(2, regen:health skip)
+
+# slot constants
+define constant(2,slot:Tool)
+define constant(3,slot:Potion)
+define constant(4,slot:Scroll)
+
+# other constants
+define constant(18, seconds)
+define constant(-1, counterclockwise)
+define constant(1, clockwise)
+define constant(6, threshhold)
+define constant(100, growth cycles before wait)
+define constant(5, last map)
+define constant(0, void)
+define constant(1, floor)
+define constant(2, first wall)
+define constant(48, last wall)
+define constant(49, stairs up)
+define constant(50, stairs down)
+define constant(1, first treasure)
+define constant(4, treasure types)
+define constant(15, item icons)
+define constant(64, fog of war)
+define constant(25, treasure rate)
+define constant(1, spawn delay)
+define constant(4, last monster slot)
+define constant(12, monsters per kilotile)
+define constant(33, monster item rate)
+
+#-----------------------------------------------------------------------
+
+script, abs, n, begin
+  if(n << 0) then(exit returning(n * -1))
+  exit returning(n)
+end
+
+script, suspend all, begin
+  suspend player
+  suspend npcs
+  suspend timers
+end
+
+script, resume all, begin
+  resume player
+  resume npcs
+  resume timers
+end
+
+script, anchor align, sl, edge, begin
+  set horiz anchor(sl, edge)
+  set horiz align(sl, edge)
+end
+
+#-----------------------------------------------------------------------
+
+plotscript, init game, begin
+  show select screen
+  create effects layer
+  create meters
+  create map metadata
+  set timer(regen timer, 1, seconds, @hero regen)
+  init map
+end
+
+script, show select screen, begin
+  show a select menu(menu:select screen)
+end
+
+script, show death screen, begin
+  hide all strings
+  show a select menu(menu:death menu)
+  show all strings
+end
+
+script, show a select menu, menu id, begin
+  select menu done := false
+  show backdrop(1)
+  reset palette
+  update palette
+  while(select menu done == false) do(
+    open menu(menu id)
+    if(keyval(key:ESC) >> 0) then(reset to title screen)
+    wait for text box
+    wait(1)
+  )
+  show map
+end
+
+plotscript, exit select menu, begin
+  select menu done :=  true
+end
+
+plotscript, reset to title screen, begin
+  game over
+end
+
+plotscript, save scum, begin
+  show text box (23)
+  wait for text box
+  if(check tag(tag:save scummer)) then(
+    set hero position(0, get up stairs x(current map), get up stairs y(current map))
+    heal hero(999)
+    invigorate hero(999)
+    $msg = "You have been branded a save scummer."
+    update console
+    exit select menu
+    create teleport cloud(hero x, hero y)
+  )else(
+    game over
+  )
+end
+
+script, init map, begin
+  resume player
+  set each step script(@each step)
+  set on keypress script(@on keypress)
+  expire all effects
+  each tick
+  set timer(spawn timer, spawn delay, 18, @random monster spawn)
+  set timer(temp timer, 0, 1, @first step)
+  generate map
+  if(current map == last map) then(
+    if(baconthulhu dead == false) then(
+      spawn baconthulhu
+    )
+  )
+end
+
+plotscript, generate map, begin
+  if(get map creation(current map) == true) then(exit script)
+  variable(x, y)
+  x := random(1, map width -- 2)
+  y := random(1, map height -- 2)
+  set hero position(leader, x, y)
+  place stairs up(x, y)
+  $msg="The dungeon lives and grows..."
+  update console
+  generating := true
+  recursion := 0
+  create passage(x, y)
+  create more passages
+  generating := false
+  place stairs down(x, y)
+  setup map specials
+  set map creation(current map, true)
+  $msg="The dungeon has matured."
+  update console
+end
+
+plotscript, first step, begin
+  each step(hero x, hero y, hero direction, true)
+end
+
+plotscript, each step, x, y, d, no stairs=false, begin
+  fix more surrounding walls(x, y)
+  clear fog of war(x, y)
+  pick up treasure(x, y)
+  if(no stairs == false) then(climb stairs)
+end
+
+plotscript, on keypress, begin
+  if(keyval(key:tilde)>>0) then(
+    # cheat keys
+    if(keyval(key:M)>>1) then(reveal map)
+    if(keyval(key:G)>>1) then(get money(100), update money display)
+  )
+  while(true) do( # hack loop so we can use "break"
+    if(keyval(key:up)>>1)    then(hero motion(up),    break)
+    if(keyval(key:right)>>1) then(hero motion(right), break)
+    if(keyval(key:down)>>1)  then(hero motion(down),  break)
+    if(keyval(key:left)>>1)  then(hero motion(left),  break)
+    if(keyval(key:E)>>1)     then(show equip)
+    if(keyval(key:I)>>1)     then(show inventory)
+    if(keyval(key:Z)>>1)     then(use tool)
+    if(keyval(key:X)>>1)     then(drink potion)
+    if(keyval(key:C)>>1)     then(read scroll)
+    break
+  )
+end
+
+script, each tick, begin
+  update hero
+  update effects
+  update monsters
+  set timer(main loop timer, 0, 1, @each tick)
+end
+
+script, climb stairs, begin
+  variable(tile)
+  tile := safe read map block(hero x, hero y)
+  if(is a stairs(tile) && not(stairs ignore)) then(
+    if(generating) then(
+      $msg = "Can't climb stairs while map grows!"
+      update console
+      exit script
+    )
+    suspend player
+    variable(dest)
+    if(tile == stairs up) then(
+      dest := current map -- 1
+      teleport to map(dest, get down stairs x(dest), get down stairs y(dest))
+    )
+    if(tile == stairs down) then(
+      dest := current map + 1
+      teleport to map(dest, get up stairs x(dest), get up stairs y(dest))
+    )
+    set timer(temp timer, 0, 1, @init map)
+    stairs ignore := true
+    exit script
+  )
+  stairs ignore := false
+end
+
+#-----------------------------------------------------------------------
+
+plotscript, show inventory, begin
+  items menu
+  update meters
+end
+
+plotscript, show equip, begin
+  equip menu(0)
+  update meters
+end
+
+plotscript, show help, begin
+  suspend all
+  show text box(1)
+  wait for text box
+  resume all
+end
+
+plotscript, scroll of burning, begin
+  variable(ref)
+  for(ref, -300, -1) do(
+    if(is attackable(ref)) then(
+      if(distance to monster in pixels under(ref, 190)) then(
+        create weapon effect(magic:fire, npc x(ref), npc y(ref), 18)
+        damage monster(ref, random(1, 5))
+      )
+    )
+  )
+end
+
+plotscript, scroll of bat, begin
+  variable(ref)
+  ref := npc reference(robed cultist)
+  if(ref) then(
+    create weapon effect(magic:bat, hero x, hero y, 999)
+  )else(
+    $msg = "There are no cultists on this floor."
+    update console
+  )
+end
+
+plotscript, scroll of monarch, begin
+  if(current map << last map) then(
+    create weapon effect(magic:monarch, hero x, hero y, 999)
+  )else(
+    $msg = "This is the final floor of the crypt."
+    update console
+  )
+end
+
+plotscript, scroll of vegify, begin
+  variable(ref, x, y)
+  for(ref, -300, -1) do(
+    if(is attackable(ref)) then(
+      if(distance to monster in pixels under(ref, 190)) then(
+        x := npc x(ref)
+        y := npc y(ref)
+        # insta-kill monsters in range
+        damage monster(ref, 999)
+        # create a soybean, overwriting any other item dropped by this monster
+        create item(x, y, item:soybean)
+      )
+    )
+  )
+end
+
+#-----------------------------------------------------------------------
+
+script, use tool, begin
+  $msg = "Tools are not implemented yet."
+  update console
+end
+
+script, drink potion, begin
+  variable(item)
+  item := check equipment(0, slot:potion)
+  if(item == -1) then(
+    $msg = "No potion equipped."
+    update console
+    exit script
+  )
+  variable(atk)
+  atk := lookup item attack(item)
+  if(atk) then(
+    outside battle cure(atk--1, 0, 0)
+    if(inventory(item)) then(
+      $msg = "Drank a "
+      get item name(tmp str, item)
+      msg $+ tmp str
+      $msg + ". ("
+      append number(msg, inventory(item))
+      $msg + " left)"
+    )else(
+      $msg = "Drank your last "
+      get item name(tmp str, item)
+      msg $+ tmp str
+      $msg + "."
+      unequip(0, slot:potion)
+    )
+    delete item(item)
+    update console
+  )
+  update meters
+end
+
+script, read scroll, begin
+  variable(item)
+  item := check equipment(0, slot:scroll)
+  if(item == -1) then(
+    $msg = "No scroll equipped."
+    update console
+    exit script
+  )
+  read scroll action(item)
+  if(inventory(item)) then(
+    $msg = "The "
+    get item name(tmp str, item)
+    msg $+ tmp str
+    $msg + " scroll crumbles. ("
+    append number(msg, inventory(item))
+    $msg + " left)"
+  )else(
+    $msg = "Your last "
+    get item name(tmp str, item)
+    msg $+ tmp str
+    $msg + " crumbles."
+    unequip(0, slot:scroll)
+  )
+  delete item(item)
+  update console
+end
+
+script, read scroll action, item, begin
+  switch(item) do(
+    case(item:burning) do(scroll of burning)
+    case(item:bat) do(scroll of bat)
+    case(item:monarch) do(scroll of monarch)
+    case(item:vegify) do(scroll of vegify)
+    else(
+      get item name(msg, item)
+      $msg + " cannot be read as a scroll"
+      update console
+    )
+  )
+end
+
+script, lookup item attack, item, begin
+  # This is a hack to compensate for the fact that item data cannot be read
+  switch(item) do(
+    case(item:Tonic) do(exit returning(atk:Tonic))
+    case(item:Brew) do(exit returning(atk:Brew))
+    case(item:Soma) do(exit returning(atk:Soma))
+  )
+  exit returning(false)
+end
+
+#-----------------------------------------------------------------------
+
+script, setup map specials, begin
+  switch(current map) do(
+    case(0) do(
+      place special item(item:sword)
+      place special item(item:tonic)
+      place special item(item:tonic)
+      place special item(item:brew)
+      place cultist
+    )
+    case(1) do(
+      place special item(item:axe)
+      place special item(item:tonic)
+      place special item(item:brew)
+      place cultist
+    )
+    case(2) do(
+      place special item(item:tonic)
+      place special item(item:brew)
+      place cultist
+      place bacontologist
+    )
+    case(3) do(
+      place cultist
+    )
+    case(4) do(
+      place misa
+    )
+  )
+end
+
+script, talker action for this map, ref, begin
+  face nearby talker
+  variable(id)
+  id := get npc id(ref)
+  switch(id) do(
+    case(robed cultist) do(
+      switch(current map) do(
+        case(0) do(talk menu(menu:shop 1))
+        case(1) do(talk menu(menu:shop 2))
+        case(2) do(talk menu(menu:shop 3))
+        case(3) do(talk menu(menu:shop 4))
+      )
+    )
+    case(bacontologist) do(
+      talk menu(menu:bacontologist)
+    )
+    case(misa the hamster) do(
+      talk menu(menu:misa)
+    )
+  )
+end
+
+plotscript, bacontologist long explanation, begin
+  suspend all
+  show text box(69)
+  wait for text box
+  show text box after fade(71)
+  show text box after fade(72)
+  show text box after fade(73)
+  show text box after fade(77)
+  show text box after fade(74)
+  resume all
+end
+
+script, show text box after fade, box, begin
+  fade screen out
+  show text box(box)
+  fade screen in
+  wait for text box
+end
+
+script, face nearby talker, begin
+  variable(i, x, y, ref)
+  for(i, 0, 3) do(
+    x := hero x(0) + compass x(i)
+    y := hero y(0) + compass y(i)
+    ref := npc at spot(x, y)
+    if(is talker(ref)) then(
+      set hero direction(0, i)
+    )
+  )
+end
+
+script, talk menu, menu id, begin
+  suspend all
+  advance text box
+  open menu(menu id)
+  wait for text box
+  resume all
+end
+
+script, find place for special, begin
+  variable(i)
+  # try 12 times, avoid locations too close to your curent location
+  for (i, 0, 11) do(
+    find tunnel end
+    if(close to hero(find x, find y, 4) == false) then(
+      break
+    )
+  )
+end
+
+script, place special item, item, begin
+  variable(i, tile)
+  # try 5 times, avoid overwriting existing special items
+  for(i, 0, 4) do(
+    find place for special
+    tile := safe read map block(find x, find y, 1)
+    if(is item icon(tile) == false) then(break)
+  )
+  create item(find x, find y, item)
+end
+
+script, close to hero, x, y, dist, begin
+  variable(diff x, diff y)
+  diff x := hero x -- x
+  diff y := hero y -- y
+  exit returning(abs(diff x) <= dist && abs(diff y) <= dist)
+end
+
+script, place cultist, begin
+  find place for special
+  start spawn cultist(find x, find y)
+end
+
+script, place misa, begin
+  find place for special
+  start spawn misa(find x, find y)
+end
+
+script, place bacontologist, begin
+  find place for special
+  start spawn bacontologist(find x, find y)
+end
+
+#-----------------------------------------------------------------------
+
+script, hide all strings, begin
+  variable(i)
+  for(i, msg+1, msg+4) do(
+    hide string(i)
+  )
+  hide string(money str)
+end
+
+script, show all strings, begin
+  variable(i)
+  for(i, 0, 3) do(
+    show string at(msg+1+i, 0, 190 -- i * 10)
+  )
+  show string at(money str, 0, 17)
+end
+
+#-----------------------------------------------------------------------
+
+script, create meters, begin
+  meters := create container(320, 200)
+  variable(sl)
+
+  variable(col)
+  col := 5 * 16
+  health meter := create meter(1, 1, col + 7, col + 12)
+  col := 13 * 16
+  stamina meter := create meter(1, 9, col + 7, col + 12)
+  col := 7 * 16
+  monster meter := create meter(1, 1, col + 7, col + 12)
+  anchor align(monster meter, edge:right)
+  anchor align(first child(monster meter), edge:right)
+  set sprite visible(monster meter, false)
+  update meters
+end
+
+script, create meter, x, y, bg col, border col, begin
+  variable(meter)
+  meter := create rect(60, 6, -1)
+  set slice x(meter, x)
+  set slice y(meter, y)
+  set rect fg col(meter, bg col)
+  variable(sl)
+  sl := create rect(0, 6, -1)
+  set parent(sl, meter)
+  set rect bg col(sl, bg col)
+  set rect fg col(sl, border col)
+  exit returning(meter)
+end
+
+script, update meter, meter, cur, max, begin
+  if(max == 0) then(exit script)
+  variable(sl, w)
+  w := slice width(meter)
+  sl := first child(meter)
+  set slice width(sl, (w * 100) / max * cur / 100)
+end
+
+script, update meters, begin
+  update health meter
+  update stamina meter
+  update monster meter
+end
+
+script, update health meter, begin
+  variable(cur, max)
+  cur := get hero stat(0, stat:health, current stat)
+  max := get hero stat(0, stat:health, maximum stat)
+  update meter(health meter, cur, max)
+end
+
+script, update stamina meter, begin
+  variable(cur, max)
+  cur := get hero stat(0, stat:stamina, current stat)
+  max := get hero stat(0, stat:stamina, maximum stat)
+  update meter(stamina meter, cur, max)
+end
+
+script, update monster meter, begin
+  variable(cur, max)
+  cur := current monster hp
+  max := current monster max
+  update meter(monster meter, cur, max)
+end
+
+script, show monster meter, begin
+  set sprite visible(monster meter, true)
+  set timer(monster meter timer, 2, seconds, @hide monster meter)
+end
+
+script, hide monster meter, begin
+  set sprite visible(monster meter, false)
+end
+
+script, hero victory, begin
+  suspend player
+  set hero picture(0, hero celebrating, outside battle)
+  set timer(victory timer, 0, 1, @start hero victory)
+end
+
+script, start hero victory, begin
+  set hero picture(0, hero celebrating, outside battle)
+  set timer(victory timer, 0, 7, @mid hero victory)
+end
+
+script, mid hero victory, begin
+  resume player
+  set timer(victory timer, 0, 7, @finish hero victory)
+end
+
+script, finish hero victory, begin
+  set hero picture(0, hero walking, outside battle)
+end
+
+#-----------------------------------------------------------------------
+
+script, create map metadata, begin
+  metadata := create container(0,0)
+  set sprite visible(metadata, false)
+  variable(i, sl)
+  for(i, 0, last map) do(
+    sl := create container(0,0)
+    set parent(sl, metadata)
+  )
+end
+
+script, get map metadata, map, begin
+  variable(i, sl)
+  sl := first child(metadata)
+  for(i, 1, map) do(
+    sl := next sibling(sl)
+  )
+  exit returning(sl)
+end
+
+script, get up stairs x, map, begin
+  variable(sl)
+  sl := get map metadata(map)
+  exit returning(slice x(sl))
+end
+
+script, get up stairs y, map, begin
+  variable(sl)
+  sl := get map metadata(map)
+  exit returning(slice y(sl))
+end
+
+script, get down stairs x, map, begin
+  variable(sl)
+  sl := get map metadata(map)
+  exit returning(slice width(sl))
+end
+
+script, get down stairs y, map, begin
+  variable(sl)
+  sl := get map metadata(map)
+  exit returning(slice height(sl))
+end
+
+script, set up stairs x, map, n, begin
+  variable(sl)
+  sl := get map metadata(map)
+  set slice x(sl, n)
+end
+
+script, set up stairs y, map, n, begin
+  variable(sl)
+  sl := get map metadata(map)
+  set slice y(sl, n)
+end
+
+script, set down stairs x, map, n, begin
+  variable(sl)
+  sl := get map metadata(map)
+  set slice width(sl, n)
+end
+
+script, set down stairs y, map, n, begin
+  variable(sl)
+  sl := get map metadata(map)
+  set slice height(sl, n)
+end
+
+script, get map creation, map, begin
+  variable(sl)
+  sl := get map metadata(map)
+  exit returning(get slice extra(sl, extra 0))
+end
+
+script, set map creation, map, n, begin
+  variable(sl)
+  sl := get map metadata(map)
+  set slice extra(sl, extra 0, n)
+end
+
+#-----------------------------------------------------------------------
+
+script, hero dies, begin
+  $msg = "You have been defeated!"
+  update console
+  suspend all
+  set on keypress script(none)
+  show text box(2)
+  wait(1)
+  tweak palette(30,-30,-30)
+  fade screen in
+  wait for text box
+  wait(3)
+  show death screen
+  resume all
+  set on keypress script(@on keypress)
+end
+
+script, update hero, begin
+  if(hero atk frames >> 0) then(
+    hero atk frames -= 1
+    if(hero atk frames == 0) then(
+      set hero picture(0, hero walking)
+    )
+  )
+end
+
+script, hero motion, d, begin
+  if(hero is aligned) then(
+    if(hero atk frames == 0) then(
+      hero motion action(d)
+    )
+  )
+end
+
+script, hero motion action, d, begin
+  variable(ref)
+  ref := get monster ahead of hero(d)
+  if(is attackable(ref)) then(
+    hero attack monster(ref)
+  )
+  if(is talker(ref)) then(
+    if(current textbox == -1) then(
+      talker action for this map(ref)
+    )
+  )
+end
+
+script, is attackable, ref, begin
+  exit returning(is monster(ref))
+end
+
+script, is monster, ref, begin
+  variable(id)
+  if(ref >= 0) then(exit returning(false))
+  id := get npc id(ref)
+  if(id == -1) then(exit returning(false)) # empty slot
+  if(is talker(id)) then(exit returning(false))
+  exit returning(true)
+end
+
+script, is talker, ref, begin
+  # this should work on both refs and ids
+  variable(id)
+  id := get npc id(ref)
+  exit returning(id >= 80)
+end
+
+script, is cultist, ref, begin
+  variable(id)
+  id := get npc id(ref)
+  if(id == robed cultist) then(exit returning(true))
+  exit returning(false)
+end
+
+script, hero attack monster, ref, begin
+  if(hero can attack == false) then(exit script)
+  variable(x, y)
+  x := npc x(ref)
+  y := npc y(ref)
+  if(hero attack attempt) then(
+    hero attack effect(x, y, hero direction)
+    damage monster(ref, hero atk power)
+  )else(
+    miss effect(x, y)
+  )
+  set hero picture(0, hero attacking)
+  hero atk frames := 5
+  apply encumbrance
+  current monster hp := get monster hp(ref)
+  current monster max := get monster max hp(ref)
+  show monster meter
+  update monster meter
+end
+
+script, hero attack attempt, begin
+  exit returning(random(0,99) << get hero stat(0, stat:hit rate))
+end
+
+script, hero can attack, begin
+  variable(stamina, burden)
+  stamina := get hero stat(0, stat:stamina, current stat)
+  burden := get hero stat(0, stat:burden)
+  if (stamina -- burden << 0) then(exit returning(false))
+  exit returning(true)
+end
+
+script, hero is aligned, begin
+  exit returning((hero pixel x, mod, 20)==0 && (hero pixel y, mod, 20)==0)
+end
+
+script, get monster ahead of hero, d, begin
+  variable(x, y)
+  x := hero x + compass x(d)
+  y := hero y + compass y(d)
+  variable(i, ref)
+  for(i, 0, NPC at spot(x, y, get count)) do(
+    ref := npc at spot(x, y, i)
+    if(npc is walking(ref) == false) then(exit returning(ref))
+  )
+  exit returning(false)
+end
+
+script, hero atk power, begin
+  exit returning(get hero stat(0, stat:attack))
+end
+
+script, hero attack effect, x, y, d, begin
+  variable(effect)
+  switch(check equipment(0, slot:melee)) do(
+    case(item:punch) do(effect := effect:punch)
+    case(item:sword) do(effect := effect:sword)
+    case(item:axe) do(effect := effect:axe)
+    case(item:tofu) do(effect := effect:tofu)
+  )
+  create walkabout effect(effect, x, y, d, 4)
+end
+
+script, miss effect, x, y, begin
+  create walkabout effect(effect:miss, x, y, 0, 2)
+end
+
+script, apply encumbrance, begin
+  variable(n)
+  n := get hero stat(0, stat:burden)
+  modify hero stamina(n * -1)
+end
+
+script, modify hero stamina, amount, begin
+  variable(n, max)
+  n := get hero stat(0, stat:stamina, current stat)
+  max := get hero stat(0, stat:stamina, maximum stat)
+  n += amount
+  if(n << 0) then(n := 0)
+  if(n >> max) then(n := max) 
+  set hero stat(0, stat:stamina, n, current stat)
+  update stamina meter
+end
+
+script, stamina is full, begin
+  exit returning(get hero stat(0, stat:stamina, current stat) == get hero stat(0, stat:stamina, maximum stat))
+end
+
+script, hero regen, begin
+  if(not(stamina is full)) then(regen state := regen:stamina)
+  switch(regen state) do(
+    case(regen:stamina) do(
+      variable(stamina)
+      modify hero stamina(1)
+      if(stamina is full) then(regen state := regen:health skip)
+    )
+    case(regen:health) do(
+      heal hero(1)
+      regen state := regen:health skip
+    )
+    case(regen:health skip) do(
+      regen state := regen:health
+    )
+  )
+  variable(delay)
+  delay := 26 -- get hero stat(0, stat:recovery)
+  if(delay << 8) then(delay := 8)
+  set timer(regen timer, 1, delay, @hero regen)
+end
+
+script, damage hero, amount, begin
+  variable(hp)
+  hp := get hero stat(0, stat:health, current stat)
+  hp -= amount
+  if(hp <= 0) then(hp := 0)
+  set hero stat(0, stat:health, hp, current stat)
+  update health meter
+  if(hp == 0) then(hero dies)
+end
+
+script, heal hero, amount, begin
+  variable(hp, max)
+  hp := get hero stat(0, stat:health, current stat)
+  max := get hero stat(0, stat:health, maximum stat)
+  hp += amount
+  if(hp >= max) then(hp := max)
+  set hero stat(0, stat:health, hp, current stat)
+  update health meter
+end
+
+script, invigorate hero, amount, begin
+  variable(stamina, max)
+  stamina := get hero stat(0, stat:stamina, current stat)
+  max := get hero stat(0, stat:stamina, maximum stat)
+  stamina += amount
+  if(stamina >= max) then(stamina := max)
+  set hero stat(0, stat:stamina, stamina, current stat)
+  update stamina meter
+end
+
+#-----------------------------------------------------------------------
+
+script, reveal map, begin
+  fix all walls
+  clear all fog
+  $msg = "knowledge floods into your mind."
+  update console
+end
+
+#-----------------------------------------------------------------------
+
+script, create effects layer, begin
+  effects := create container(map width * 20, map height * 20)
+end
+
+script, update effects, begin
+  set slice x(effects, camera pixel x * -1)
+  set slice y(effects, camera pixel y * -1)
+  variable(sl, type, age, ticks, deleteme)
+  sl := first child(effects)
+  while(sl) do(
+    deleteme := false
+    toggle effect frame(sl)
+    update effect(sl)
+    age := age effect(sl, 1)
+    ticks := get effect ticks(sl)
+    if(age >= ticks && ticks >> -1) then(deleteme := sl)
+    sl := next sibling(sl)
+    if(deleteme) then(free slice(deleteme))
+  )
+  update counter += 1
+  if(update counter>>9999999) then(update counter := 0)
+end
+
+script, update effect, sl, begin
+  variable(ref)
+  switch(get sprite type(sl)) do(
+    case(spritetype:weapon) do(
+      switch(get sprite set number(sl)) do(
+        case(magic:bat) do(
+          if(random(0,99) << 70) then(
+            ref := NPC reference(robed cultist)
+            effect flutters after npc(sl, ref, 4, @effect decay callback)
+          )
+        )
+        case(magic:monarch) do(
+          if(random(0,99) << 70) then(
+            effect flutters after stairs down(sl, 4, @effect decay callback)
+          )
+        )
+      )
+    )
+    case(spritetype:large enemy) do(
+      switch(get sprite set number(sl)) do(
+        case(1) do(
+          update baconthulhu(sl)
+        )
+      )
+    )
+    case(spritetype:walkabout) do(
+      switch(get sprite set number(sl)) do(
+        case(effect:bacon explosion) do(
+          # bacon body explosion
+          explode toward hero(sl)
+        )
+      )
+    )
+  )
+end
+
+script, explode toward hero, sl, begin
+  variable(diff x, diff y)
+  diff x := hero x -- slice x(sl) / 20
+  diff y := hero y -- slice y(sl) / 20
+  if(diff x << 0) then(diff x := random(-5, -2))
+  if(diff x >> 0) then(diff x := random(2, 5))
+  if(diff y << 0) then(diff y := random(-5, -2))
+  if(diff y >> 0) then(diff y := random(2, 5))
+  if(diff x == 0 && diff y == 0) then(diff x := random(-5, 5), diff y := random(-5, 5))
+  set slice x(sl, slice x(sl) + diff x)
+  set slice y(sl, slice y(sl) + diff y)
+  flutter slice(sl)
+end
+
+script, expire all effects, begin
+  for each effect(@effect vanish callback)
+end
+
+script, for each effect, callback, begin
+  variable(sl)
+  sl := first child(effects)
+  while(sl) do(
+    run script by id(callback, sl)
+    sl := next sibling(sl)
+  )
+end
+
+script, effect vanish callback, sl, begin
+  # Make non-expiring effects expireable
+  if(get effect ticks(sl) == -1) then(set effect ticks(sl, 0))
+  # force immediate expiration of this effect
+  set effect age(sl, get effect ticks(sl) + 1)
+end
+
+script, effect decay callback, sl, begin
+  set effect age(sl, get effect age(sl) -- 5) # greatly accelerate expiration of this effect
+end
+
+script, effect follows npc, sl, ref, speed=2, threshold=4, callback=none, begin
+  variable(x, y)
+  x := npc pixel x(ref) + 10
+  y := npc pixel y(ref) + 10
+  effect follows pos(sl, x, y, speed, threshold, callback)
+end
+
+script, effect follows pos, sl, x, y, speed=2, threshold=4, callback=none, begin
+  variable(diff x, diff y)
+  diff x := x -- slice x(sl)
+  diff y := y -- slice y(sl)
+  if(abs(diff x) <= threshold && abs(diff y) <= threshold) then(
+    if(callback) then(
+      run script by id(callback, sl)
+    )
+  )
+  variable(xgo, ygo)
+  xgo := speed
+  if(speed >> abs(diff x)) then(xgo := abs(diff x))
+  ygo := speed
+  if(speed >> abs(diff y)) then(ygo := abs(diff y))
+  if(diff x << 0) then(set slice x(sl, slice x(sl) -- speed))
+  if(diff x >> 0) then(set slice x(sl, slice x(sl) + speed))
+  if(diff y << 0) then(set slice y(sl, slice y(sl) -- speed))
+  if(diff y >> 0) then(set slice y(sl, slice y(sl) + speed))
+end
+
+script, effect flutters after npc, sl, ref, threshold=4, callback=none, begin
+  variable(x, y)
+  x := npc pixel x(ref)
+  y := npc pixel y(ref)
+  effect flutters after pos(sl, x, y, threshold, callback)
+end
+
+script, effect flutters after stairs down, sl, threshold=4, callback=none, begin
+  variable(x, y)
+  x := get down stairs x(current map) * 20
+  y := get down stairs y(current map) * 20
+  effect flutters after pos(sl, x, y, threshold, callback)
+end
+
+script, effect flutters after pos, sl, x, y, threshold=4, callback=none, begin
+  effect follows pos(sl, x, y, 1, threshold, callback)
+  flutter slice(sl)
+end
+
+script, flutter slice, sl, begin
+  set slice x(sl, slice x(sl) + random(-1, 1))
+  set slice y(sl, slice y(sl) + random(-1, 1))
+end
+
+script, create teleport cloud, x, y, begin
+  create attack effect(teleport cloud, x, y, 6)
+end
+
+script, center effect, sl, begin
+  set horiz anchor(sl, edge:center)
+  set vert anchor(sl, edge:center)
+  set slice x(sl, slice x(sl) + 10)
+  set slice y(sl, slice y(sl) + 10)
+end
+
+script, create attack effect, sprite id, x, y, ticks, begin
+  variable(sl)
+  sl := load attack sprite(sprite id)
+  create effect(sl, x, y, ticks)
+  set sprite frame(sl, sprite frame count(sl) -- 1)
+  center effect(sl)
+end
+
+script, create walkabout effect, sprite id, x, y, d, ticks, begin
+  variable(sl)
+  sl := load walkabout sprite(sprite id)
+  create effect(sl, x, y, ticks)
+  set sprite frame(sl, d * 2)
+end
+
+script, create weapon effect, sprite id, x, y, ticks, begin
+  variable(sl)
+  sl := load weapon sprite(sprite id)
+  create effect(sl, x, y, ticks)
+  center effect(sl)
+end
+
+script, create large enemy effect, sprite id, x, y, ticks, begin
+  variable(sl)
+  sl := load large enemy sprite(sprite id)
+  create effect(sl, x, y, ticks)
+  set vert anchor(sl, edge:bottom)
+  set horiz anchor(sl, edge:center)
+end
+
+script, create effect, sl, x, y, ticks, begin
+  # ticks is -1 for effects that don't expire
+  set parent(sl, effects)
+  set slice x(sl, x * 20)
+  set slice y(sl, y * 20)
+  set effect age(sl, 0)
+  set effect ticks(sl, ticks)
+end
+
+script, age effect, sl, age, begin
+  variable(n)
+  n := get effect age(sl)
+  n += age
+  set effect age(sl, n)
+  exit returning(n)
+end
+
+script, get effect age, sl, begin
+  exit returning(get slice extra(sl, extra 0))
+end
+
+script, set effect age, sl, n, begin
+  set slice extra(sl, extra 0, n)
+end
+
+script, get effect ticks, sl, begin
+  exit returning(get slice extra(sl, extra 1))
+end
+
+script, set effect ref, sl, n, begin
+  set slice extra(sl, extra 2, n)
+end
+
+script, get effect ref, sl, begin
+  exit returning(get slice extra(sl, extra 2))
+end
+
+script, set effect ticks, sl, n, begin
+  set slice extra(sl, extra 1, n)
+end
+
+script, toggle effect frame, sl, begin
+  if(update counter,mod,2 <> 0) then(exit script)
+  variable(frame)
+  frame := get sprite frame(sl)
+  switch(get sprite type(sl)) do(
+    case(spritetype:walkabout) do(frame := frame,xor,1)
+    case(spritetype:weapon) do(frame := frame,xor,1)
+    case(spritetype:attack) do(
+      frame += 1
+      if(frame >= sprite frame count(sl)--1) then(frame := 0)
+    )
+  )
+  set sprite frame(sl, frame)
+end
+
+#-----------------------------------------------------------------------
+
+script, spawn baconthulhu, begin
+  variable(x, y)
+  x := get down stairs x(current map)
+  y := get down stairs y(current map)
+  create large enemy effect(1, x, y, -1)
+end
+
+script, update baconthulhu, sl, begin
+  variable(ref)
+  if(baconthulhu dead) then(
+    variable(x, y)
+    x := slice x(sl) / 20
+    y := slice y(sl) / 20
+    create walkabout effect(effect:bacon explosion, x, y, random(0, 3), 99)
+    flutter slice(sl)
+    exit script
+  )
+  ref := get effect ref(sl)
+  if(ref) then(
+    if(get npc id(ref) == -1) then(
+      # Baconthulhu had a bacon body, but lost it.
+      ref := 0
+      baconthulhu kill attempt(sl)
+    )
+  )
+  if(ref == 0) then(
+    # Baconthulhu needs a bacon body, find one!
+    ref := random monster ref of id(bacon body)
+  )
+  if(ref == 0) then(
+    # still no bacon body, flutter for awhile
+    flutter slice(sl)
+  )else(
+    if(distance from effect to monster in pixels under(sl, ref, 20)) then(
+      # close to the bacon body, latch onto it
+      set slice x(sl, npc pixel x(ref)+10)
+      set slice y(sl, npc pixel y(ref)+10)
+    )else(
+      # far from the bacon body, seek it
+      effect follows npc(sl, ref, 6, 10)
+    )
+    flutter slice(sl)
+  )
+  set effect ref(sl, ref)
+end
+
+script, baconthulhu kill attempt, sl, begin
+  if(check equipment(0, slot:melee) == item:tofu) then(
+    if(check tag(tag:date with misa)) then(
+      baconthulhu defeated(sl)
+      exit script
+    )
+    $msg = "The Tofu Dagger wounds Baconthulhu, but"
+    update console
+    $msg = "not quite enough! What can weaken him?"
+    update console
+    exit script
+  )
+  $msg = "Mundane weapons can't kill Baconthulhu!"
+  update console
+  if(check tag(tag:date with misa)) then(
+    baconthulhu almost defeated
+  )
+end
+
+script, baconthulhu almost defeated, begin
+  suspend all
+  show text box(104)
+  wait for text box
+  resume all
+end
+
+script, baconthulhu defeated, sl, begin
+  suspend all
+  show text box(103)
+  $msg = "In his weakened state, Baconthulhu", update console
+  $msg = "can't survive the sight of Misa's", update console
+  $msg = "growing affection for Bob!", update console
+  wait for text box
+  resume all
+  baconthulhu dead := true
+  set effect age(sl, 1)
+  set effect ticks(sl, seconds * 10)
+  set timer (end of game timer, 11, seconds, @show ending)
+end
+
+script, show ending, begin
+  suspend all
+  hide all strings
+  fade screen out
+  wait(seconds)
+  if(check tag(tag:save scummer)) then(
+    show text box(105)
+  )else(
+    show text box(107)
+  )
+  wait(1)
+  fade screen in
+  wait for text box
+  fade screen out
+  game over
+end
+
+#-----------------------------------------------------------------------
+
+script, check ahead passage, x, y, d, npcs=false, begin
+  variable(ix, iy, tile)
+  ix := compass x(d)
+  iy := compass y(d)
+  tile := safe read map block(x+ix, y+iy)
+  if(not(is a passage(tile))) then(exit returning(false))
+  if(npcs) then(
+    if(npc at spot(x+ix, y+iy)) then(exit returning(false))
+  )
+  exit returning(true)
+end
+
+script, check side passages, x, y, d, npcs=false, begin
+  # returns true if at least one side passage is available
+  variable(p1, p2)
+  p1 := check ahead passage(x, y, rotate(d, counterclockwise), npcs)
+  p2 := check ahead passage(x, y, rotate(d, clockwise), npcs)
+  exit returning(p1 || p2)
+end
+
+script, rotate, d, wise, begin
+  d += wise
+  if(d << 0) then(d := 3)
+  if(d >> 3) then(d := 0)
+  exit returning(d)
+end
+
+#-----------------------------------------------------------------------
+
+script, update monsters, begin
+  variable(ref, id, near)
+  # loop to handle monsters
+  for(ref, -300, -1) do(
+    id := get npc id(ref)
+    if(id == -1) then(continue) # Skip all empty NPC slots
+    if(is talker(ref)) then(
+      # Talkers don't attack
+      continue
+    )
+    decrement monster atk frames(ref)
+    if(npc is aligned(ref)) then(
+      if(monster can hit hero(ref)) then(
+        turn npc towards hero(ref)
+        monster hits hero(ref)
+        continue
+      )
+      if(npc can turn(ref)) then(
+        # it is possible to turn down a side passage
+        if(npc should turn(ref)) then(
+          variable(turn)
+          turn := npc choose turn(ref)
+          rotate npc(ref, turn)
+          set npc exbit(ref, nbit:deadend, false)
+          set npc exbit(ref, nbit:justturned, true)
+          continue
+        )
+      )
+      if(npc dead end(ref)) then(
+        set npc exbit(ref, nbit:deadend, true)
+      )
+    )else(
+      # Not aligned
+      set npc exbit(ref, nbit:justturned, false)
+    )
+  )
+end
+
+script, get npc exbit, ref, bit, begin
+  variable(n)
+  n := npc extra(ref, extra 2)
+  if(n,and,2^bit) then(exit returning(true))
+  exit returning(false)
+end
+
+script, set npc exbit, ref, bit, value=1, begin
+  variable(n)
+  n := npc extra(ref, extra 2)
+  if(value)
+    then(n := n, or, 2^bit)
+    else(n := n, and, (-1, xor, 2^bit))
+  set npc extra(ref, extra 2, n)
+end
+
+script, npc should turn, ref, begin
+  if(get npc exbit(ref, nbit:justturned)) then(
+    # Just turned, probably don't want to turn again (but still turn occasionally, to avoid getting stuck)
+    if(random(0,99) << 85) then(
+      exit returning(false)
+    )
+  )
+  exit returning(random(0,99)<=75 || get npc exbit(ref, nbit:deadend))
+end
+
+script, npc dead end, ref, begin
+  exit returning(not(npc can advance(ref)) && not(npc can turn(ref)))
+end
+
+script, npc can advance, ref, begin
+  exit returning(check ahead passage(npc x(ref), npc y(ref), npc direction(ref), true))
+end
+
+script, npc can turn, ref, begin
+  exit returning(check side passages(npc x(ref), npc y(ref), npc direction(ref), true))
+end
+
+script, rotate npc, ref, wise, begin
+  variable(d)
+  d := npc direction(ref)
+  d := rotate(d, wise)
+  set npc direction(ref, d)
+end
+
+script, npc is aligned, ref, begin
+  exit returning((npc pixel x(ref),mod,20) == 0 && (npc pixel y(ref),mod,20) == 0)
+end
+
+script, npc choose turn, ref, begin
+  variable(turn)
+  if(random(0, 1) == 0)
+    then(turn := clockwise)
+    else(turn := counterclockwise)
+  exit returning(turn)
+end
+
+script, turn npc towards hero, ref, begin
+  variable(d, diff x, diff y)
+  d := npc direction(ref)
+  diff x := hero x -- npc x(ref)
+  diff y := hero y -- npc y(ref)
+  if(diff x == 0) then(
+    if(diff y >> 0) then(d := down)
+    if(diff y << 0) then(d := up)
+  )
+  if(diff y == 0) then(
+    if(diff x >> 0) then(d := right)
+    if(diff x << 0) then(d := left)
+  )
+  if(diff x <> 0 && diff y <> 0) then(
+    if(diff x >> diff y) then(
+      if(diff y >> 0) then(d := down)
+      if(diff y << 0) then(d := up)
+    )
+    if(diff x << diff y) then(
+      if(diff x >> 0) then(d := right)
+      if(diff x << 0) then(d := left)
+    )
+  )
+  set npc direction(ref, d)
+end
+
+script, distance to monster in pixels under, ref, dist, begin
+  variable(diff x, diff y)
+  diff x := hero pixel x -- npc pixel x(ref)
+  diff y := hero pixel y -- npc pixel y(ref)
+  exit returning(diff x ^ 2 + diff y ^ 2 << dist ^ 2)
+end
+
+script, distance from effect to monster in pixels under, sl, ref, dist, begin
+  variable(diff x, diff y)
+  diff x := slice x(sl) -- npc pixel x(ref)
+  diff y := slice y(sl) -- npc pixel y(ref)
+  exit returning(diff x ^ 2 + diff y ^ 2 << dist ^ 2)
+end
+
+#-----------------------------------------------------------------------
+
+script, max monsters for this map, begin
+  variable(n)
+  n := ((monsters per kilotile * 1000) / 1024 * (map width * map height)) / 1000
+  if (n >> 250) then(n := 250)
+  exit returning(n)
+end
+
+script, random monster spawn, begin
+  variable(i, x, y, tile)
+  # FIXME: monster generation is disabled while the map is generating because of bug 717
+  if(monster count << max monsters for this map && generating == false) then(
+    for(i, 0, 29) do( # make 30 attempts to spawn
+      x:= random(1, map width--2)
+      y:= random(1, map height--2)
+      if(abs(x -- hero x) <= 2 && abs(y -- hero y) <= 2) then(continue)
+      tile := safe read map block(x, y)
+      if(is a passage(tile)) then(
+        start spawn monster(x, y)
+        exit script
+      )
+    )
+  )
+  reset spawn timer
+end
+
+script, monster count, begin
+  variable(ref, count)
+  count := 0
+  for(ref, -300, -1) do(
+    if(is monster(ref)) then(count += 1)
+  )
+  exit returning(count)
+end
+
+script, reset spawn timer, begin
+  set timer(spawn timer, spawn delay, seconds, @random monster spawn)
+end
+
+script, start spawn monster, x, y, begin
+  if(not(fog at spot(x, y))) then(
+    create teleport cloud(x, y)
+  )
+  spawn x := x
+  spawn y := y
+  set timer(spawn timer, 6, 1, @spawn monster complete)
+end
+
+script, spawn monster complete, begin
+  create monster(spawn x, spawn y)
+  reset spawn timer
+end
+
+script, create monster, x, y, begin
+  variable(ref)
+  variable(id)
+  id := random monster for this map
+  ref := create NPC(id, x, y, random(0,3))
+  set monster hp(ref, get monster max hp(ref))
+end
+
+script, random monster for this map, begin
+  switch(current map) do(
+    case(last map) do(exit returning(bacon body))
+    case(0) do(exit returning(random(0,2))) # only first 3 monsters on map 0
+    case(1) do(exit returning(random(0,3))) # only first 4 monsters on map 1
+    else(exit returning(random(0, last monster slot)))
+  )
+end
+
+script, random monster ref of id, id, begin
+  variable(count, ref)
+  count := npc copy count(id)
+  if(count == 0) then(exit returning(0))
+  ref := npc reference(id, random(0, count--1))
+  exit returning(ref)
+end
+
+script, get monster hp, ref, begin
+  exit returning(npc extra(ref, extra 0))
+end
+
+script, set monster hp, ref, n, begin
+  set npc extra(ref, extra 0, n)
+end
+
+script, get monster atk frames, ref, begin
+  exit returning(npc extra(ref, extra 1))
+end
+
+script, set monster atk frames, ref, n, begin
+  set npc extra(ref, extra 1, n)
+end
+
+script, get monster max hp, ref, begin
+  variable(id, max)
+  id := get npc id(ref)
+  switch(id) do(
+    case(3) do(max := 4) # Bird-jellyfish slightly stronger
+    case(4) do(max := 5) # Purple Cogre stronger
+    case(bacon body) do(max := 15) # bacon body is very strong
+    else(max := 3)
+  )
+  exit returning(max)
+end
+
+script, decrement monster atk frames, ref, begin
+  variable(n)
+  n := get monster atk frames(ref)
+  n -= 1
+  if(n << 0) then(n := 0)
+  set monster atk frames(ref, n)
+end
+
+script, damage monster, ref, amount, begin
+  variable(hp)
+  hp := get monster hp(ref)
+  hp -= amount
+  if(hp << 0) then(hp := 0)
+  set monster hp(ref, hp)
+  if(hp == 0) then(kill monster(ref))
+end
+
+script, kill monster, ref, begin
+  monster drops treasure(ref)
+  destroy npc(ref)
+  hero victory
+end
+
+script, monster drops treasure, ref, begin
+  variable(x, y)
+  x := npc x(ref)
+  y := npc y(ref)
+  if(random(0,99) <= monster item rate) then(
+    # create an item
+    create item(x, y, get monster item(ref))
+  )else(
+    # create money
+    create treasure(x, y, 100)
+  )
+end
+
+script, get monster item, ref, begin
+  variable(item)
+  item := read npc(ref, npcstat:give item) -- 1
+  if (item <= 0) then(item := 0)
+  exit returning(item)
+end
+
+script, monster can hit hero, ref, begin
+  variable(i, ix, iy)
+  for(i, 0, 3) do(
+    ix := compass x(i)
+    iy := compass y(i)
+    if (npc x(ref) + ix == hero x && npc y(ref) + iy == hero y) then(
+      exit returning(true)
+    )
+  )
+  exit returning(false)
+end
+
+script, monster hits hero, ref, begin
+  if(monster can attack(ref) == false) then(exit script)
+  if(monster attack attempt(ref)) then(
+    monster attack effect(ref, hero x, hero y, npc direction(ref))
+    damage hero(monster atk power(ref))
+  )else(
+    miss effect(hero x, hero y)
+  )
+  set monster atk frames(ref, 8)
+end
+
+script, monster attack attempt, ref, begin
+  exit returning(random(0,99) << 50)
+end
+
+script, monster can attack, ref, begin
+  exit returning (get monster atk frames(ref) <= 0)
+end
+
+script, monster attack effect, ref, x, y, d, begin
+  variable(effect)
+  # special case for other enemies
+  switch(get npc id(ref)) do(
+    case(0) do(effect := effect:punch)
+    else(effect := effect:punch)
+  )
+  create walkabout effect(effect, x, y, d, 3)
+end
+
+script, monster atk power, ref, begin
+  switch(get npc id(ref)) do(
+    case(0) do(exit returning(1))
+  )
+  exit returning(1)
+end
+
+#-----------------------------------------------------------------------
+
+script, start spawn cultist, x, y, begin
+  if(not(fog at spot(x, y))) then(
+    create teleport cloud(x, y)
+  )
+  spawn cultist x := x
+  spawn cultist y := y
+  set timer(spawn cultist timer, 6, 1, @spawn cultist complete)
+end
+
+script, spawn cultist complete, begin
+  create talker(robed cultist, spawn cultist x, spawn cultist y)
+end
+
+script, start spawn misa, x, y, begin
+  if(not(fog at spot(x, y))) then(
+    create teleport cloud(x, y)
+  )
+  spawn misa x := x
+  spawn misa y := y
+  set timer(spawn misa timer, 6, 1, @spawn misa complete)
+end
+
+script, spawn misa complete, begin
+  create talker(misa the hamster, spawn misa x, spawn misa y)
+end
+
+script, start spawn bacontologist, x, y, begin
+  if(not(fog at spot(x, y))) then(
+    create teleport cloud(x, y)
+  )
+  spawn bacontologist x := x
+  spawn bacontologist y := y
+  set timer(spawn bacontologist timer, 6, 1, @spawn bacontologist complete)
+end
+
+script, spawn bacontologist complete, begin
+  create talker(bacontologist, spawn bacontologist x, spawn bacontologist y)
+end
+
+script, create talker, id, x, y, begin
+  variable(ref)
+  ref := create NPC(id, x, y, random(0,3))
+end
+
+plotscript, do se do, begin
+  variable(d, x, y, ref)
+  d := hero direction(0)
+  x := hero x(0) + compass x(d)
+  y := hero y(0) + compass y(d)
+  ref := npc at spot(x, y)
+  if(is talker(ref)) then(
+    suspend all
+    suspend obstruction
+    set npc direction(ref, d + 2)
+    walk hero(0, d, 1)
+    walk npc(ref, npc direction(ref), 1)
+    wait for hero(0)
+    set hero direction(0, d + 2)
+    wait for npc(ref)
+    set npc direction(ref, d)
+    resume all
+    resume obstruction
+  )
+end
+
+#-----------------------------------------------------------------------
+
+script, pick up treasure, x, y, begin
+  variable(tile)
+  tile := safe read map block(x, y, 1)
+  variable(i)
+  for(i, 0, treasure types--1) do(
+    if(tile == first treasure + i) then(
+      get money(3 ^ i)
+      update money display
+      safe write map block(x, y, void, 1)
+      exit script
+    )
+  )
+  if(is item icon(tile)) then(
+    safe write map block(x, y, void, 1)
+    variable(item)
+    item := tile -- item icons
+    get item(item)
+    $msg="Found "
+    get item name(tmp str, item)
+    msg $+ tmp str
+    update console
+  )
+end
+
+script, update money display, begin
+  $money str = "$"
+  append number(money str, party money)
+  show string at(money str, 0, 17)
+end
+
+plotscript, trade tinfoil pants for science, begin
+  if(check equipment(0, slot:pants) == item:tinfoil) then(
+    unequip(0, slot:pants)
+  )
+  delete item(item:tinfoil)
+  get item(item:science)
+  update meters
+end
+
+#-----------------------------------------------------------------------
+
+script, safe write map block, x, y, tile, layer=0, begin
+  if(x << 0) then(exit returning(true))
+  if(x >= map width) then(exit returning(true))
+  if(y << 0) then(exit returning(true))
+  if(y >= map height) then(exit returning(true))
+  write map block(x, y, tile, layer)
+  exit returning(false)
+end
+
+script, safe read map block, x, y, layer=0, begin
+  if(x << 0) then(exit returning(-1))
+  if(x >= map width) then(exit returning(-1))
+  if(y << 0) then(exit returning(-1))
+  if(y >= map height) then(exit returning(-1))
+  exit returning(read map block(x, y, layer))
+end
+
+script, safe write pass block, x, y, pass, begin
+  if(x << 0) then(exit returning(true))
+  if(x >= map width) then(exit returning(true))
+  if(y << 0) then(exit returning(true))
+  if(y >= map height) then(exit returning(true))
+  write pass block(x, y, pass)
+  exit returning(false)
+end
+
+script, create passage, x, y, begin
+  # Returns true if the passage was created
+  if(recursion >> 100) then(exit returning(false))
+  growth cycles += 1
+  if(growth cycles >= growth cycles before wait) then(
+    wait(1)
+    growth cycles := 1
+  )
+  if(passage okay(x, y) == false) then(
+    exit returning(false)
+  )
+  create floor at(x, y)
+  safe write map block(x, y, fog of war, 2)
+  safe write pass block(x, y, none)
+  create treasure(x, y)
+  variable(i, ix, iy)
+  for(i, 0, 7) do(
+    ix := around x(i)
+    iy := around y(i)
+    create wall(x + ix, y + iy)
+  )
+  #--now dig side passages
+  recursion += 1
+  variable(digs, ok, safety)
+  for(digs, 0, 1) do(
+    ok := false
+    safety := 0
+    while(not(ok)) do(
+      i := random(0, 3)
+      ix := compass x(i)
+      iy := compass y(i)
+      ok := create passage(x + ix, y + iy)
+      safety += 1
+      if(safety >> 20) then(ok := true)
+    )
+  )
+  recursion -= 1
+  exit returning(true)
+end
+
+script, create more passages, begin
+  variable(i, x, y)
+  x := map width / 2
+  y := map height / 2
+  for(i, 0, 7) do(
+    if(find passage near edge(x, y, i)) then(
+      create passage(find x, find y)
+    )
+  )
+end
+
+script, find passage near edge, x, y, d, begin
+  # Attempts to locate a passageway close to the edge of the void.
+  # Returns true of successful. tile position returned in find x/find y globals
+  variable(tile, ix, iy, f)
+  # First, based on our current location, decide what type of tile to search for
+  tile := safe read map block(x, y)
+  if(tile == void) then(
+    # If void is found, search for a wall
+    f := @is wall at spot
+  )else(
+    # If non-void is found, search for a wall near void
+    f := @is wall near void at spot
+  )
+  ix := x
+  iy := y
+  while(pos is on map minus edge(ix, iy)) do(
+    ix += around x(d)
+    iy += around y(d)
+    if(run script by id(f, ix, iy)) then(
+      if(find edge wall(ix, iy)) then(
+        safe write map block(find x, find y, void)
+        exit returning(true)
+      )
+      break
+    )
+  )
+  exit returning(false)
+end
+
+script, is wall at spot, x, y, begin
+  variable(tile)
+  tile := safe read map block(x, y)
+  exit returning(is a wall(tile))
+end
+
+script, is wall near void at spot, x, y, begin
+  if(is wall at spot(x, y)) then(
+    variable(i, ix, iy, tile)
+    for(i, 0, 7) do(
+      ix := around x(i)
+      iy := around y(i)
+      tile := safe read map block(x+ix, y+iy)
+      if(tile == void) then(exit returning(true))
+    )
+  )
+  exit returning(false)
+end
+
+script, find edge wall, x, y, begin
+  variable(ix, iy, tile)
+  for(iy, y--2, y+2) do(
+    for(ix, x--2, x+2) do(
+      tile := safe read map block(ix, iy)
+      if(is a wall(tile)) then(
+        if(is nearby passage(ix, iy)) then(
+          find x := ix
+          find y := iy
+          exit returning(true)
+        )
+      )
+    )
+  )
+  exit returning(false)
+end
+
+script, is nearby passage, x, y, begin
+  variable(i, ix, iy, tile)
+  # check compass points first
+  for(i, 0, 3) do(
+    ix := compass x(i)
+    iy := compass y(i)
+    tile := safe read map block(x + ix, y + iy)
+    if(is a passage(tile)) then(
+      exit returning(true)
+    )
+  )
+  exit returning(false)
+end
+
+script, pos is on map, x, y, begin
+  if(x << 0) then(exit returning(false))
+  if(x >= map width) then(exit returning(false))
+  if(y << 0) then(exit returning(false))
+  if(y >= map height) then(exit returning(false))
+  exit returning(true)
+end
+
+script, pos is on map minus edge, x, y, begin
+  if(x << 1) then(exit returning(false))
+  if(x >= map width--1) then(exit returning(false))
+  if(y << 1) then(exit returning(false))
+  if(y >= map height--1) then(exit returning(false))
+  exit returning(true)
+end
+
+script, create floor at, x, y, begin
+  variable(tile)
+  tile := safe read map block(x, y)
+  if(is a stairs(tile)) then(exit script) # already has stairs here, no need to write floor
+  safe write map block(x, y, floor)
+end
+
+script, passage okay, x, y, begin
+  # first prevent passages near the edges
+  if(x <= 0) then(exit returning(false))
+  if(x >= map width--1) then(exit returning(false))
+  if(y <= 0) then(exit returning(false))
+  if(y >= map height--1) then(exit returning(false))
+  # Check the tile that already exists at the dest location
+  variable(tile)
+  tile := safe read map block(x, y)
+  if(tile == void) then(exit returning(true)) # void, passage is okay
+  if(tile == stairs up || tile == stairs down) then(exit returning(true)) # stairs, passage okay
+  if(is a wall(tile)) then(
+    # this is already a wall
+    variable(near)
+    near := count surrounding walls(x, y)
+    if(near >= threshhold) then(
+      # threshold or more nearby walls, allow this passage
+      exit returning(true)
+    )
+  )
+  exit returning(false)
+end
+
+script, count surrounding walls, x, y, begin
+  variable(i, ix, iy, tile, count)
+  count := 0
+  for(i, 0, 7) do(
+    ix := around x(i)
+    iy := around y(i)
+    tile := safe read map block(x + ix, y + iy)
+    if(not(is a passage(tile))) then(count += 1) # actually count any non-passages as walls
+  )
+  exit returning(count)
+end
+
+script, count compass walls, x, y, begin
+  variable(i, ix, iy, tile, count)
+  count := 0
+  for(i, 0, 3) do(
+    ix := compass x(i)
+    iy := compass y(i)
+    tile := safe read map block(x + ix, y + iy)
+    if(not(is a passage(tile))) then(count += 1) # actually count any non-passages as walls
+  )
+  exit returning(count)
+end
+
+script, create wall, x, y, begin
+  variable(tile, new tile)
+  tile := safe read map block(x, y)
+  if(tile == 0) then(
+    safe write map block(x, y, first wall)
+    safe write map block(x, y, fog of war, 2)
+    safe write pass block(x, y, northwall,or,eastwall,or,southwall,or,westwall)
+  )
+end
+
+script, is a passage, tile, begin
+  if(tile == floor) then(exit returning(true))
+  exit returning(false)
+end
+
+script, is a stairs, tile, begin
+  if(tile == stairs up || tile == stairs down) then(exit returning(true))
+  exit returning(false)
+end
+
+script, is a wall, tile, begin
+  if(tile >= first wall, and, tile <= last wall) then(exit returning(true))
+  exit returning(false)
+end
+
+script, is item icon, tile, begin
+  exit returning(tile >> item icons)
+end
+
+script, fix all walls, begin
+  variable(x, y)
+  for(y, 0, map height--1) do(
+    for(x, 0, map width--1) do(
+      fix wall at(x, y)
+    )
+  )
+end
+
+script, fix more surrounding walls, x, y, begin
+  fix surrounding walls(x, y)
+  variable(i, ix, iy)
+  for(i, 0, 11) do(
+    ix := further around x (i)
+    iy := further around y (i)
+    fix wall at(x + ix, y + iy)
+  )
+end
+
+script, fix surrounding walls, x, y, begin
+  variable(i, ix, iy)
+  for(i, 0, 7) do(
+    ix := around x (i)
+    iy := around y (i)
+    fix wall at(x + ix, y + iy)
+  )
+end
+
+script, fix wall at, x, y, begin
+  variable(tile)
+  tile := get fixed wall(x, y)
+  if(tile <> false) then(
+    safe write map block(x, y, tile)
+  )
+end
+
+script, get fixed wall, x, y, begin
+  return(false)
+  variable(tile, nw, n, ne, e, se, s, sw, w)
+  tile := safe read map block(x, y)
+  if (is a wall(tile)) then(
+    n  := safe read map block(x   , y--1)
+    e  := safe read map block(x+1 , y)
+    s  := safe read map block(x   , y+1)
+    w  := safe read map block(x--1, y)
+    # horizontal/vertical walls
+    if(two of four open(n, s, e, w)) then(exit returning(7))
+    if(two of four open(e, w, n, s)) then(exit returning(8))
+    # one wall with three open
+    if(one of four blocked(n, e, s, w)) then(exit returning(9))
+    if(one of four blocked(e, s, w, n)) then(exit returning(10))
+    if(one of four blocked(s, w, n, e)) then(exit returning(11))
+    if(one of four blocked(w, n, e, s)) then(exit returning(12))
+    # island wall
+    if(all four open(n, e, s, w)) then(exit returning(13))
+    # If we have gotten this far, read the diagonals
+    nw := safe read map block(x--1, y--1)
+    ne := safe read map block(x+1 , y--1)
+    se := safe read map block(x+1 , y+1)
+    sw := safe read map block(x--1, y+1)
+    # corner walls
+    if(two of five open(n, e, s, w, sw)) then(exit returning(14))
+    if(two of five open(e, s, w, n, nw)) then(exit returning(15))
+    if(two of five open(s, w, n, e, ne)) then(exit returning(16))
+    if(two of five open(w, n, e, s, se)) then(exit returning(17))
+    if(three of five open(sw, n, e, s, w)) then(exit returning(18))
+    if(three of five open(nw, e, s, w, n)) then(exit returning(19))
+    if(three of five open(ne, s, w, n, e)) then(exit returning(20))
+    if(three of five open(se, w, n, e, s)) then(exit returning(21))
+    # three walls with one open
+    if(one of six open(n, e, s, w, se, sw)) then(exit returning(3))
+    if(one of six open(e, s, w, n, nw, sw)) then(exit returning(4))
+    if(one of six open(s, w, n, e, ne, nw)) then(exit returning(5))
+    if(one of six open(w, n, e, s, se, ne)) then(exit returning(6))
+    if(two of six open(sw, n, e, s, w, se)) then(exit returning(22))
+    if(two of six open(nw, e, s, w, n, sw)) then(exit returning(23))
+    if(two of six open(ne, s, w, n, e, nw)) then(exit returning(24))
+    if(two of six open(se, w, n, e, s, ne)) then(exit returning(25))
+    if(two of six open(se, n, e, s, w, sw)) then(exit returning(26))
+    if(two of six open(sw, e, s, w, n, nw)) then(exit returning(27))
+    if(two of six open(nw, s, w, n, e, ne)) then(exit returning(28))
+    if(two of six open(ne, w, n, e, s, se)) then(exit returning(29))
+    if(three of six open(sw, se, n, e, s, w)) then(exit returning(30))
+    if(three of six open(nw, sw, e, s, w, n)) then(exit returning(31))
+    if(three of six open(ne, nw, s, w, n, e)) then(exit returning(32))
+    if(three of six open(se, ne, w, n, e, s)) then(exit returning(33))
+    # no walls, only darn rotten corners
+    if(all four blocked(n, e, s, w)) then(
+      # Single corners
+      if(one of four open(nw, ne, se, sw)) then(exit returning(34))
+      if(one of four open(ne, se, sw, nw)) then(exit returning(35))
+      if(one of four open(se, sw, nw, ne)) then(exit returning(36))
+      if(one of four open(sw, nw, ne, se)) then(exit returning(37))
+      # Double corners
+      if(two of four open(nw, ne, se, sw)) then(exit returning(38))
+      if(two of four open(ne, se, sw, nw)) then(exit returning(39))
+      if(two of four open(se, sw, nw, ne)) then(exit returning(40))
+      if(two of four open(sw, nw, ne, se)) then(exit returning(41))
+      # Triple corners
+      if(one of four blocked(sw, nw, ne, se)) then(exit returning(42))
+      if(one of four blocked(nw, ne, se, sw)) then(exit returning(43))
+      if(one of four blocked(ne, se, sw, nw)) then(exit returning(44))
+      if(one of four blocked(se, sw, nw, ne)) then(exit returning(45))
+      # Diagonal corners
+      if(two of four open(ne, sw, nw, se)) then(exit returning(46))
+      if(two of four open(nw, se, ne, sw)) then(exit returning(47))
+      # All corners
+      if(all four open(ne, nw, sw, se)) then(exit returning(48))
+    )
+  )
+end
+
+script, fog at spot, x, y, begin
+  variable(fog tile)
+  fog tile := safe read map block(x, y, 2)
+  exit returning(fog tile == fog of war)
+end
+
+script, clear fog of war, x, y, begin
+  clear fog at (x, y)
+  variable(i, ix, iy)
+  for(i, 0, 7) do(
+    ix := around x (i)
+    iy := around y (i)
+    clear fog at(x + ix, y + iy)
+  )
+  for(i, 0, 11) do(
+    ix := further around x (i)
+    iy := further around y (i)
+    clear fog at(x + ix, y + iy)
+  )
+  for(i, 0, 11) do(
+    ix := further around x (i)
+    iy := further around y (i)
+    fix fog edge at(x + ix, y + iy)
+  )
+end
+
+script, clear fog at, x, y, begin
+  safe write map block(x, y, void, 2)
+end
+
+script, fix fog edge at, x, y, begin
+  variable(cleared fog)
+  cleared fog := get fog edge(x, y)
+  safe write map block(x, y, cleared fog, 2)
+end
+
+script, get fog edge, x, y, begin
+  variable(n, e, s, w)
+  n := safe read map block(x   , y--1, 2)
+  e := safe read map block(x+1 , y   , 2)
+  s := safe read map block(x   , y+1 , 2)
+  w := safe read map block(x--1, y   , 2)
+  if(two of four fogged(w, n, e, s)) then(exit returning(fog of war + 1))
+  if(two of four fogged(n, e, s, w)) then(exit returning(fog of war + 2))
+  if(two of four fogged(e, s, w, n)) then(exit returning(fog of war + 3))
+  if(two of four fogged(s, w, n, e)) then(exit returning(fog of war + 4))
+  exit returning(void)
+end
+
+script, clear all fog, begin
+  variable(x, y)
+  for(y, 0, map height--1) do(
+    for(x, 0, map width--1) do(
+      clear fog at(x, y)
+    )
+  )
+end
+
+script, place stairs up, x, y, begin
+  if(get up stairs x(current map) == 0 && get up stairs y(current map) == 0) then(
+    if(current map >> 0) then(
+      safe write map block(x, y, stairs up)
+    end
+    set up stairs x(current map, x)
+    set up stairs y(current map, y)
+  )
+end
+
+script, place stairs down, up x, up y, begin
+  if(get down stairs x(current map) == 0 && get down stairs y(current map) == 0) then(
+    variable(i, down x, down y)
+    # first get a random passage
+    find tunnel end
+    down x := find x
+    down y := find y
+    # try 10 times, use the furthest from the starting point 
+    for (i, 0, 9) do(
+      find tunnel end
+      if(found was further(up x, up y, down x, down y)) then(
+        down x := find x
+        down y := find y
+      )
+    )
+    if(current map << last map) then(
+      safe write map block(down x, down y, stairs down)
+      safe write map block(down x, down y, void, 1) # no treasure on stairs!
+    end
+    set down stairs x(current map, down x)
+    set down stairs y(current map, down y)
+  )
+end
+
+script, find tunnel end, begin
+  variable(x, y, tile, safety, count)
+  # try 50 times to find a tunnel ending
+  while(safety << 50) do(
+    x := random(1, map width--2)
+    y := random(1, map height--2)
+    tile := safe read map block(x, y)
+    if(is a passage(tile)) then(
+      safety += 1
+      count := count compass walls(x, y)
+      if(count == 3) then(
+        break
+      )
+    )
+  )
+  find x := x
+  find y := y
+end
+
+script, found was further, origin x, origin y, compare x, compare y, begin
+  variable(diff1 x, diff1 y, diff2 x, diff2 y)
+  diff1 x := abs(origin x -- find x)
+  diff1 y := abs(origin y -- find y)
+  diff2 x := abs(origin x -- compare x)
+  diff2 y := abs(origin y -- compare y)
+  variable(dist1, dist2)
+  dist1 := diff1 x^2 + diff1 y^2
+  dist2 := diff2 x^2 + diff2 y^2
+  exit returning(dist1 >> dist2)
+end
+
+#-----------------------------------------------------------------------
+
+script, create treasure, x, y, rate=-1, level=0, begin
+  if(rate == -1) then(rate := treasure rate)
+  variable(tile)
+  tile := safe read map block(x, y)
+  if(is a stairs(tile)) then(exit script) # no treasure on staircases!
+  if(random(0,99) >= rate) then(
+    variable(old treas)
+    old treas := read treasure(x, y)
+    if(old treas) then(level := old treas -- first treasure + 1)
+    if(level >= treasure types) then(level := treasure types -- 1)
+    safe write map block(x, y, first treasure+level, 1)
+  )else(
+    if(level << treasure types--1) then(
+      create treasure(x, y, -1, level+1)
+    )
+  )
+end
+
+script, read treasure, x, y, begin
+  variable(tile)
+  tile := safe read map block(x, y, 1)
+  if(tile >= first treasure && tile << first treasure + treasure types) then(
+    exit returning(tile)
+  )
+  exit returning(false)
+end
+
+script, create item, x, y, item, begin
+  safe write map block(x, y, item + item icons, 1)
+end
+
+#-----------------------------------------------------------------------
+
+script, update console, begin
+  variable(i)
+  for(i, 3, 0, -1) do(
+    copy string(msg+i+1, msg+i)
+  )
+  for(i, 0, 3) do(
+    show string at(msg+1+i, 0, 190 -- i * 10)
+    string color(msg+1+i, 174 - i * 5)
+  )
+end
+
+#-----------------------------------------------------------------------
+# Awkward corner-detection code. There has gotta be a better way :P
+
+script, one of four open, d1, d2, d3, d4, begin
+  if(is a wall(d1)) then(exit returning(false))
+  if(is a wall(d2)==false) then(exit returning(false))
+  if(is a wall(d3)==false) then(exit returning(false))
+  if(is a wall(d4)==false) then(exit returning(false))
+  exit returning(true)
+end
+
+script, two of four open, d1, d2, d3, d4, begin
+  if(is a wall(d1)) then(exit returning(false))
+  if(is a wall(d2)) then(exit returning(false))
+  if(is a wall(d3)==false) then(exit returning(false))
+  if(is a wall(d4)==false) then(exit returning(false))
+  exit returning(true)
+end
+
+script, one of four blocked, d1, d2, d3, d4, begin
+  if(is a wall(d1)==false) then(exit returning(false))
+  if(is a wall(d2)) then(exit returning(false))
+  if(is a wall(d3)) then(exit returning(false))
+  if(is a wall(d4)) then(exit returning(false))
+  exit returning(true)
+end
+
+script, two of five open, d1, d2, d3, d4, d5, begin
+  if(is a wall(d1)) then(exit returning(false))
+  if(is a wall(d2)) then(exit returning(false))
+  if(is a wall(d3)==false) then(exit returning(false))
+  if(is a wall(d4)==false) then(exit returning(false))
+  if(is a wall(d5)==false) then(exit returning(false))
+  exit returning(true)
+end
+
+script, three of five open, d1, d2, d3, d4, d5, begin
+  if(is a wall(d1)) then(exit returning(false))
+  if(is a wall(d2)) then(exit returning(false))
+  if(is a wall(d3)) then(exit returning(false))
+  if(is a wall(d4)==false) then(exit returning(false))
+  if(is a wall(d5)==false) then(exit returning(false))
+  exit returning(true)
+end
+
+script, one of six open, d1, d2, d3, d4, d5, d6, begin
+  if(is a wall(d1)) then(exit returning(false))
+  if(is a wall(d2)==false) then(exit returning(false))
+  if(is a wall(d3)==false) then(exit returning(false))
+  if(is a wall(d4)==false) then(exit returning(false))
+  if(is a wall(d5)==false) then(exit returning(false))
+  if(is a wall(d6)==false) then(exit returning(false))
+  exit returning(true)
+end
+
+script, two of six open, d1, d2, d3, d4, d5, d6, begin
+  if(is a wall(d1)) then(exit returning(false))
+  if(is a wall(d2)) then(exit returning(false))
+  if(is a wall(d3)==false) then(exit returning(false))
+  if(is a wall(d4)==false) then(exit returning(false))
+  if(is a wall(d5)==false) then(exit returning(false))
+  if(is a wall(d6)==false) then(exit returning(false))
+  exit returning(true)
+end
+
+script, three of six open, d1, d2, d3, d4, d5, d6, begin
+  if(is a wall(d1)) then(exit returning(false))
+  if(is a wall(d2)) then(exit returning(false))
+  if(is a wall(d3)) then(exit returning(false))
+  if(is a wall(d4)==false) then(exit returning(false))
+  if(is a wall(d5)==false) then(exit returning(false))
+  if(is a wall(d6)==false) then(exit returning(false))
+  exit returning(true)
+end
+
+script, all four open, d1, d2, d3, d4, begin
+  if(is a wall(d1)) then(exit returning(false))
+  if(is a wall(d2)) then(exit returning(false))
+  if(is a wall(d3)) then(exit returning(false))
+  if(is a wall(d4)) then(exit returning(false))
+  exit returning(true)
+end
+
+script, all four blocked, d1, d2, d3, d4, begin
+  if(is a wall(d1)==false) then(exit returning(false))
+  if(is a wall(d2)==false) then(exit returning(false))
+  if(is a wall(d3)==false) then(exit returning(false))
+  if(is a wall(d4)==false) then(exit returning(false))
+  exit returning(true)
+end
+
+script, two of four fogged, d1, d2, d3, d4, begin
+  if(d1 <> fog of war) then(exit returning(false))
+  if(d2 <> fog of war) then(exit returning(false))
+  if(d3 == fog of war) then(exit returning(false))
+  if(d4 == fog of war) then(exit returning(false))
+  exit returning(true)
+end
+
+#-----------------------------------------------------------------------
+# Functions for iterating through relative coordinates
+
+script, around x, i, begin
+  switch(i) do(
+    case(0) do(exit returning(-1))
+    case(1) do(exit returning(0))
+    case(2) do(exit returning(1))
+    case(3) do(exit returning(1))
+    case(4) do(exit returning(1))
+    case(5) do(exit returning(0))
+    case(6) do(exit returning(-1))
+    case(7) do(exit returning(-1))
+  )
+  exit returning(0)
+end
+
+script, around y, i, begin
+  switch(i) do(
+    case(0) do(exit returning(-1))
+    case(1) do(exit returning(-1))
+    case(2) do(exit returning(-1))
+    case(3) do(exit returning(0))
+    case(4) do(exit returning(1))
+    case(5) do(exit returning(1))
+    case(6) do(exit returning(1))
+    case(7) do(exit returning(0))
+  )
+  exit returning(0)
+end
+
+script, compass x, i, begin
+  switch(i) do(
+    case(0) do(exit returning(0))
+    case(1) do(exit returning(1))
+    case(2) do(exit returning(0))
+    case(3) do(exit returning(-1))
+  )
+end
+
+script, compass y, i, begin
+  switch(i) do(
+    case(0) do(exit returning(-1))
+    case(1) do(exit returning(0))
+    case(2) do(exit returning(1))
+    case(3) do(exit returning(0))
+  )
+end
+
+script, further around x, i, begin
+  switch(i) do(
+    case(0) do(exit returning(-1))
+    case(1) do(exit returning(0))
+    case(2) do(exit returning(1))
+    case(3) do(exit returning(2))
+    case(4) do(exit returning(2))
+    case(5) do(exit returning(2))
+    case(6) do(exit returning(1))
+    case(7) do(exit returning(0))
+    case(8) do(exit returning(-1))
+    case(9) do(exit returning(-2))
+    case(10) do(exit returning(-2))
+    case(11) do(exit returning(-2))
+  )
+  exit returning(0)
+end
+
+script, further around y, i, begin
+  switch(i) do(
+    case(0) do(exit returning(-2))
+    case(1) do(exit returning(-2))
+    case(2) do(exit returning(-2))
+    case(3) do(exit returning(-1))
+    case(4) do(exit returning(0))
+    case(5) do(exit returning(1))
+    case(6) do(exit returning(2))
+    case(7) do(exit returning(2))
+    case(8) do(exit returning(2))
+    case(9) do(exit returning(1))
+    case(10) do(exit returning(0))
+    case(11) do(exit returning(-1))
+  )
+  exit returning(0)
+end
+
+#-----------------------------------------------------------------------
