@@ -32,6 +32,7 @@ global variable(25, spawn misa y)
 global variable(26, spawn bacontologist x)
 global variable(27, spawn bacontologist y)
 global variable(28, baconthulhu dead)
+global variable(29, monster kills on date)
 
 #-----------------------------------------------------------------------
 
@@ -599,6 +600,35 @@ end
 
 #-----------------------------------------------------------------------
 
+script, say, box, begin
+  suspend all
+  show text box(box)
+  wait for text box
+  resume all
+end
+
+script, heart above misa, begin
+  variable(slot)
+  slot := rank in caterpillar(hero:misa the hamster)
+  create weapon effect(magic:love, hero x(slot), hero y(slot) -- 1, seconds * 2)
+end
+
+script, misa reaction to monster kill, begin
+  if(baconthulhu dead) then(exit script)
+  if(check tag(tag:date with misa)) then(
+    monster kills on date += 1
+    switch(monster kills on date) do(
+      case(1) do(say(123)) # comment on first monster kill
+      case(4) do(say(124))
+      case(12) do(say(125))
+      case(20) do(say(127))
+      case(100) do(heart above misa, say(129))
+    )
+  )
+end
+
+#-----------------------------------------------------------------------
+
 script, hide all strings, begin
   variable(i)
   for(i, msg+1, msg+4) do(
@@ -1020,7 +1050,7 @@ end
 #-----------------------------------------------------------------------
 
 script, create effects layer, begin
-  effects := create container(map width * 20, map height * 20)
+  effects := lookup slice(sl:map layer 2)
 end
 
 script, update effects, begin
@@ -1662,6 +1692,7 @@ end
 script, kill monster, ref, begin
   monster drops treasure(ref)
   destroy npc(ref)
+  misa reaction to monster kill
   hero victory
 end
 
