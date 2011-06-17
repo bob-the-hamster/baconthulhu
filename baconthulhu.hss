@@ -122,11 +122,6 @@ define constant(33, monster item rate)
 
 #-----------------------------------------------------------------------
 
-script, abs, n, begin
-  if(n << 0) then(exit returning(n * -1))
-  exit returning(n)
-end
-
 script, suspend all, begin
   suspend player
   suspend npcs
@@ -1054,8 +1049,6 @@ script, create effects layer, begin
 end
 
 script, update effects, begin
-  set slice x(effects, camera pixel x * -1)
-  set slice y(effects, camera pixel y * -1)
   variable(sl, type, age, ticks, deleteme)
   sl := first child(effects)
   while(sl) do(
@@ -2406,7 +2399,7 @@ script, update console, begin
   )
   for(i, 0, 3) do(
     show string at(msg+1+i, 0, 190 -- i * 10)
-    string color(msg+1+i, 174 - i * 5)
+    string color(msg+1+i, 174 -- i * 5)
   )
 end
 
