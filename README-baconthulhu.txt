@@ -5,7 +5,7 @@ After eating so much bacon that he passes out, Bob awakens in a
 mysterious crypt filled with monsters and cultists who worship the
 Ancient Fried Pork One BACONTHULHU
 
-Musical Score by Nigel "Jabbercat" McBride.
+Musical Score by John Sebastian Willow.
 
 This game was first released on April 30 2009 for the 2009 OHRRPGCE
 Terrible Games Contest.
