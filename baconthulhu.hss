@@ -199,6 +199,8 @@ script, show select screen, begin
   )
   # Starting a new game!
   erase saves
+  set tag(tag:save scummer, OFF)
+  death count := 0
   show map
 end
 
@@ -375,6 +377,7 @@ plotscript, save scum, begin
   $msg = "You have been branded a save scummer."
   update console
   create teleport cloud(hero x, hero y)
+  resume all
 end
 
 script, init map, begin
@@ -1822,6 +1825,7 @@ script, create monster, x, y, begin
   id := random monster for this map
   ref := create NPC(id, x, y, random(0,3))
   set monster hp(ref, get monster max hp(ref))
+  exit returning(ref)
 end
 
 script, random monster for this map, begin
