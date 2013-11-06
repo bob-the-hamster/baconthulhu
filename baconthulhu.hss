@@ -34,6 +34,10 @@ global variable(27, spawn bacontologist y)
 global variable(28, baconthulhu dead)
 global variable(29, monster kills on date)
 global variable(30, death count)
+global variable(31, c:recursion)
+global variable(32, c:not okay)
+global variable(33, c:okay)
+global variable(34, c:zone)
 
 # All globals starting with ID 1000 are used as temporary space for
 # exporting/importing saved map state to save slots.
@@ -431,6 +435,15 @@ plotscript, generate map, begin
   $msg="The dungeon has matured. ("
   append number(msg, growth cycles)
   $msg+" cycles)"
+  update console
+  $msg="ok="
+  append number(msg, c:okay)
+  $msg+" nok="
+  append number(msg, c:not okay)
+  $msg+" r="
+  append number(msg, c:recursion)
+  $msg+" z="
+  append number(msg, c:zone)
   update console
   resume all
   save progress
@@ -2118,9 +2131,29 @@ end
 
 script, create passage, x, y, begin
   # Returns true if the passage was created
-  if(recursion >> 100) then(exit returning(false))
   growth cycles += 1
+#  if(growth cycles ,mod, 1000 == 0) then(
+#    $msg="ok="
+#    append number(msg, c:okay)
+#    $msg+" nok="
+#    append number(msg, c:not okay)
+#    $msg+" r="
+#    append number(msg, c:recursion)
+#    $msg+" z="
+#    append number(msg, c:zone)
+#    trace(msg)
+#  )
+  if(recursion >> 100) then(
+    c:recursion += 1
+    exit returning(false)
+  )
+  if(read zone(1, x, y)) then(
+    c:zone += 1
+    exit returning(false)
+  )
   if(passage okay(x, y) == false) then(
+    write zone(1, x, y, true)
+    c:not okay += 1
     exit returning(false)
   )
   create floor at(x, y)
@@ -2132,6 +2165,7 @@ script, create passage, x, y, begin
     ix := around x(i)
     iy := around y(i)
     create wall(x + ix, y + iy)
+    write zone(1, x + ix, y + iy, false)
   )
   #--now dig side passages
   recursion += 1
@@ -2149,6 +2183,7 @@ script, create passage, x, y, begin
     )
   )
   recursion -= 1
+  c:okay += 1
   exit returning(true)
 end
 
