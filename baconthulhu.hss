@@ -210,6 +210,12 @@ plotscript, reset to title screen, begin
   game over
 end
 
+plotscript, on close main menu, begin
+  $msg = "Saving progress..."
+  update console
+  save progress
+end
+
 plotscript, save and quit, begin
   save progress
   reset to title screen
@@ -282,6 +288,9 @@ end
 plotscript, on load game, begin
    init for new game and load game
    init map
+   if(death count >= 1) then(
+     save scum
+   )
 end
 
 script, try to load map, begin
@@ -355,19 +364,17 @@ script, erase saves, begin
 end
 
 plotscript, save scum, begin
-  show text box (23)
-  wait for text box
-  if(check tag(tag:save scummer)) then(
-    set hero position(0, get up stairs x(current map), get up stairs y(current map))
-    heal hero(999)
-    invigorate hero(999)
-    $msg = "You have been branded a save scummer."
-    update console
-    exit select menu
-    create teleport cloud(hero x, hero y)
-  )else(
-    game over
-  )
+  set tag(tag:save scummer, ON)
+  scroll of instakill
+  heal hero(999)
+  invigorate hero(999)
+  $msg = ""
+  append number(msg, death count)
+  $msg + " deaths."
+  update console
+  $msg = "You have been branded a save scummer."
+  update console
+  create teleport cloud(hero x, hero y)
 end
 
 script, init map, begin
@@ -504,6 +511,22 @@ plotscript, scroll of burning, begin
       if(distance to monster in pixels under(ref, 190)) then(
         create weapon effect(magic:fire, npc x(ref), npc y(ref), 18)
         damage monster(ref, random(1, 5))
+      )
+    )
+  )
+end
+
+plotscript, scroll of instakill, begin
+  variable(ref, id)
+  for(ref, -300, -1) do(
+    if(is attackable(ref)) then(
+      id := get npc id(ref)
+      if(id == bacon body) then(
+        # Baconthulhu's bacon bodies are immune to instakill
+        continue
+      )
+      if(distance to monster in pixels under(ref, 190)) then(
+        damage monster(ref, 999)
       )
     )
   )
