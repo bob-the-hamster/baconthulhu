@@ -216,8 +216,10 @@ plotscript, on close main menu, begin
   save progress
 end
 
-plotscript, save and quit, begin
-  save progress
+plotscript, save and quit from menu, begin
+  # Don't actually need to call "save progress" here because
+  # it will have always been called mjust a moment before in
+  # "on close main menu"
   reset to title screen
 end
 
@@ -225,6 +227,7 @@ script, save progress, begin
   # This only knows how to save the state of the current map, so it is 
   # vital that it should always be called before you change maps.
   save in slot(1)
+  
   # Prepare globals to save this map into another save slot
   write global(1000, 1) # save format version number
   write global(1001, map width)
@@ -271,6 +274,11 @@ script, save progress, begin
   )
   # Write the globals for this map to a save slot
   export globals(2 + current map, savetmp)
+  # Flush all temporary globals
+  variable(i)
+  for(i, savetmp, 16383) do(
+    write global(p, 0)
+  )
 end
 
 plotscript, load saved progress, begin
