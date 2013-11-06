@@ -34,6 +34,11 @@ global variable(27, spawn bacontologist y)
 global variable(28, baconthulhu dead)
 global variable(29, monster kills on date)
 
+# All globals starting with ID 1000 are used as temporary space for
+# exporting/importing saved map state to save slots.
+define constant(1000, savetmp)
+define constant(1008, tilestart)
+
 #-----------------------------------------------------------------------
 
 # string constants
@@ -120,6 +125,22 @@ define constant(4, last monster slot)
 define constant(12, monsters per kilotile)
 define constant(33, monster item rate)
 
+# Item constants for the ones that have annoying
+# unicode symbols because of icons
+define constant, begin
+6,item:Burning
+7,item:Leather
+8,item:Tighty
+9,item:Bat
+10,item:Monarch
+11,item:Bone
+13,item:Tofu
+15,item:Soybean
+16,item:Vegify
+17,item:Calcula
+18,item:TinFoil
+end
+
 #-----------------------------------------------------------------------
 
 script, suspend all, begin
@@ -143,34 +164,35 @@ end
 
 plotscript, init game, begin
   show select screen
+  init for new game and load game
+  init map
+end
+
+script, init for new game and load game, begin
   create effects layer
   create meters
   create map metadata
   set timer(regen timer, 1, seconds, @hero regen)
-  init map
-end
-
-script, show select screen, begin
-  show a select menu(menu:select screen)
 end
 
 script, show death screen, begin
-  hide all strings
-  show a select menu(menu:death menu)
-  show all strings
+  reset to title screen
 end
 
-script, show a select menu, menu id, begin
+script, show select screen, begin
   select menu done := false
   show backdrop(1)
   reset palette
   update palette
+  set tag(tag:save game exists, save slot used(1))
   while(select menu done == false) do(
-    open menu(menu id)
+    open menu(3)
     if(keyval(key:ESC) >> 0) then(reset to title screen)
     wait for text box
     wait(1)
   )
+  # Starting a new game!
+  erase saves
   show map
 end
 
@@ -180,6 +202,138 @@ end
 
 plotscript, reset to title screen, begin
   game over
+end
+
+plotscript, save and quit, begin
+  save progress
+  reset to title screen
+end
+
+script, save progress, begin
+  # This only knows how to save the state of the current map, so it is 
+  # vital that it should always be called before you change maps.
+  save in slot(1)
+  # Prepare globals to save this map into another save slot
+  write global(1000, 1) # save format version number
+  write global(1001, map width)
+  write global(1002, map height)
+  write global(1003, get up stairs x(current map))
+  write global(1004, get up stairs y(current map))
+  write global(1005, get down stairs x(current map))
+  write global(1006, get down stairs y(current map))
+  write global(1007, get map creation(current map))
+  # Store the map tile state
+  variable(p, x, y, v)
+  p := tilestart
+  for(y, 0, map height -- 1) do(
+    for(x, 0, map width -- 1) do(
+      v := read map block(x, y, 0) + read map block(x, y, 1) * 256 + read map block(x, y, 2) * 65536
+      write global(p, v)
+      p += 1
+    )
+  )
+  # Store the NPC state
+  variable(ref, id, how many p, how many)
+  how many := 0
+  how many p := p
+  p += 1
+  for(ref, -300, -1) do(
+    id := get npc id(ref)
+    if(id >= 0) then(
+      v := id + npc x(ref) * 256 + npc y(ref) * 65536 + npc direction(ref) * 16777216
+      write global(p, v)
+      p += 1
+      if(is monster(ref)) then(
+        v := get monster hp(ref)
+        write global(p, v)
+        p += 1
+      )
+      how many += 1
+    )
+  )
+  write global(how many p, how many)
+  # Flush the remainder of the globals
+  while(p << 16383) do(
+    write global(p, 0)
+    p += 1
+  )
+  # Write the globals for this map to a save slot
+  export globals(2 + current map, savetmp)
+end
+
+plotscript, load saved progress, begin
+  load from slot(1)
+end
+
+plotscript, on load game, begin
+   init for new game and load game
+   init map
+end
+
+script, try to load map, begin
+  # Returns true if the load worked, or false if the map needs to be generated
+  write global(1000, 0)
+  import globals(2 + current map, 1000, 16383)
+  if(read global(1000) == 0) then(exit returning(false))
+  if(read global(1000) <> 1) then(
+    show text box(130)
+    wait for text box
+    erase saves
+    reset to title screen
+  )
+  # Load map metadata
+  if(read global(1001) <> map width) then(
+    $msg="Map width mismatch, hope it doesn't matter!"
+    trace(msg)
+  )
+  if(read global(1002) <> map height) then(
+    $msg="Map height mismatch, hope it doesn't matter!"
+    trace(msg)
+  )
+  set up stairs x(current map, read global(1003))
+  set up stairs y(current map, read global(1004))
+  set down stairs x(current map, read global(1005))
+  set down stairs y(current map, read global(1006))
+  set map creation(current map, read global(1007))
+  # Load the map tile state
+  variable(p, x, y, v)
+  p := tilestart
+  for(y, 0, read global(1002) -- 1) do(
+    for(x, 0, read global(1001) -- 1) do(
+      v := read global(p)
+      write map block(x, y, v ,AND, 255, 0)
+      write map block(x, y, (v ,AND, 65535) / 256, 1)
+      write map block(x, y, (v ,AND, 16777215) / 65536 , 2)
+      p += 1
+    )
+  )
+  # Load the NPC state
+  variable(i, how many, ref, id, d)
+  how many := read global(p)
+  p += 1
+  for(i, 0, how many -- 1) do(
+    v := read global(p)
+    id := v ,AND, 255
+    x := (v ,AND, 65535) / 256
+    y := (v ,AND, 16777215) / 65536
+    d := v / 16777216
+    ref := create npc(id, x, y, d)
+    p += 1
+    if(is monster(ref)) then(
+      v := read global(p)
+      set monster hp(ref, v)
+      p += 1
+    )
+  )
+  # Done!
+  exit returning(true)
+end
+
+script, erase saves, begin
+  variable(slot)
+  for(slot, 1, 32) do(
+    delete save(slot)
+  )
 end
 
 plotscript, save scum, begin
@@ -206,7 +360,11 @@ script, init map, begin
   each tick
   set timer(spawn timer, spawn delay, 18, @random monster spawn)
   set timer(temp timer, 0, 1, @first step)
-  generate map
+  if(try to load map) then(
+    $msg="Continuing your quest..."
+  )else(
+    generate map
+  )
   if(current map == last map) then(
     if(baconthulhu dead == false) then(
       spawn baconthulhu
@@ -283,6 +441,9 @@ script, climb stairs, begin
       exit script
     )
     suspend player
+    $msg = "Saving progress..."
+    update console
+    save progress
     variable(dest)
     if(tile == stairs up) then(
       dest := current map -- 1
