@@ -108,7 +108,6 @@ define constant(18, seconds)
 define constant(-1, counterclockwise)
 define constant(1, clockwise)
 define constant(6, threshhold)
-define constant(100, growth cycles before wait)
 define constant(5, last map)
 define constant(0, void)
 define constant(1, floor)
@@ -213,8 +212,7 @@ plotscript, reset to title screen, begin
 end
 
 plotscript, on close main menu, begin
-  $msg = "Saving progress..."
-  update console
+  log about saving
   save progress
 end
 
@@ -402,13 +400,18 @@ end
 
 plotscript, generate map, begin
   if(get map creation(current map) == true) then(exit script)
+  suspend all
+  growth cycles := 0
   variable(x, y)
   x := random(1, map width -- 2)
   y := random(1, map height -- 2)
   set hero position(leader, x, y)
   place stairs up(x, y)
+  $msg="Please wait!"
+  update console
   $msg="The dungeon lives and grows..."
   update console
+  wait(1)
   generating := true
   recursion := 0
   create passage(x, y)
@@ -417,8 +420,12 @@ plotscript, generate map, begin
   place stairs down(x, y)
   setup map specials
   set map creation(current map, true)
-  $msg="The dungeon has matured."
+  $msg="The dungeon has matured. ("
+  append number(msg, growth cycles)
+  $msg+" cycles)"
   update console
+  resume all
+  save progress
 end
 
 plotscript, first step, begin
@@ -2105,10 +2112,6 @@ script, create passage, x, y, begin
   # Returns true if the passage was created
   if(recursion >> 100) then(exit returning(false))
   growth cycles += 1
-  if(growth cycles >= growth cycles before wait) then(
-    wait(1)
-    growth cycles := 1
-  )
   if(passage okay(x, y) == false) then(
     exit returning(false)
   )
@@ -2607,7 +2610,14 @@ script, update console, begin
   )
   for(i, 0, 3) do(
     show string at(msg+1+i, 0, 190 -- i * 10)
-    string color(msg+1+i, 174 -- i * 5)
+    string color(msg+1+i, 174 -- i * 4)
+  )
+end
+
+script, log about saving, begin
+  $msg = "Saving progress..."
+  if(not(string compare(msg, msg+1))) then(
+    update console
   )
 end
 
