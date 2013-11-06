@@ -33,6 +33,7 @@ global variable(26, spawn bacontologist x)
 global variable(27, spawn bacontologist y)
 global variable(28, baconthulhu dead)
 global variable(29, monster kills on date)
+global variable(30, death count)
 
 # All globals starting with ID 1000 are used as temporary space for
 # exporting/importing saved map state to save slots.
@@ -185,6 +186,11 @@ script, show select screen, begin
   reset palette
   update palette
   set tag(tag:save game exists, save slot used(1))
+  import globals(1, @death count, @death count)
+  if(death count >= 1) then(
+    set tag(tag:save scummer, ON)
+    set tag(tag:save game exists, OFF)
+  )
   while(select menu done == false) do(
     open menu(3)
     if(keyval(key:ESC) >> 0) then(reset to title screen)
@@ -262,6 +268,14 @@ script, save progress, begin
 end
 
 plotscript, load saved progress, begin
+  if(death count >= 1) then(
+    show text box(131)
+    wait for text box
+    if(check tag(tag:save scum choice) == OFF) then(
+      # Decided not to save scum after all
+      exit script
+    )
+  )
   load from slot(1)
 end
 
@@ -296,12 +310,16 @@ script, try to load map, begin
   set down stairs y(current map, read global(1006))
   set map creation(current map, read global(1007))
   # Load the map tile state
-  variable(p, x, y, v)
+  variable(p, x, y, v, tile)
   p := tilestart
   for(y, 0, read global(1002) -- 1) do(
     for(x, 0, read global(1001) -- 1) do(
       v := read global(p)
-      write map block(x, y, v ,AND, 255, 0)
+      tile := v ,AND, 255
+      write map block(x, y, tile, 0)
+      if(is a wall(tile)) then(
+        safe write pass block(x, y, northwall,or,eastwall,or,southwall,or,westwall)
+      )
       write map block(x, y, (v ,AND, 65535) / 256, 1)
       write map block(x, y, (v ,AND, 16777215) / 65536 , 2)
       p += 1
@@ -987,6 +1005,8 @@ script, hero dies, begin
   suspend all
   set on keypress script(none)
   show text box(2)
+  death count += 1
+  save progress
   wait(1)
   tweak palette(30,-30,-30)
   fade screen in
