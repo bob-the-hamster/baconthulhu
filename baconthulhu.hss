@@ -39,6 +39,9 @@ global variable(32, c:not okay)
 global variable(33, c:okay)
 global variable(34, c:zone)
 
+# Stair position variables are stored starting at global 500
+define constant(500, stair pos var)
+
 # All globals starting with ID 1000 are used as temporary space for
 # exporting/importing saved map state to save slots.
 define constant(1000, savetmp)
@@ -993,51 +996,35 @@ script, get map metadata, map, begin
 end
 
 script, get up stairs x, map, begin
-  variable(sl)
-  sl := get map metadata(map)
-  exit returning(slice x(sl))
+  exit returning(read global(stair pos var + map * 10 + 0))
 end
 
 script, get up stairs y, map, begin
-  variable(sl)
-  sl := get map metadata(map)
-  exit returning(slice y(sl))
+  exit returning(read global(stair pos var + map * 10 + 1))
 end
 
 script, get down stairs x, map, begin
-  variable(sl)
-  sl := get map metadata(map)
-  exit returning(slice width(sl))
+  exit returning(read global(stair pos var + map * 10 + 2))
 end
 
 script, get down stairs y, map, begin
-  variable(sl)
-  sl := get map metadata(map)
-  exit returning(slice height(sl))
+  exit returning(read global(stair pos var + map * 10 + 3))
 end
 
 script, set up stairs x, map, n, begin
-  variable(sl)
-  sl := get map metadata(map)
-  set slice x(sl, n)
+  write global(stair pos var + map * 10 + 0, n)
 end
 
 script, set up stairs y, map, n, begin
-  variable(sl)
-  sl := get map metadata(map)
-  set slice y(sl, n)
+  write global(stair pos var + map * 10 + 1, n)
 end
 
 script, set down stairs x, map, n, begin
-  variable(sl)
-  sl := get map metadata(map)
-  set slice width(sl, n)
+  write global(stair pos var + map * 10 + 2, n)
 end
 
 script, set down stairs y, map, n, begin
-  variable(sl)
-  sl := get map metadata(map)
-  set slice height(sl, n)
+  write global(stair pos var + map * 10 + 3, n)
 end
 
 script, get map creation, map, begin
