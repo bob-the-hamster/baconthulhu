@@ -71,6 +71,7 @@ define constant(1, nbit:justturned)
 define constant(1, hero walking)
 define constant(4, hero attacking)
 define constant(11, hero celebrating)
+define constant(18, hero waiting)
 
 # non-monster npcs
 define constant(97, bacontologist)
@@ -436,15 +437,15 @@ plotscript, generate map, begin
   append number(msg, growth cycles)
   $msg+" cycles)"
   update console
-  $msg="ok="
-  append number(msg, c:okay)
-  $msg+" nok="
-  append number(msg, c:not okay)
-  $msg+" r="
-  append number(msg, c:recursion)
-  $msg+" z="
-  append number(msg, c:zone)
-  update console
+#  $msg="ok="
+#  append number(msg, c:okay)
+#  $msg+" nok="
+#  append number(msg, c:not okay)
+#  $msg+" r="
+#  append number(msg, c:recursion)
+#  $msg+" z="
+#  append number(msg, c:zone)
+#  update console
   resume all
   save progress
 end
@@ -2132,17 +2133,17 @@ end
 script, create passage, x, y, begin
   # Returns true if the passage was created
   growth cycles += 1
-#  if(growth cycles ,mod, 1000 == 0) then(
-#    $msg="ok="
-#    append number(msg, c:okay)
-#    $msg+" nok="
-#    append number(msg, c:not okay)
-#    $msg+" r="
-#    append number(msg, c:recursion)
-#    $msg+" z="
-#    append number(msg, c:zone)
-#    trace(msg)
-#  )
+  #if(growth cycles ,mod, 1000 == 0) then(
+  #  $msg="  ok="
+  #  append number(msg, c:okay)
+  #  $msg+" nok="
+  #  append number(msg, c:not okay)
+  #  $msg+" r="
+  #  append number(msg, c:recursion)
+  #  $msg+" z="
+  #  append number(msg, c:zone)
+  #  trace(msg)
+  #)
   if(recursion >> 100) then(
     c:recursion += 1
     exit returning(false)
@@ -2160,6 +2161,7 @@ script, create passage, x, y, begin
   safe write map block(x, y, fog of war, 2)
   safe write pass block(x, y, none)
   create treasure(x, y)
+  write zone(1, x, y, false)
   variable(i, ix, iy)
   for(i, 0, 7) do(
     ix := around x(i)
@@ -2179,7 +2181,7 @@ script, create passage, x, y, begin
       iy := compass y(i)
       ok := create passage(x + ix, y + iy)
       safety += 1
-      if(safety >> 20) then(ok := true)
+      if(safety >> 5) then(ok := true)
     )
   )
   recursion -= 1
