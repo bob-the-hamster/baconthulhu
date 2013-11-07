@@ -65,6 +65,7 @@ define constant(6, spawn cultist timer)
 define constant(7, spawn misa timer)
 define constant(8, spawn bacontologist timer)
 define constant(9, end of game timer)
+define constant(10, timer:console decay)
 
 # using NPC extra data as bitsets
 define constant(0, nbit:deadend)
@@ -2644,12 +2645,24 @@ script, update console, begin
     show string at(msg+1+i, 0, 190 -- i * 10)
     string color(msg+1+i, 174 -- i * 4)
   )
+  set timer(timer:console decay, 7, 18, @console decay)
 end
 
 script, log about saving, begin
   $msg = "Saving progress..."
   if(not(string compare(msg, msg+1))) then(
     update console
+  )
+end
+
+script, console decay, begin
+  variable(i)
+  for(i, 4, 1, -1) do(
+    if(string length(msg+i) >> 0) then(
+      $msg+i=""
+      set timer(timer:console decay, 7, 18, @console decay)
+      exit script
+    )
   )
 end
 
