@@ -148,6 +148,7 @@ define constant, begin
 16,item:Vegify
 17,item:Calcula
 18,item:TinFoil
+19,item:Debug
 end
 
 #-----------------------------------------------------------------------
@@ -472,6 +473,7 @@ plotscript, on keypress, begin
     # cheat keys
     if(keyval(key:M)>>1) then(reveal map)
     if(keyval(key:G)>>1) then(get money(100), update money display)
+    if(keyval(key:D)>>1) then(get item(item:debug), $msg="Debug goggles fell from the sky.", update console)
   )
   while(true) do( # hack loop so we can use "break"
     if(keyval(key:up)>>1)    then(hero motion(up),    break)
@@ -617,8 +619,23 @@ end
 #-----------------------------------------------------------------------
 
 script, use tool, begin
-  $msg = "Tools are not implemented yet."
-  update console
+  variable(item)
+  item := check equipment(0, slot:tool)
+  if(item == -1) then(
+    $msg = "No tool equipped."
+    update console
+    exit script
+  )
+  variable(x, y)
+  switch(item) do(
+    case(item:debug) do(
+      x := hero x(0) + compass x(hero direction(0))
+      y := hero y(0) + compass y(hero direction(0))
+      $msg="The tile ahead is ID#"
+      append number(msg, read map block(x,y,0))
+      update console
+    )
+  )
 end
 
 script, drink potion, begin
