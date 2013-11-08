@@ -425,6 +425,7 @@ script, init map, begin
       spawn baconthulhu
     )
   )
+  sanity check talkers
   update meters
 end
 
@@ -872,6 +873,52 @@ script, setup map specials, begin
       place special item(item:jiffy, 2)
       place misa
     )
+  )
+end
+
+script, sanity check talkers, begin
+  # If talkers are missing, create them
+  switch(current map) do(
+    case(0) do(
+      ensure cultist
+    )
+    case(1) do(
+      ensure cultist
+    )
+    case(2) do(
+      ensure cultist
+      ensure bacontologist
+    )
+    case(3) do(
+      ensure cultist
+    )
+    case(4) do(
+      ensure misa
+    )
+  )
+end
+
+script, ensure cultist, begin
+  if(npc copy count(robed cultist) == 0) then(
+    $msg="You feel a strange chill."
+    update console
+    place cultist
+  )
+end
+
+script, ensure bacontologist, begin
+  if(npc copy count(bacontologist) == 0) then(
+    $msg="You feel a reasonable chill."
+    update console
+    place bacontologist
+  )
+end
+
+script, ensure misa, begin
+  if(npc copy count(misa the hamster) == 0) then(
+    $msg="You feel a distant warmth."
+    update console
+    place misa
   )
 end
 
