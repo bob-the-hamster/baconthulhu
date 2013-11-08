@@ -316,6 +316,7 @@ end
 
 plotscript, on load game, begin
    init for new game and load game
+   set hero position(0, hero x(0), hero y(0))
    init map
    if(death count >= 1) then(
      save scum
@@ -1366,8 +1367,12 @@ script, hero attack monster, ref, begin
   update monster meter
 end
 
+script, percent, n, begin
+  exit returning(random(0, 99) << n)
+end
+
 script, hero attack attempt, begin
-  exit returning(random(0,99) << get hero stat(0, stat:hit rate))
+  exit returning(percent(get hero stat(0, stat:hit rate)))
 end
 
 script, hero can attack, begin
@@ -1524,13 +1529,13 @@ script, update effect, sl, begin
     case(spritetype:weapon) do(
       switch(get sprite set number(sl)) do(
         case(magic:bat) do(
-          if(random(0,99) << 70) then(
+          if(percent(70)) then(
             ref := NPC reference(robed cultist)
             effect flutters after npc(sl, ref, 4, @effect decay callback)
           )
         )
         case(magic:monarch) do(
-          if(random(0,99) << 70) then(
+          if(percent(70)) then(
             effect flutters after stairs down(sl, 4, @effect decay callback)
           )
         )
@@ -1933,11 +1938,11 @@ end
 script, npc should turn, ref, begin
   if(get npc exbit(ref, nbit:justturned)) then(
     # Just turned, probably don't want to turn again (but still turn occasionally, to avoid getting stuck)
-    if(random(0,99) << 85) then(
+    if(percent(85)) then(
       exit returning(false)
     )
   )
-  exit returning(random(0,99)<=75 || get npc exbit(ref, nbit:deadend))
+  exit returning(percent(75) || get npc exbit(ref, nbit:deadend))
 end
 
 script, npc dead end, ref, begin
@@ -2079,7 +2084,7 @@ script, random monster for this map, begin
     case(last map) do(exit returning(bacon body))
     case(0) do(exit returning(random(0,2))) # only first 3 monsters on map 0
     case(1) do(exit returning(random(0,3))) # only first 4 monsters on map 1
-    case(2) do(exit returning(random(0,3))) # only first 5 monsters on map 2
+    case(2) do(exit returning(random(0,4))) # only first 5 monsters on map 2
     else(exit returning(random(0, last monster slot)))
   )
 end
@@ -2149,7 +2154,7 @@ script, monster drops treasure, ref, begin
   variable(x, y)
   x := npc x(ref)
   y := npc y(ref)
-  if(random(0,99) <= monster item rate) then(
+  if(percent(monster item rate)) then(
     # create an item
     create item(x, y, get monster item(ref))
   )else(
@@ -2159,9 +2164,48 @@ script, monster drops treasure, ref, begin
 end
 
 script, get monster item, ref, begin
-  variable(item)
-  item := read npc(ref, npcstat:give item) -- 1
-  if (item <= 0) then(item := 0)
+  variable(id, item)
+  id := get npc id(ref)
+  switch(id) do(
+    case(0) do( # Pink Plip
+      item := item:brew
+    )
+    case(1) do( # Skeleton
+      if(percent(2)) then(
+        item := item:bone
+      )else(
+        item := item:tonic
+      )
+    )
+    case(2) do( # Land Squid
+      item := item:brew
+    )
+    case(3) do( # Bird Jellyfish
+      item := item:tonic
+    )
+    case(4) do( # Purple Cogre
+      item := item:bone
+    )
+    case(5) do( # Monocular Blarb
+      if(percent(40)) then(
+        item := item:tonic
+      )else if(percent(80)) then(
+        item := item:brew
+      )else(
+        item := item:jiffy
+      )
+    )
+  )
+  if(percent(2)) then( #Rare drop
+    switch(random(0, 5)) do(
+      case(0) do(item := item:burning)
+      case(1) do(item := item:bat)
+      case(2) do(item := item:monarch)
+      case(3) do(item := item:burning)
+      case(4) do(item := item:chalk)
+      case(5) do(item := item:jiffy)
+    )
+  )
   exit returning(item)
 end
 
@@ -2189,7 +2233,7 @@ script, monster hits hero, ref, begin
 end
 
 script, monster attack attempt, ref, begin
-  exit returning(random(0,99) << 50)
+  exit returning(percent(50))
 end
 
 script, monster can attack, ref, begin
