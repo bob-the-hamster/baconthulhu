@@ -441,6 +441,7 @@ plotscript, generate map, begin
   append number(msg, growth cycles)
   $msg+" cycles)"
   update console
+
 #  $msg="ok="
 #  append number(msg, c:okay)
 #  $msg+" nok="
@@ -450,6 +451,7 @@ plotscript, generate map, begin
 #  $msg+" z="
 #  append number(msg, c:zone)
 #  update console
+
   resume all
   save progress
 end
@@ -476,11 +478,19 @@ plotscript, on keypress, begin
     if(keyval(key:right)>>1) then(hero motion(right), break)
     if(keyval(key:down)>>1)  then(hero motion(down),  break)
     if(keyval(key:left)>>1)  then(hero motion(left),  break)
-    if(keyval(key:E)>>1)     then(show equip)
-    if(keyval(key:I)>>1)     then(show inventory)
-    if(keyval(key:Z)>>1)     then(use tool)
-    if(keyval(key:X)>>1)     then(drink potion)
-    if(keyval(key:C)>>1)     then(read scroll)
+    if(current text box >= 0) then(
+      if(keyval(key:E)>>1)     then(advance text box)
+      if(keyval(key:I)>>1)     then(advance text box)
+      if(keyval(key:Z)>>1)     then(advance text box)
+      if(keyval(key:X)>>1)     then(advance text box)
+      if(keyval(key:C)>>1)     then(advance text box)
+    )else(
+      if(keyval(key:E)>>1)     then(show equip)
+      if(keyval(key:I)>>1)     then(show inventory)
+      if(keyval(key:Z)>>1)     then(use tool)
+      if(keyval(key:X)>>1)     then(drink potion)
+      if(keyval(key:C)>>1)     then(read scroll)
+    )
     break
   )
 end
