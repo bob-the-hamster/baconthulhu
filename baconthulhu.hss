@@ -631,8 +631,14 @@ script, use tool, begin
     case(item:debug) do(
       x := hero x(0) + compass x(hero direction(0))
       y := hero y(0) + compass y(hero direction(0))
-      $msg="The tile ahead is ID#"
+      $msg="Tile at x="
+      append number(msg, x)
+      $msg+" y="
+      append number(msg, y)
+      $msg+" is ID#"
       append number(msg, read map block(x,y,0))
+      $msg+" Wall="
+      append number(msg, read pass block(x,y))
       update console
     )
   )
@@ -2237,7 +2243,6 @@ script, find passage near edge, x, y, d, begin
     iy += around y(d)
     if(run script by id(f, ix, iy)) then(
       if(find edge wall(ix, iy)) then(
-        safe write map block(find x, find y, void)
         exit returning(true)
       )
       break
