@@ -137,6 +137,7 @@ define constant(1, spawn delay)
 define constant(5, last monster slot)
 define constant(12, monsters per kilotile)
 define constant(33, monster item rate)
+define constant(6, chalk use count)
 
 # Item constants for the ones that have annoying
 # unicode symbols because of icons
@@ -420,6 +421,7 @@ script, init map, begin
       spawn baconthulhu
     )
   )
+  update meters
 end
 
 plotscript, generate map, begin
@@ -444,9 +446,7 @@ plotscript, generate map, begin
   place stairs down(x, y)
   setup map specials
   set map creation(current map, true)
-  $msg="The dungeon has matured. ("
-  append number(msg, growth cycles)
-  $msg+" cycles)"
+  $msg="The dungeon has matured."
   update console
 
 #  $msg="ok="
@@ -659,9 +659,30 @@ plotscript, chalk action, num, begin
       # Create/change mark
       ntile := first chalk floor + num
       if(ntile << first chalk floor || ntile >> last chalk floor) then(exit script)
+      wear down chalk
     )
     write map block(hero x(0), hero y(0), ntile)
   )
+end
+
+script, wear down chalk, begin
+  chalk decay += 1
+  if(chalk decay >= chalk use count) then(
+    # chalk has broken
+    chalk decay := 0
+    if(inventory(item:chalk) == 0) then(
+      unequip(0, slot:tool)
+      $msg="Your last chalk broke."
+      update console
+    )else(
+      $msg="Chalk broke. ("
+      append number(msg, inventory(item:chalk))
+      $msg+" left)"
+      update console
+    )
+    delete item(item:chalk)
+  )
+  update chalk meter
 end
 
 script, use debug goggles, begin
@@ -768,31 +789,31 @@ script, setup map specials, begin
   switch(current map) do(
     case(0) do(
       place special item(item:sword)
-      place special item(item:tonic)
-      place special item(item:tonic)
+      place special item(item:tonic, 2)
       place special item(item:brew)
-      variable(i)
-      for(i, 0, 20) do(
-        place special item(item:chalk)
-      )
+      place special item(item:chalk, 2)
       place cultist
     )
     case(1) do(
       place special item(item:axe)
       place special item(item:tonic)
       place special item(item:brew)
+      place special item(item:chalk, 2)
       place cultist
     )
     case(2) do(
       place special item(item:tonic)
       place special item(item:brew)
+      place special item(item:chalk)
       place cultist
       place bacontologist
     )
     case(3) do(
+      place special item(item:chalk)
       place cultist
     )
     case(4) do(
+      place special item(item:chalk)
       place misa
     )
   )
@@ -870,15 +891,18 @@ script, find place for special, begin
   )
 end
 
-script, place special item, item, begin
-  variable(i, tile)
+script, place special item, item, count=1, begin
+  variable(j, i, tile)
   # try 5 times, avoid overwriting existing special items
-  for(i, 0, 4) do(
-    find place for special
-    tile := safe read map block(find x, find y, 1)
-    if(is item icon(tile) == false) then(break)
+  for(j, 1, count) do(
+    for(i, 0, 5) do(
+      # Several attempts to find a good location (to discourage overwriting other items)
+      find place for special
+      tile := safe read map block(find x, find y, 1)
+      if(is item icon(tile) == false) then(break)
+    )
+    create item(find x, find y, item)
   )
-  create item(find x, find y, item)
 end
 
 script, close to hero, x, y, dist, begin
@@ -967,7 +991,7 @@ script, create meters, begin
   anchor align(first child(monster meter), edge:right)
   set slice visible(monster meter, false)
   col := 12 * 16
-  chalk meter := create meter(1, 17, col + 7, col + 12)
+  chalk meter := create meter(71, 1, col + 7, col + 12)
   set slice visible(monster meter, false)
   update meters
 end
@@ -1039,8 +1063,8 @@ end
 
 script, update chalk meter, begin
   variable(cur, max)
-  cur := 6 -- chalk decay
-  max := 6
+  cur := chalk use count -- chalk decay
+  max := chalk use count
   update meter(chalk meter, cur, max)
   set slice visible(chalk meter, using chalk)
 end
