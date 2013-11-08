@@ -130,7 +130,7 @@ define constant(15, item icons)
 define constant(64, fog of war)
 define constant(25, treasure rate)
 define constant(1, spawn delay)
-define constant(4, last monster slot)
+define constant(5, last monster slot)
 define constant(12, monsters per kilotile)
 define constant(33, monster item rate)
 
@@ -1850,6 +1850,7 @@ script, random monster for this map, begin
     case(last map) do(exit returning(bacon body))
     case(0) do(exit returning(random(0,2))) # only first 3 monsters on map 0
     case(1) do(exit returning(random(0,3))) # only first 4 monsters on map 1
+    case(2) do(exit returning(random(0,3))) # only first 5 monsters on map 2
     else(exit returning(random(0, last monster slot)))
   )
 end
@@ -1884,6 +1885,7 @@ script, get monster max hp, ref, begin
   switch(id) do(
     case(3) do(max := 4) # Bird-jellyfish slightly stronger
     case(4) do(max := 5) # Purple Cogre stronger
+    case(5) do(max := 5) # Monocular Blarb stronger
     case(bacon body) do(max := 15) # bacon body is very strong
     else(max := 3)
   )
