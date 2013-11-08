@@ -505,7 +505,7 @@ plotscript, on keypress, begin
     # cheat keys
     if(keyval(key:M)>>1) then(reveal map)
     if(keyval(key:G)>>1) then(get money(100), update money display)
-    if(keyval(key:D)>>1) then(get item(item:debug), $msg="Debug goggles fell from the sky.", update console)
+    if(keyval(key:D)>>1) then(use shop(4))
   )
   while(true) do( # hack loop so we can use "break"
     if(keyval(key:up)>>1)    then(hero motion(up),    break)
