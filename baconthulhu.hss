@@ -38,6 +38,8 @@ global variable(31, c:recursion)
 global variable(32, c:not okay)
 global variable(33, c:okay)
 global variable(34, c:zone)
+global variable(35, chalk meter)
+global variable(36, chalk decay)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -120,6 +122,8 @@ define constant(6, threshhold)
 define constant(5, last map)
 define constant(0, void)
 define constant(1, floor)
+define constant(51, first chalk floor)
+define constant(56, last chalk floor)
 define constant(2, first wall)
 define constant(48, last wall)
 define constant(49, stairs up)
@@ -149,6 +153,7 @@ define constant, begin
 17,item:Calcula
 18,item:TinFoil
 19,item:Debug
+20,item:chalk
 end
 
 #-----------------------------------------------------------------------
@@ -224,6 +229,7 @@ end
 plotscript, on close main menu, begin
   log about saving
   save progress
+  update meters
 end
 
 plotscript, save and quit from menu, begin
@@ -489,12 +495,16 @@ plotscript, on keypress, begin
     )else(
       if(keyval(key:E)>>1)     then(show equip)
       if(keyval(key:I)>>1)     then(show inventory)
-      if(keyval(key:Z)>>1)     then(use tool)
+      if(tool key pressed)     then(use tool)
       if(keyval(key:X)>>1)     then(drink potion)
       if(keyval(key:C)>>1)     then(read scroll)
     )
     break
   )
+end
+
+script, tool key pressed, begin
+  exit returning(keyval(key:Z)>>1 || keyval(key:space) >> 1 || keyval(key:enter) >> 1)
 end
 
 script, each tick, begin
@@ -626,22 +636,47 @@ script, use tool, begin
     update console
     exit script
   )
-  variable(x, y)
   switch(item) do(
-    case(item:debug) do(
-      x := hero x(0) + compass x(hero direction(0))
-      y := hero y(0) + compass y(hero direction(0))
-      $msg="Tile at x="
-      append number(msg, x)
-      $msg+" y="
-      append number(msg, y)
-      $msg+" is ID#"
-      append number(msg, read map block(x,y,0))
-      $msg+" Wall="
-      append number(msg, read pass block(x,y))
-      update console
-    )
+    case(item:debug) do(use debug goggles)
+    case(item:chalk) do(use chalk)
   )
+end
+
+script, use chalk, begin
+  variable(choice)
+  choice := open menu(10)
+  update chalk meter
+end
+
+plotscript, chalk action, num, begin
+  variable(otile, ntile)
+  otile := read map block(hero x(0), hero y(0), 0)
+  if(is a passage(otile)) then(
+    if(num == -1) then(
+      # Erase existing mark
+      ntile := floor
+    )else(
+      # Create/change mark
+      ntile := first chalk floor + num
+      if(ntile << first chalk floor || ntile >> last chalk floor) then(exit script)
+    )
+    write map block(hero x(0), hero y(0), ntile)
+  )
+end
+
+script, use debug goggles, begin
+  variable(x, y)
+  x := hero x(0) + compass x(hero direction(0))
+  y := hero y(0) + compass y(hero direction(0))
+  $msg="Tile at x="
+  append number(msg, x)
+  $msg+" y="
+  append number(msg, y)
+  $msg+" is ID#"
+  append number(msg, read map block(x,y,0))
+  $msg+" Wall="
+  append number(msg, read pass block(x,y))
+  update console
 end
 
 script, drink potion, begin
@@ -736,6 +771,10 @@ script, setup map specials, begin
       place special item(item:tonic)
       place special item(item:tonic)
       place special item(item:brew)
+      variable(i)
+      for(i, 0, 20) do(
+        place special item(item:chalk)
+      )
       place cultist
     )
     case(1) do(
@@ -926,7 +965,10 @@ script, create meters, begin
   monster meter := create meter(1, 1, col + 7, col + 12)
   anchor align(monster meter, edge:right)
   anchor align(first child(monster meter), edge:right)
-  set sprite visible(monster meter, false)
+  set slice visible(monster meter, false)
+  col := 12 * 16
+  chalk meter := create meter(1, 17, col + 7, col + 12)
+  set slice visible(monster meter, false)
   update meters
 end
 
@@ -956,6 +998,7 @@ script, update meters, begin
   update health meter
   update stamina meter
   update monster meter
+  update chalk meter
 end
 
 script, update health meter, begin
@@ -992,6 +1035,20 @@ script, hero victory, begin
   suspend player
   set hero picture(0, hero celebrating, outside battle)
   set timer(victory timer, 0, 1, @start hero victory)
+end
+
+script, update chalk meter, begin
+  variable(cur, max)
+  cur := 6 -- chalk decay
+  max := 6
+  update meter(chalk meter, cur, max)
+  set slice visible(chalk meter, using chalk)
+end
+
+script, using chalk, begin
+  variable(item)
+  item := check equipment(0, slot:tool)
+  exit returning(item == item:chalk)
 end
 
 script, start hero victory, begin
@@ -2383,6 +2440,7 @@ end
 
 script, is a passage, tile, begin
   if(tile == floor) then(exit returning(true))
+  if(tile >= first chalk floor && tile <= last chalk floor) then(exit returning(true))
   exit returning(false)
 end
 
