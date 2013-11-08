@@ -40,6 +40,8 @@ global variable(33, c:okay)
 global variable(34, c:zone)
 global variable(35, chalk meter)
 global variable(36, chalk decay)
+global variable(37, jiffy level)
+global variable(38, jiffy meter)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -138,6 +140,7 @@ define constant(5, last monster slot)
 define constant(12, monsters per kilotile)
 define constant(33, monster item rate)
 define constant(6, chalk use count)
+define constant(60, full jiffy charge)
 
 # Item constants for the ones that have annoying
 # unicode symbols because of icons
@@ -155,6 +158,7 @@ define constant, begin
 18,item:TinFoil
 19,item:Debug
 20,item:chalk
+21,item:jiffy
 end
 
 #-----------------------------------------------------------------------
@@ -471,7 +475,28 @@ plotscript, each step, x, y, d, no stairs=false, begin
   fix more surrounding walls(x, y)
   clear fog of war(x, y)
   pick up treasure(x, y)
+  metabolize jiffy potion
   if(no stairs == false) then(climb stairs)
+end
+
+script, metabolize jiffy potion, begin
+  if(jiffy level >> 0) then(
+    jiffy level -= 1
+    update jiffy meter
+    if(jiffy level == 0) then(
+      $msg="The jiffy potion wore off."
+      update console
+    )
+  )
+  adjust speed for jiffy
+end
+
+script, adjust speed for jiffy, begin
+  if(jiffy level >> 0) then(
+    set hero speed(0, 10)
+  )else(
+    set hero speed(0, 4)
+  )
 end
 
 plotscript, on keypress, begin
@@ -495,12 +520,28 @@ plotscript, on keypress, begin
     )else(
       if(keyval(key:E)>>1)     then(show equip)
       if(keyval(key:I)>>1)     then(show inventory)
-      if(tool key pressed)     then(use tool)
+      if(tool key pressed)     then(talk or use tool)
       if(keyval(key:X)>>1)     then(drink potion)
       if(keyval(key:C)>>1)     then(read scroll)
     )
     break
   )
+end
+
+script, talk or use tool, begin
+  variable(x, y, i, ref)
+  for(i, 0, 3) do(
+    x := hero x(0) + compass x(i)
+    y := hero y(0) + compass y(i)
+    ref := npc at spot(x, y)
+    if(ref) then(
+      if(is talker(ref)) then(
+        talker action for this map(ref)
+        exit script
+      )
+    )
+  )
+  use tool
 end
 
 script, tool key pressed, begin
@@ -712,24 +753,36 @@ script, drink potion, begin
   atk := lookup item attack(item)
   if(atk) then(
     outside battle cure(atk--1, 0, 0)
-    if(inventory(item)) then(
-      $msg = "Drank a "
-      get item name(tmp str, item)
-      msg $+ tmp str
-      $msg + ". ("
-      append number(msg, inventory(item))
-      $msg + " left)"
-    )else(
-      $msg = "Drank your last "
-      get item name(tmp str, item)
-      msg $+ tmp str
-      $msg + "."
-      unequip(0, slot:potion)
-    )
-    delete item(item)
-    update console
+  )
+  if(inventory(item)) then(
+    $msg = "Drank a "
+    get item name(tmp str, item)
+    msg $+ tmp str
+    $msg + ". ("
+    append number(msg, inventory(item))
+    $msg + " left)"
+  )else(
+    $msg = "Drank your last "
+    get item name(tmp str, item)
+    msg $+ tmp str
+    $msg + "."
+    unequip(0, slot:potion)
+  )
+  update console
+  delete item(item)
+  if(item == item:jiffy) then(
+    wait for hero(0)
+    drink jiffy potion
+    adjust speed for jiffy
   )
   update meters
+end
+
+plotscript, drink jiffy potion, begin
+  jiffy level := full jiffy charge
+  $msg="You feel fast... very fast!"
+  update console
+  update jiffy meter
 end
 
 script, read scroll, begin
@@ -805,15 +858,18 @@ script, setup map specials, begin
       place special item(item:tonic)
       place special item(item:brew)
       place special item(item:chalk)
+      place special item(item:jiffy)
       place cultist
       place bacontologist
     )
     case(3) do(
       place special item(item:chalk)
+      place special item(item:jiffy)
       place cultist
     )
     case(4) do(
       place special item(item:chalk)
+      place special item(item:jiffy, 2)
       place misa
     )
   )
@@ -992,7 +1048,10 @@ script, create meters, begin
   set slice visible(monster meter, false)
   col := 12 * 16
   chalk meter := create meter(71, 1, col + 7, col + 12)
-  set slice visible(monster meter, false)
+  set slice visible(chalk meter, false)
+  col := 15 * 16
+  jiffy meter := create meter(71, 9, col + 7, col + 12)
+  set slice visible(jiffy meter, false)
   update meters
 end
 
@@ -1023,6 +1082,7 @@ script, update meters, begin
   update stamina meter
   update monster meter
   update chalk meter
+  update jiffy meter
 end
 
 script, update health meter, begin
@@ -1073,6 +1133,14 @@ script, using chalk, begin
   variable(item)
   item := check equipment(0, slot:tool)
   exit returning(item == item:chalk)
+end
+
+script, update jiffy meter, begin
+  variable(cur, max)
+  cur := jiffy level
+  max := full jiffy charge
+  update meter(jiffy meter, cur, max)
+  set slice visible(jiffy meter, jiffy level >> 0)
 end
 
 script, start hero victory, begin
@@ -2149,7 +2217,9 @@ plotscript, do se do, begin
   d := hero direction(0)
   x := hero x(0) + compass x(d)
   y := hero y(0) + compass y(d)
+  wait for hero(0)
   ref := npc at spot(x, y)
+  wait for npc(ref)
   if(is talker(ref)) then(
     suspend all
     suspend obstruction
