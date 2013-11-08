@@ -519,9 +519,9 @@ plotscript, on keypress, begin
       if(keyval(key:X)>>1)     then(advance text box)
       if(keyval(key:C)>>1)     then(advance text box)
     )else(
+      if(tool key pressed)     then(talk or use tool)
       if(keyval(key:E)>>1)     then(show equip)
       if(keyval(key:I)>>1)     then(show inventory)
-      if(tool key pressed)     then(talk or use tool)
       if(keyval(key:X)>>1)     then(drink potion)
       if(keyval(key:C)>>1)     then(read scroll)
     )
