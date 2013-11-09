@@ -148,24 +148,6 @@ define constant(33, monster item rate)
 define constant(6, chalk use count)
 define constant(60, full jiffy charge)
 
-# Item constants for the ones that have annoying
-# unicode symbols because of icons
-define constant, begin
-6,item:Burning
-7,item:Leather
-8,item:Tighty
-9,item:Bat
-10,item:Monarch
-11,item:Bone
-13,item:Tofu
-15,item:Soybean
-16,item:Vegify
-17,item:Calcula
-18,item:TinFoil
-19,item:Debug
-20,item:chalk
-21,item:jiffy
-end
 
 #-----------------------------------------------------------------------
 
