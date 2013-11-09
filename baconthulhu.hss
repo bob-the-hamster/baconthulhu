@@ -1492,7 +1492,7 @@ end
 #-----------------------------------------------------------------------
 
 script, create effects layer, begin
-  effects := lookup slice(sl:map layer 2)
+  effects := lookup slice(sl:map layer 3)
 end
 
 script, update effects, begin
