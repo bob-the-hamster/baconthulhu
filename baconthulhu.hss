@@ -116,6 +116,12 @@ define constant(2,slot:Tool)
 define constant(3,slot:Potion)
 define constant(4,slot:Scroll)
 
+# Map Layer constants
+define constant(0, layer:base)
+define constant(1, layer:chalk)
+define constant(2, layer:item)
+define constant(3, layer:fog)
+
 # other constants
 define constant(18, seconds)
 define constant(-1, counterclockwise)
@@ -124,8 +130,8 @@ define constant(6, threshhold)
 define constant(5, last map)
 define constant(0, void)
 define constant(1, floor)
-define constant(51, first chalk floor)
-define constant(56, last chalk floor)
+define constant(1, first chalk floor)
+define constant(6, last chalk floor)
 define constant(2, first wall)
 define constant(48, last wall)
 define constant(49, stairs up)
@@ -133,7 +139,7 @@ define constant(50, stairs down)
 define constant(1, first treasure)
 define constant(4, treasure types)
 define constant(15, item icons)
-define constant(64, fog of war)
+define constant(1, fog of war)
 define constant(25, treasure rate)
 define constant(1, spawn delay)
 define constant(5, last monster slot)
@@ -263,7 +269,7 @@ script, save progress, begin
   p := tilestart
   for(y, 0, map height -- 1) do(
     for(x, 0, map width -- 1) do(
-      v := read map block(x, y, 0) + read map block(x, y, 1) * 256 + read map block(x, y, 2) * 65536
+      v := read map block(x, y, layer:base) + read map block(x, y, layer:item) * 256 + read map block(x, y, layer:fog) * 65536 + read map block(x, y, layer:chalk) * 16777216
       write global(p, v)
       p += 1
     )
@@ -355,12 +361,13 @@ script, try to load map, begin
     for(x, 0, read global(1001) -- 1) do(
       v := read global(p)
       tile := v ,AND, 255
-      write map block(x, y, tile, 0)
+      write map block(x, y, tile, layer:base)
       if(is a wall(tile)) then(
         safe write pass block(x, y, northwall,or,eastwall,or,southwall,or,westwall)
       )
-      write map block(x, y, (v ,AND, 65535) / 256, 1)
-      write map block(x, y, (v ,AND, 16777215) / 65536 , 2)
+      write map block(x, y, (v ,AND, 65535) / 256, layer:item)
+      write map block(x, y, (v ,AND, 16777215) / 65536 , layer:fog)
+      write map block(x, y, v / 16777216 , layer:chalk)
       p += 1
     )
   )
@@ -692,19 +699,19 @@ script, use chalk, begin
 end
 
 plotscript, chalk action, num, begin
-  variable(otile, ntile)
-  otile := read map block(hero x(0), hero y(0), 0)
-  if(is a passage(otile)) then(
+  variable(ftile, ctile)
+  ftile := read map block(hero x(0), hero y(0), layer:base)
+  if(is a passage(ftile)) then(
     if(num == -1) then(
       # Erase existing mark
-      ntile := floor
+      ctile := 0
     )else(
       # Create/change mark
-      ntile := first chalk floor + num
-      if(ntile << first chalk floor || ntile >> last chalk floor) then(exit script)
+      ctile := first chalk floor + num
+      if(ctile << first chalk floor || ctile >> last chalk floor) then(exit script)
       wear down chalk
     )
-    write map block(hero x(0), hero y(0), ntile)
+    write map block(hero x(0), hero y(0), ctile, layer:chalk)
   )
 end
 
@@ -737,7 +744,7 @@ script, use debug goggles, begin
   $msg+" y="
   append number(msg, y)
   $msg+" is ID#"
-  append number(msg, read map block(x,y,0))
+  append number(msg, read map block(x,y,layer:base))
   $msg+" Wall="
   append number(msg, read pass block(x,y))
   update console
@@ -1002,7 +1009,7 @@ script, place special item, item, count=1, begin
     for(i, 0, 5) do(
       # Several attempts to find a good location (to discourage overwriting other items)
       find place for special
-      tile := safe read map block(find x, find y, 1)
+      tile := safe read map block(find x, find y, layer:item)
       if(is item icon(tile) == false) then(break)
     )
     create item(find x, find y, item)
@@ -1856,7 +1863,7 @@ script, check ahead passage, x, y, d, npcs=false, begin
   variable(ix, iy, tile)
   ix := compass x(d)
   iy := compass y(d)
-  tile := safe read map block(x+ix, y+iy)
+  tile := safe read map block(x+ix, y+iy, layer:base)
   if(not(is a passage(tile))) then(exit returning(false))
   if(npcs) then(
     if(npc at spot(x+ix, y+iy)) then(exit returning(false))
@@ -2033,7 +2040,7 @@ script, random monster spawn, begin
       x:= random(1, map width--2)
       y:= random(1, map height--2)
       if(abs(x -- hero x) <= 2 && abs(y -- hero y) <= 2) then(continue)
-      tile := safe read map block(x, y)
+      tile := safe read map block(x, y, layer:base)
       if(is a passage(tile)) then(
         start spawn monster(x, y)
         exit script
@@ -2330,18 +2337,18 @@ end
 
 script, pick up treasure, x, y, begin
   variable(tile)
-  tile := safe read map block(x, y, 1)
+  tile := safe read map block(x, y, layer:item)
   variable(i)
   for(i, 0, treasure types--1) do(
     if(tile == first treasure + i) then(
       get money(3 ^ i)
       update money display
-      safe write map block(x, y, void, 1)
+      safe write map block(x, y, void, layer:item)
       exit script
     )
   )
   if(is item icon(tile)) then(
-    safe write map block(x, y, void, 1)
+    safe write map block(x, y, void, layer:item)
     variable(item)
     item := tile -- item icons
     get item(item)
@@ -2423,7 +2430,7 @@ script, create passage, x, y, begin
     exit returning(false)
   )
   create floor at(x, y)
-  safe write map block(x, y, fog of war, 2)
+  safe write map block(x, y, fog of war, layer:fog)
   safe write pass block(x, y, none)
   create treasure(x, y)
   write zone(1, x, y, false)
@@ -2470,7 +2477,7 @@ script, find passage near edge, x, y, d, begin
   # Returns true of successful. tile position returned in find x/find y globals
   variable(tile, ix, iy, f)
   # First, based on our current location, decide what type of tile to search for
-  tile := safe read map block(x, y)
+  tile := safe read map block(x, y, layer:base)
   if(tile == void) then(
     # If void is found, search for a wall
     f := @is wall at spot
@@ -2495,7 +2502,7 @@ end
 
 script, is wall at spot, x, y, begin
   variable(tile)
-  tile := safe read map block(x, y)
+  tile := safe read map block(x, y, layer:base)
   exit returning(is a wall(tile))
 end
 
@@ -2505,7 +2512,7 @@ script, is wall near void at spot, x, y, begin
     for(i, 0, 7) do(
       ix := around x(i)
       iy := around y(i)
-      tile := safe read map block(x+ix, y+iy)
+      tile := safe read map block(x+ix, y+iy, layer:base)
       if(tile == void) then(exit returning(true))
     )
   )
@@ -2516,7 +2523,7 @@ script, find edge wall, x, y, begin
   variable(ix, iy, tile)
   for(iy, y--2, y+2) do(
     for(ix, x--2, x+2) do(
-      tile := safe read map block(ix, iy)
+      tile := safe read map block(ix, iy, layer:base)
       if(is a wall(tile)) then(
         if(is nearby passage(ix, iy)) then(
           find x := ix
@@ -2535,7 +2542,7 @@ script, is nearby passage, x, y, begin
   for(i, 0, 3) do(
     ix := compass x(i)
     iy := compass y(i)
-    tile := safe read map block(x + ix, y + iy)
+    tile := safe read map block(x + ix, y + iy, layer:base)
     if(is a passage(tile)) then(
       exit returning(true)
     )
@@ -2561,9 +2568,9 @@ end
 
 script, create floor at, x, y, begin
   variable(tile)
-  tile := safe read map block(x, y)
+  tile := safe read map block(x, y, layer:base)
   if(is a stairs(tile)) then(exit script) # already has stairs here, no need to write floor
-  safe write map block(x, y, floor)
+  safe write map block(x, y, floor, layer:base)
 end
 
 script, passage okay, x, y, begin
@@ -2574,7 +2581,7 @@ script, passage okay, x, y, begin
   if(y >= map height--1) then(exit returning(false))
   # Check the tile that already exists at the dest location
   variable(tile)
-  tile := safe read map block(x, y)
+  tile := safe read map block(x, y, layer:base)
   if(tile == void) then(exit returning(true)) # void, passage is okay
   if(tile == stairs up || tile == stairs down) then(exit returning(true)) # stairs, passage okay
   if(is a wall(tile)) then(
@@ -2595,7 +2602,7 @@ script, count surrounding walls, x, y, begin
   for(i, 0, 7) do(
     ix := around x(i)
     iy := around y(i)
-    tile := safe read map block(x + ix, y + iy)
+    tile := safe read map block(x + ix, y + iy, layer:base)
     if(not(is a passage(tile))) then(count += 1) # actually count any non-passages as walls
   )
   exit returning(count)
@@ -2607,7 +2614,7 @@ script, count compass walls, x, y, begin
   for(i, 0, 3) do(
     ix := compass x(i)
     iy := compass y(i)
-    tile := safe read map block(x + ix, y + iy)
+    tile := safe read map block(x + ix, y + iy, layer:base)
     if(not(is a passage(tile))) then(count += 1) # actually count any non-passages as walls
   )
   exit returning(count)
@@ -2615,17 +2622,16 @@ end
 
 script, create wall, x, y, begin
   variable(tile, new tile)
-  tile := safe read map block(x, y)
+  tile := safe read map block(x, y, layer:base)
   if(tile == 0) then(
-    safe write map block(x, y, first wall)
-    safe write map block(x, y, fog of war, 2)
+    safe write map block(x, y, first wall, layer:base)
+    safe write map block(x, y, fog of war, layer:fog)
     safe write pass block(x, y, northwall,or,eastwall,or,southwall,or,westwall)
   )
 end
 
 script, is a passage, tile, begin
   if(tile == floor) then(exit returning(true))
-  if(tile >= first chalk floor && tile <= last chalk floor) then(exit returning(true))
   exit returning(false)
 end
 
@@ -2675,7 +2681,7 @@ script, fix wall at, x, y, begin
   variable(tile)
   tile := get fixed wall(x, y)
   if(tile <> false) then(
-    safe write map block(x, y, tile)
+    safe write map block(x, y, tile, layer:base)
   )
 end
 
@@ -2757,7 +2763,7 @@ end
 
 script, fog at spot, x, y, begin
   variable(fog tile)
-  fog tile := safe read map block(x, y, 2)
+  fog tile := safe read map block(x, y, layer:fog)
   exit returning(fog tile == fog of war)
 end
 
@@ -2782,21 +2788,21 @@ script, clear fog of war, x, y, begin
 end
 
 script, clear fog at, x, y, begin
-  safe write map block(x, y, void, 2)
+  safe write map block(x, y, void, layer:fog)
 end
 
 script, fix fog edge at, x, y, begin
   variable(cleared fog)
   cleared fog := get fog edge(x, y)
-  safe write map block(x, y, cleared fog, 2)
+  safe write map block(x, y, cleared fog, layer:fog)
 end
 
 script, get fog edge, x, y, begin
   variable(n, e, s, w)
-  n := safe read map block(x   , y--1, 2)
-  e := safe read map block(x+1 , y   , 2)
-  s := safe read map block(x   , y+1 , 2)
-  w := safe read map block(x--1, y   , 2)
+  n := safe read map block(x   , y--1, layer:fog)
+  e := safe read map block(x+1 , y   , layer:fog)
+  s := safe read map block(x   , y+1 , layer:fog)
+  w := safe read map block(x--1, y   , layer:fog)
   if(two of four fogged(w, n, e, s)) then(exit returning(fog of war + 1))
   if(two of four fogged(n, e, s, w)) then(exit returning(fog of war + 2))
   if(two of four fogged(e, s, w, n)) then(exit returning(fog of war + 3))
@@ -2840,7 +2846,7 @@ script, place stairs down, up x, up y, begin
     )
     if(current map << last map) then(
       safe write map block(down x, down y, stairs down)
-      safe write map block(down x, down y, void, 1) # no treasure on stairs!
+      safe write map block(down x, down y, void, layer:item) # no treasure on stairs!
     end
     set down stairs x(current map, down x)
     set down stairs y(current map, down y)
@@ -2890,7 +2896,7 @@ script, create treasure, x, y, rate=-1, level=0, begin
     old treas := read treasure(x, y)
     if(old treas) then(level := old treas -- first treasure + 1)
     if(level >= treasure types) then(level := treasure types -- 1)
-    safe write map block(x, y, first treasure+level, 1)
+    safe write map block(x, y, first treasure+level, layer:item)
   )else(
     if(level << treasure types--1) then(
       create treasure(x, y, -1, level+1)
@@ -2900,7 +2906,7 @@ end
 
 script, read treasure, x, y, begin
   variable(tile)
-  tile := safe read map block(x, y, 1)
+  tile := safe read map block(x, y, layer:item)
   if(tile >= first treasure && tile << first treasure + treasure types) then(
     exit returning(tile)
   )
@@ -2908,7 +2914,7 @@ script, read treasure, x, y, begin
 end
 
 script, create item, x, y, item, begin
-  safe write map block(x, y, item + item icons, 1)
+  safe write map block(x, y, item + item icons, layer:item)
 end
 
 #-----------------------------------------------------------------------
