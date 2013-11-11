@@ -153,6 +153,7 @@ define constant(33, monster item rate)
 define constant(6, chalk use count)
 define constant(60, full jiffy charge)
 define constant(60, full repel charge)
+define constant(80, first crack tile)
 
 
 #-----------------------------------------------------------------------
@@ -2416,6 +2417,7 @@ plotscript, generate map, begin
   create more passages
   generating := false
   place stairs down(x, y)
+  crack some walls(10)
   setup map specials
   set map creation(current map, true)
   $msg="The dungeon has matured."
@@ -2637,6 +2639,34 @@ script, passage okay, x, y, begin
   exit returning(false)
 end
 
+script, crack some walls, count, begin
+  variable(i)
+  for(i, 1, count) do(
+    crack a wall
+  )
+end
+
+script, crack a wall, begin
+  variable(i, x, y, tile)
+  for(i, 0, 100) do( # try repeatedly to find a good wall
+    x := random(1, map width -- 2)
+    y := random(1, map height -- 2)
+    tile := read map block(x, y, layer:base)
+    if(is a wall(tile)) then(
+      if(count compass walls(x,y) == 2) then(
+        if(count compass void(x,y) == 0) then(
+          crack wall(x, y)
+          exit script
+        )
+      )
+    )
+  )
+end
+
+script, crack wall, x, y, begin
+  write map block(x, y, first crack tile, layer:chalk)
+end
+
 script, count surrounding walls, x, y, begin
   variable(i, ix, iy, tile, count)
   count := 0
@@ -2657,6 +2687,18 @@ script, count compass walls, x, y, begin
     iy := compass y(i)
     tile := safe read map block(x + ix, y + iy, layer:base)
     if(not(is a passage(tile))) then(count += 1) # actually count any non-passages as walls
+  )
+  exit returning(count)
+end
+
+script, count compass void, x, y, begin
+  variable(i, ix, iy, tile, count)
+  count := 0
+  for(i, 0, 3) do(
+    ix := compass x(i)
+    iy := compass y(i)
+    tile := safe read map block(x + ix, y + iy, layer:base)
+    if(tile == void) then(count += 1)
   )
   exit returning(count)
 end
