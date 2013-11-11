@@ -136,7 +136,8 @@ define constant(0, void)
 define constant(64, first floor)
 define constant(67, last floor)
 define constant(1, first chalk floor)
-define constant(6, last chalk floor)
+define constant(7, last chalk floor)
+define constant(7, chalk heart)
 define constant(2, first wall)
 define constant(48, last wall)
 define constant(49, stairs up)
@@ -717,6 +718,12 @@ plotscript, chalk action, num, begin
       wear down chalk
     )
     write map block(hero x(0), hero y(0), ctile, layer:chalk)
+    if(ctile == chalk heart) then(
+      if(not(check tag(tag:drew heart for Misa))) then(
+        show text box(134)
+        wait for text box
+      )
+    )
   )
 end
 
