@@ -154,6 +154,8 @@ define constant(6, chalk use count)
 define constant(60, full jiffy charge)
 define constant(60, full repel charge)
 define constant(80, first crack tile)
+define constant(88, last crack tile)
+define constant(1, smashed wall floor)
 
 
 #-----------------------------------------------------------------------
@@ -659,7 +661,40 @@ script, use tool, begin
   switch(item) do(
     case(item:debug) do(use debug goggles)
     case(item:chalk) do(use chalk)
+    case(item:maul) do(use maul)
   )
+end
+
+script, use maul, begin
+  if(not(hero can attack)) then(
+    $msg="Too exhausted to swing the maul"
+    update console
+    exit script
+  )
+  variable(x, y, tile)
+  x := hero x(0) + compass x(hero direction(0))
+  y := hero y(0) + compass y(hero direction(0))
+  tile := safe read map block(x, y, layer:base)
+  if(not(is a wall(tile))) then(
+    miss effect(x, y)
+    exit script
+  )
+  create walkabout effect(effect:punch, x, y, 0, 4)
+  tile := safe read map block(x, y, layer:chalk)
+  if(tile >= first crack tile && tile <= last crack tile) then(
+    if(tile == last crack tile) then(
+      # Broke the wall
+      write map block(x, y, smashed wall floor, layer:base)
+      write map block(x, y, void, layer:chalk)
+      write pass block(x, y, none)
+      $msg="The wall shudders and crumbles"
+      update console
+    )else(
+      # weaken the wall
+      write map block(x, y, tile + 1, layer:chalk)
+    )
+  )
+  modify hero stamina(-2)
 end
 
 script, use chalk, begin
@@ -830,6 +865,7 @@ script, setup map specials, begin
     )
     case(1) do(
       place special item(item:axe)
+      place special item(item:maul)
       place special item(item:tonic)
       place special item(item:brew)
       place special item(item:chalk, 2)
@@ -2664,7 +2700,7 @@ script, crack a wall, begin
 end
 
 script, crack wall, x, y, begin
-  write map block(x, y, first crack tile, layer:chalk)
+  write map block(x, y, first crack tile + random(0, 1), layer:chalk)
 end
 
 script, count surrounding walls, x, y, begin
