@@ -42,6 +42,7 @@ global variable(35, chalk meter)
 global variable(36, chalk decay)
 global variable(37, jiffy level)
 global variable(38, jiffy meter)
+global variable(39, cur floor variant)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -129,7 +130,8 @@ define constant(1, clockwise)
 define constant(6, threshhold)
 define constant(5, last map)
 define constant(0, void)
-define constant(1, floor)
+define constant(64, first floor)
+define constant(67, last floor)
 define constant(1, first chalk floor)
 define constant(6, last chalk floor)
 define constant(2, first wall)
@@ -419,45 +421,6 @@ script, init map, begin
   update meters
 end
 
-plotscript, generate map, begin
-  if(get map creation(current map) == true) then(exit script)
-  suspend all
-  growth cycles := 0
-  variable(x, y)
-  x := random(1, map width -- 2)
-  y := random(1, map height -- 2)
-  set hero position(leader, x, y)
-  place stairs up(x, y)
-  $msg="Please wait!"
-  update console
-  $msg="The dungeon lives and grows..."
-  update console
-  wait(1)
-  generating := true
-  recursion := 0
-  create passage(x, y)
-  create more passages
-  generating := false
-  place stairs down(x, y)
-  setup map specials
-  set map creation(current map, true)
-  $msg="The dungeon has matured."
-  update console
-
-#  $msg="ok="
-#  append number(msg, c:okay)
-#  $msg+" nok="
-#  append number(msg, c:not okay)
-#  $msg+" r="
-#  append number(msg, c:recursion)
-#  $msg+" z="
-#  append number(msg, c:zone)
-#  update console
-
-  resume all
-  save progress
-end
-
 plotscript, first step, begin
   each step(hero x, hero y, hero direction, true)
 end
@@ -600,7 +563,7 @@ plotscript, scroll of burning, begin
     if(is attackable(ref)) then(
       if(distance to monster in pixels under(ref, 190)) then(
         create weapon effect(magic:fire, npc x(ref), npc y(ref), 18)
-        damage monster(ref, random(1, 5))
+        damage monster(ref, random(3, 7))
       )
     )
   )
@@ -2109,7 +2072,7 @@ script, get monster max hp, ref, begin
     case(3) do(max := 4) # Bird-jellyfish slightly stronger
     case(4) do(max := 5) # Purple Cogre stronger
     case(5) do(max := 5) # Monocular Blarb stronger
-    case(bacon body) do(max := 15) # bacon body is very strong
+    case(bacon body) do(max := 12) # bacon body is very strong
     else(max := 3)
   )
   exit returning(max)
@@ -2384,6 +2347,46 @@ script, safe write pass block, x, y, pass, begin
   exit returning(false)
 end
 
+plotscript, generate map, begin
+  if(get map creation(current map) == true) then(exit script)
+  suspend all
+  growth cycles := 0
+  variable(x, y)
+  x := random(1, map width -- 2)
+  y := random(1, map height -- 2)
+  set hero position(leader, x, y)
+  place stairs up(x, y)
+  $msg="Please wait!"
+  update console
+  $msg="The dungeon lives and grows..."
+  update console
+  wait(1)
+  generating := true
+  cur floor variant := 0
+  recursion := 0
+  create passage(x, y)
+  create more passages
+  generating := false
+  place stairs down(x, y)
+  setup map specials
+  set map creation(current map, true)
+  $msg="The dungeon has matured."
+  update console
+
+#  $msg="ok="
+#  append number(msg, c:okay)
+#  $msg+" nok="
+#  append number(msg, c:not okay)
+#  $msg+" r="
+#  append number(msg, c:recursion)
+#  $msg+" z="
+#  append number(msg, c:zone)
+#  update console
+
+  resume all
+  save progress
+end
+
 script, create passage, x, y, begin
   # Returns true if the passage was created
   growth cycles += 1
@@ -2448,9 +2451,17 @@ script, create more passages, begin
   x := map width / 2
   y := map height / 2
   for(i, 0, 7) do(
+    next floor variant
     if(find passage near edge(x, y, i)) then(
       create passage(find x, find y)
     )
+  )
+end
+
+script, next floor variant, begin
+  cur floor variant += 1
+  if(first floor + cur floor variant >> last floor) then(
+    cur floor variant := 0
   )
 end
 
@@ -2552,7 +2563,7 @@ script, create floor at, x, y, begin
   variable(tile)
   tile := safe read map block(x, y, layer:base)
   if(is a stairs(tile)) then(exit script) # already has stairs here, no need to write floor
-  safe write map block(x, y, floor, layer:base)
+  safe write map block(x, y, first floor + cur floor variant, layer:base)
 end
 
 script, passage okay, x, y, begin
@@ -2613,7 +2624,7 @@ script, create wall, x, y, begin
 end
 
 script, is a passage, tile, begin
-  if(tile == floor) then(exit returning(true))
+  if(tile >= first floor && tile <= last floor) then(exit returning(true))
   exit returning(false)
 end
 
