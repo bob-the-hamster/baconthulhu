@@ -2904,6 +2904,11 @@ script, clear fog of war, x, y, begin
     iy := further around y (i)
     fix fog edge at(x + ix, y + iy)
   )
+  for(i, 0, 15) do(
+    ix := even further around x (i)
+    iy := even further around y (i)
+    fix fog edge at(x + ix, y + iy)
+  )
 end
 
 script, clear fog at, x, y, begin
@@ -2911,7 +2916,12 @@ script, clear fog at, x, y, begin
 end
 
 script, fix fog edge at, x, y, begin
-  variable(cleared fog)
+  variable(tile, cleared fog)
+  tile := safe read map block(x, y, layer:fog)
+  if(tile == fog of war) then(
+    # fully fogged, no changes needed
+    exit script
+  )
   cleared fog := get fog edge(x, y)
   safe write map block(x, y, cleared fog, layer:fog)
 end
@@ -3248,6 +3258,50 @@ script, further around y, i, begin
     case(9) do(exit returning(1))
     case(10) do(exit returning(0))
     case(11) do(exit returning(-1))
+  )
+  exit returning(0)
+end
+
+script, even further around x, i, begin
+  switch(i) do(
+    case(0) do(exit returning(-1))
+    case(1) do(exit returning(0))
+    case(2) do(exit returning(1))
+    case(3) do(exit returning(2))
+    case(4) do(exit returning(3))
+    case(5) do(exit returning(3))
+    case(6) do(exit returning(3))
+    case(7) do(exit returning(2))
+    case(8) do(exit returning(1))
+    case(9) do(exit returning(0))
+    case(10) do(exit returning(-1))
+    case(11) do(exit returning(-2))
+    case(12) do(exit returning(-3))
+    case(13) do(exit returning(-3))
+    case(14) do(exit returning(-3))
+    case(15) do(exit returning(-2))
+  )
+  exit returning(0)
+end
+
+script, even further around y, i, begin
+  switch(i) do(
+    case(0) do(exit returning(-3))
+    case(1) do(exit returning(-3))
+    case(2) do(exit returning(-3))
+    case(3) do(exit returning(-2))
+    case(4) do(exit returning(-1))
+    case(5) do(exit returning(0))
+    case(6) do(exit returning(1))
+    case(7) do(exit returning(2))
+    case(8) do(exit returning(3))
+    case(9) do(exit returning(3))
+    case(10) do(exit returning(3))
+    case(11) do(exit returning(2))
+    case(12) do(exit returning(1))
+    case(13) do(exit returning(0))
+    case(14) do(exit returning(-1))
+    case(15) do(exit returning(-2))
   )
   exit returning(0)
 end
