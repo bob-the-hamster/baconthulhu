@@ -137,6 +137,8 @@ define constant(64, first floor)
 define constant(67, last floor)
 define constant(1, first chalk floor)
 define constant(7, last chalk floor)
+define constant(1, chalk x mark)
+define constant(2, chalk circle)
 define constant(7, chalk heart)
 define constant(2, first wall)
 define constant(48, last wall)
@@ -649,6 +651,84 @@ plotscript, scroll of repel, begin
   update repel meter
 end
 
+plotscript, scroll of telepo, begin
+  variable(x, y, stand)
+  create teleport cloud(hero x(0), hero y(0))
+  stand := read map block(hero x(0), hero y(0), layer:chalk)
+  if(is teleportable chalk mark(stand) && find teleportable chalk mark(stand)) then(
+    $msg="You step carefully through hyperspace."
+    update console
+  )else(
+    find random teleport spot
+    $msg="You stumble through hyperspace!"
+    update console
+  )
+  set hero position(0, find x, find y)
+  create teleport cloud(find x, find y)
+  first step
+end
+
+script, is teleportable chalk mark, tile, begin
+  if(tile == chalk x mark || tile == chalk circle || tile == chalk heart) then(exit returning(true))
+  exit returning(false)
+end
+
+script, find teleportable chalk mark, mark, begin
+  # returns results in findx and findy
+  # Return true if a valid destination was found
+  variable(sl, x, y, tile, hero at, spot)
+  sl := create container(0, 0)
+  hero at := -1
+  # Build a list of all matching chalk marks
+  for(y, 1, map height -- 2) do(
+    for(x, 1, map width -- 2) do(
+      tile := read map block(x, y, layer:chalk)
+      if(tile == mark) then(
+        if(x == hero x(0) && y == hero y(0)) then(hero at := child count(sl))
+        spot := create container(0, 0)
+        set slice x(spot, x)
+        set slice y(spot, y)
+        set parent(spot, sl)
+      )
+    )
+  )
+  if(child count(sl) <= 1) then(
+    # Need 2 or more matching marks to teleport between them
+    exit returning(false)
+  )
+  variable(dest, dest sl)
+  dest := hero at + 1
+  if(dest >= child count(sl)) then(dest := 0)
+  dest sl := slice child(sl, dest)
+  find x := slice x(dest sl)
+  find y := slice y(dest sl)
+  free slice(sl)
+  exit returning(true)
+end
+
+script, find random teleport spot, begin
+  # Return results in findx and findy.
+  # Favor unexplored passages
+  variable(i, x, y, tile, fog)
+  for(i, 0, 60) do(
+    x := random(1, map width -- 2)
+    y := random(1, map height -- 2)
+    if(x == hero x(0) && y == hero y(0)) then(continue)
+    tile := read map block(x, y, layer:base)
+    if(is a passage(tile)) then(
+      if(i <= 30) then(
+        if(not(fog at spot(x, y))) then(continue)
+      )
+      find x := x
+      find y := y
+      exit script
+    )
+  )
+  # if all else fails, the hero's current position is safe enough
+  find x := hero x(0)
+  find y := hero y(0)
+end
+
 #-----------------------------------------------------------------------
 
 script, use tool, begin
@@ -840,6 +920,7 @@ script, read scroll action, item, begin
     case(item:monarch) do(scroll of monarch)
     case(item:vegify) do(scroll of vegify)
     case(item:repel) do(scroll of repel)
+    case(item:telepo) do(scroll of telepo)
     else(
       get item name(msg, item)
       $msg + " cannot be read as a scroll"
@@ -877,6 +958,7 @@ script, setup map specials, begin
       place special item(item:brew)
       place special item(item:chalk, 2)
       place special item(item:repel)
+      place special item(item:telepo)
       place cultist
     )
     case(2) do(
@@ -901,6 +983,7 @@ script, setup map specials, begin
       place special item(item:jiffy, 2)
       place special item(item:burning)
       place special item(item:brew, 3)
+      place special item(item:telepo)
       place misa
     )
   )
@@ -2240,14 +2323,15 @@ script, get monster item, ref, begin
     )
   )
   if(percent(4)) then( #Rare drop
-    switch(random(0, 6)) do(
+    switch(random(0, 7)) do(
       case(0) do(item := item:burning)
       case(1) do(item := item:bat)
       case(2) do(item := item:monarch)
       case(3) do(item := item:burning)
       case(4) do(item := item:chalk)
       case(5) do(item := item:jiffy)
-      case(5) do(item := item:repel)
+      case(6) do(item := item:repel)
+      case(7) do(item := item:telepo)
     )
   )
   exit returning(item)
