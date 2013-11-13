@@ -45,7 +45,7 @@ global variable(38, jiffy meter)
 global variable(39, cur floor variant)
 global variable(40, repel level)
 global variable(41, repel meter)
-
+global variable(42, force save)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -74,6 +74,7 @@ define constant(7, spawn misa timer)
 define constant(8, spawn bacontologist timer)
 define constant(9, end of game timer)
 define constant(10, timer:console decay)
+define constant(11, timer:idle save)
 
 # using NPC extra data as bitsets
 define constant(0, nbit:deadend)
@@ -166,6 +167,7 @@ define constant(60, full repel charge)
 define constant(80, first crack tile)
 define constant(88, last crack tile)
 define constant(1, smashed wall floor)
+define constant(50, force save step frequency)
 
 
 #-----------------------------------------------------------------------
@@ -239,7 +241,6 @@ plotscript, reset to title screen, begin
 end
 
 plotscript, on close main menu, begin
-  log about saving
   save progress
   update meters
 end
@@ -449,6 +450,21 @@ plotscript, each step, x, y, d, no stairs=false, begin
   metabolize jiffy potion
   diffuse repel spell
   if(no stairs == false) then(climb stairs)
+  # Set the timer for an idle save after 7 seconds of not walking
+  set timer(timer:idle save, 5, 18, @do idle save)
+  force save += 1
+  if(force save >= force save step frequency) then(
+    force save := 0
+    $msg="Force save..."
+    update console
+    save progress
+  )
+end
+
+script, do idle save, begin
+  $msg="Idle save..."
+  update console
+  save progress
 end
 
 script, metabolize jiffy potion, begin
@@ -1136,6 +1152,7 @@ script, talk menu, menu id, begin
   open menu(menu id)
   wait for text box
   resume all
+  save progress
 end
 
 script, find place for special, begin
@@ -3192,13 +3209,6 @@ script, update console, begin
     string color(msg+1+i, 174 -- i * 4)
   )
   set timer(timer:console decay, 7, 18, @console decay)
-end
-
-script, log about saving, begin
-  $msg = "Saving progress..."
-  if(not(string compare(msg, msg+1))) then(
-    update console
-  )
 end
 
 script, console decay, begin
