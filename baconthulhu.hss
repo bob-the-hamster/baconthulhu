@@ -126,6 +126,9 @@ define constant(1, layer:chalk)
 define constant(2, layer:item)
 define constant(3, layer:fog)
 
+# Sfx constants
+define constant(0, s:coin pickup)
+
 # other constants
 define constant(18, seconds)
 define constant(-1, counterclockwise)
@@ -2504,6 +2507,7 @@ script, pick up treasure, x, y, begin
       get money(3 ^ i)
       update money display
       safe write map block(x, y, void, layer:item)
+      play sound(s:coin pickup + i)
       exit script
     )
   )
