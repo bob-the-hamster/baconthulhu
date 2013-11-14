@@ -45,7 +45,7 @@ global variable(38, jiffy meter)
 global variable(39, cur floor variant)
 global variable(40, repel level)
 global variable(41, repel meter)
-global variable(42, force save)
+global variable(42, force save steps)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -451,17 +451,15 @@ plotscript, each step, x, y, d, no stairs=false, begin
   diffuse repel spell
   if(no stairs == false) then(climb stairs)
   # Set the timer for an idle save after 7 seconds of not walking
-  set timer(timer:idle save, 5, 18, @do idle save)
-  force save += 1
-  if(force save >= force save step frequency) then(
-    force save := 0
-    $msg="Force save..."
-    update console
-    save progress
+  set timer(timer:idle save, 4, 18, @do idle save)
+  force save steps += 1
+  if(force save steps >= force save step frequency) then(
+      set timer(timer:idle save, 0, 18, @do idle save)
   )
 end
 
 script, do idle save, begin
+  force save steps := 0
   $msg="Idle save..."
   update console
   save progress
