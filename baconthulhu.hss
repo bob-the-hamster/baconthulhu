@@ -326,6 +326,7 @@ plotscript, on load game, begin
    init for new game and load game
    set hero position(0, hero x(0), hero y(0))
    init map
+   update money display
    if(death count >= 1) then(
      save scum
    )
@@ -611,6 +612,7 @@ plotscript, scroll of burning, begin
       )
     )
   )
+  play sound(sfx:burning)
 end
 
 plotscript, scroll of instakill, begin
@@ -638,6 +640,7 @@ plotscript, scroll of bat, begin
     $msg = "There are no cultists on this floor."
     update console
   )
+  play sound(sfx:bat)
 end
 
 plotscript, scroll of monarch, begin
@@ -647,6 +650,7 @@ plotscript, scroll of monarch, begin
     $msg = "This is the final floor of the crypt."
     update console
   )
+  play sound(sfx:monarch)
 end
 
 plotscript, scroll of vegify, begin
@@ -663,6 +667,7 @@ plotscript, scroll of vegify, begin
       )
     )
   )
+  play sound(sfx:vegify)
 end
 
 plotscript, scroll of repel, begin
@@ -670,6 +675,7 @@ plotscript, scroll of repel, begin
   $msg="The monsters flee in confusion!"
   update console
   update repel meter
+  play sound(sfx:repel)
 end
 
 plotscript, scroll of telepo, begin
@@ -690,6 +696,7 @@ plotscript, scroll of telepo, begin
   )
   set hero position(0, find x, find y)
   create teleport cloud(find x, find y)
+  play sound(sfx:teleport)
   first step
 end
 
@@ -826,9 +833,11 @@ script, use maul, begin
       write pass block(x, y, none)
       $msg="The wall shudders and crumbles"
       update console
+      play sound(sfx:wallcrumble)
     )else(
       # weaken the wall
       write map block(x, y, tile + 1, layer:chalk)
+      play sound(sfx:impact)
     )
   )
   modify hero stamina(-2)
@@ -911,6 +920,7 @@ script, drink potion, begin
   if(atk) then(
     outside battle cure(atk--1, 0, 0)
   )
+  play sound(sfx:tonic)
   if(inventory(item)) then(
     $msg = "Drank a "
     get item name(tmp str, item)
@@ -2522,7 +2532,15 @@ script, pick up treasure, x, y, begin
       get money(3 ^ i)
       update money display
       safe write map block(x, y, void, layer:item)
-      play sound(s:coin pickup + i)
+      if(i == 0) then(
+        switch(random(0,2)) do(
+          case(0) do(play sound(0))
+          case(1) do(play sound(4))
+          case(2) do(play sound(5))
+        )
+      )else(
+        play sound(s:coin pickup + i)
+      )
       exit script
     )
   )
