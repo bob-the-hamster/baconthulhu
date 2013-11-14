@@ -253,6 +253,7 @@ plotscript, save and quit from menu, begin
 end
 
 script, save progress, begin
+  force save steps := 0
   # This only knows how to save the state of the current map, so it is 
   # vital that it should always be called before you change maps.
   save in slot(1)
@@ -451,18 +452,17 @@ plotscript, each step, x, y, d, no stairs=false, begin
   metabolize jiffy potion
   diffuse repel spell
   if(no stairs == false) then(climb stairs)
-  # Set the timer for an idle save after 7 seconds of not walking
+  # Set the timer for an idle save after 5 seconds of not walking
   set timer(timer:idle save, 4, 18, @do idle save)
   force save steps += 1
   if(force save steps >= force save step frequency) then(
-      set timer(timer:idle save, 0, 18, @do idle save)
+    # If we have been walking a long time without a save, shorten the idle timeout to 1 sec
+    set timer(timer:idle save, 0, 18, @do idle save)
   )
 end
 
 script, do idle save, begin
   force save steps := 0
-  $msg="Idle save..."
-  update console
   save progress
 end
 
