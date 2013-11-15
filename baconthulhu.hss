@@ -569,10 +569,12 @@ script, climb stairs, begin
     save progress
     variable(dest)
     if(tile == stairs up) then(
+      play sound(sfx:stairs up)
       dest := current map -- 1
       teleport to map(dest, get down stairs x(dest), get down stairs y(dest))
     )
     if(tile == stairs down) then(
+      play sound(sfx:stairs down)
       dest := current map + 1
       teleport to map(dest, get up stairs x(dest), get up stairs y(dest))
     )
@@ -839,6 +841,8 @@ script, use maul, begin
       write map block(x, y, tile + 1, layer:chalk)
       play sound(sfx:impact)
     )
+  )else(
+    play sound(sfx:solid wall)
   )
   modify hero stamina(-2)
 end
@@ -1471,6 +1475,7 @@ script, hero dies, begin
   show text box(2)
   death count += 1
   save progress
+  play sound(sfx:death laugh)
   wait(1)
   tweak palette(30,-30,-30)
   fade screen in
@@ -1597,16 +1602,17 @@ end
 script, hero attack effect, x, y, d, begin
   variable(effect)
   switch(check equipment(0, slot:melee)) do(
-    case(item:punch) do(effect := effect:punch)
-    case(item:sword) do(effect := effect:sword)
-    case(item:axe) do(effect := effect:axe)
-    case(item:tofu) do(effect := effect:tofu)
+    case(item:punch) do(effect := effect:punch, play sound(sfx:punch))
+    case(item:sword) do(effect := effect:sword, play sound(sfx:slash))
+    case(item:axe) do(effect := effect:axe, play sound(sfx:slash))
+    case(item:tofu) do(effect := effect:tofu, play sound(sfx:slash))
   )
   create walkabout effect(effect, x, y, d, 4)
 end
 
 script, miss effect, x, y, begin
   create walkabout effect(effect:miss, x, y, 0, 2)
+  play sound(sfx:miss)
 end
 
 script, apply encumbrance, begin
@@ -1660,6 +1666,9 @@ script, damage hero, amount, begin
   set hero stat(0, stat:health, hp, current stat)
   update health meter
   if(hp == 0) then(hero dies)
+  if(hp >= 1 && hp <= 2) then(
+    play sound(sfx:low hp alert)
+  )
 end
 
 script, heal hero, amount, begin
@@ -2339,6 +2348,7 @@ end
 script, kill monster, ref, begin
   monster drops treasure(ref)
   destroy npc(ref)
+  play sound(sfx:enemy die)
   misa reaction to monster kill
   hero victory
 end
@@ -2443,6 +2453,7 @@ script, monster attack effect, ref, x, y, d, begin
     else(effect := effect:punch)
   )
   create walkabout effect(effect, x, y, d, 3)
+  play sound(sfx:punch)
 end
 
 script, monster atk power, ref, begin
@@ -2553,6 +2564,11 @@ script, pick up treasure, x, y, begin
     get item name(tmp str, item)
     msg $+ tmp str
     update console
+    $msg=""
+    get item description(tmp str, item)
+    msg $+ tmp str
+    update console
+    play sound(sfx:item pickup)
   )
 end
 
