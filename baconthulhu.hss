@@ -46,6 +46,7 @@ global variable(39, cur floor variant)
 global variable(40, repel level)
 global variable(41, repel meter)
 global variable(42, force save steps)
+global variable(43, money sl)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -327,6 +328,7 @@ plotscript, on load game, begin
    init for new game and load game
    set hero position(0, hero x(0), hero y(0))
    init map
+   money sl := 0
    update money display
    if(death count >= 1) then(
      save scum
@@ -1163,6 +1165,7 @@ script, talk menu, menu id, begin
   advance text box
   open menu(menu id)
   wait for text box
+  update money display
   resume all
   save progress
 end
@@ -1250,7 +1253,9 @@ script, hide all strings, begin
   for(i, msg+1, msg+4) do(
     hide string(i)
   )
-  hide string(money str)
+  if(money sl) then(
+    set slice visible(money sl, false)
+  )
 end
 
 script, show all strings, begin
@@ -1258,7 +1263,9 @@ script, show all strings, begin
   for(i, 0, 3) do(
     show string at(msg+1+i, 0, 190 -- i * 10)
   )
-  show string at(money str, 0, 17)
+  if(money sl) then(
+    set slice visible(money sl, true)
+  )
 end
 
 #-----------------------------------------------------------------------
@@ -2575,7 +2582,12 @@ end
 script, update money display, begin
   $money str = "$"
   append number(money str, party money)
-  show string at(money str, 0, 17)
+  if(not(money sl)) then(
+    money sl := create text
+    set outline(money sl, true)
+  )
+  set slice text(money sl, money str)
+  put slice(money sl, 0, 17)
 end
 
 plotscript, trade tinfoil pants for science, begin
