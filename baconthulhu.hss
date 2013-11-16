@@ -924,7 +924,11 @@ script, drink potion, begin
   variable(atk)
   atk := lookup item attack(item)
   if(atk) then(
-    outside battle cure(atk--1, 0, 0)
+    if(atk == atk:Soma) then(
+      drink soma potion
+    )else(
+      outside battle cure(atk--1, 0, 0)
+    )
   )
   play sound(sfx:tonic)
   if(inventory(item)) then(
@@ -949,6 +953,15 @@ script, drink potion, begin
     adjust speed for jiffy
   )
   update meters
+end
+
+plotscript, drink soma potion, begin
+  set hero stat(0, stat:health, get hero stat(0, stat:health, maximum stat) + 1, maximum stat)
+  set hero stat(0, stat:health, get hero stat(0, stat:health) + 1)
+  $msg="The potion makes you feel healthier"
+  update console
+  update meters
+  play sound(sfx:tonic)
 end
 
 plotscript, drink jiffy potion, begin
