@@ -248,7 +248,7 @@ end
 
 plotscript, save and quit from menu, begin
   # Don't actually need to call "save progress" here because
-  # it will have always been called mjust a moment before in
+  # it will have always been called just a moment before in
   # "on close main menu"
   reset to title screen
 end
@@ -291,9 +291,11 @@ script, save progress, begin
       p += 1
       if(is monster(ref)) then(
         v := get monster hp(ref)
-        write global(p, v)
-        p += 1
+      )else(
+        v := 0
       )
+      write global(p, v)
+      p += 1
       how many += 1
     )
   )
@@ -308,7 +310,7 @@ script, save progress, begin
   # Flush all temporary globals
   variable(i)
   for(i, savetmp, 16383) do(
-    write global(p, 0)
+    write global(i, 0)
   )
 end
 
@@ -389,7 +391,9 @@ script, try to load map, begin
     d := v / 16777216
     tile := read map block(x, y, layer:base)
     if(not(is a passage(tile))) then(
-      $msg="SANITY: monster "
+      $msg="SANITY: "
+      append number(msg, i)
+      $msg+" monster "
       append number(msg, id)
       $msg+" loaded in wall "
       append number(msg, x)
@@ -405,8 +409,9 @@ script, try to load map, begin
     )
     ref := create npc(id, x, y, d)
     p += 1
+    hp := read global(p)
+    p += 1
     if(is monster(ref)) then(
-      hp := read global(p)
       max hp := get monster max hp(ref)
       if(hp >> max hp) then(
         $msg="SANITY: monster "
@@ -420,7 +425,6 @@ script, try to load map, begin
         hp := max hp
       )
       set monster hp(ref, hp)
-      p += 1
     )
   )
   # Done!
@@ -1145,6 +1149,7 @@ script, ensure bacontologist, begin
 end
 
 script, ensure misa, begin
+  if(check tag(tag:date with Misa)) then(exit script)
   if(npc copy count(misa the hamster) == 0) then(
     $msg="You feel a distant warmth."
     update console
