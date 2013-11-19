@@ -159,7 +159,7 @@ define constant(15, item icons)
 define constant(1, fog of war)
 define constant(25, treasure rate)
 define constant(1, spawn delay)
-define constant(5, last monster slot)
+define constant(6, last monster slot)
 define constant(12, monsters per kilotile)
 define constant(33, monster item rate)
 define constant(6, chalk use count)
@@ -378,7 +378,7 @@ script, try to load map, begin
     )
   )
   # Load the NPC state
-  variable(i, how many, ref, id, d)
+  variable(i, how many, ref, id, d, hp, max hp)
   how many := read global(p)
   p += 1
   for(i, 0, how many -- 1) do(
@@ -387,11 +387,39 @@ script, try to load map, begin
     x := (v ,AND, 65535) / 256
     y := (v ,AND, 16777215) / 65536
     d := v / 16777216
+    tile := read map block(x, y, layer:base)
+    if(not(is a passage(tile))) then(
+      $msg="SANITY: monster "
+      append number(msg, id)
+      $msg+" loaded in wall "
+      append number(msg, x)
+      $msg+","
+      append number(msg, y)
+      if(find monster spawn pos) then(
+        x := find x
+        y := find y
+      )else(
+        $msg+" unfixed"
+      )
+      trace(msg)
+    )
     ref := create npc(id, x, y, d)
     p += 1
     if(is monster(ref)) then(
-      v := read global(p)
-      set monster hp(ref, v)
+      hp := read global(p)
+      max hp := get monster max hp(ref)
+      if(hp >> max hp) then(
+        $msg="SANITY: monster "
+        append number(msg, id)
+        $msg+" "
+        append number(msg, ref)
+        $msg+" loaded "
+        append number(msg, hp)
+        $msg+" hp"
+        trace(msg)
+        hp := max hp
+      )
+      set monster hp(ref, hp)
       p += 1
     )
   )
@@ -427,7 +455,7 @@ script, init map, begin
   set on keypress script(@on keypress)
   expire all effects
   each tick
-  set timer(spawn timer, spawn delay, 18, @random monster spawn)
+  reset spawn timer
   set timer(temp timer, 0, 1, @first step)
   if(try to load map) then(
     $msg="Continuing your quest..."
@@ -1092,6 +1120,10 @@ script, sanity check talkers, begin
     )
     case(4) do(
       ensure misa
+    )
+    case(5) do(
+     $msg="You heart sizzles with terror"
+     update console
     )
   )
 end
@@ -2249,20 +2281,30 @@ script, max monsters for this map, begin
 end
 
 script, random monster spawn, begin
-  variable(i, x, y, tile)
   if(monster count << max monsters for this map && generating == false) then(
-    for(i, 0, 29) do( # make 30 attempts to spawn
-      x:= random(1, map width--2)
-      y:= random(1, map height--2)
-      if(abs(x -- hero x) <= 2 && abs(y -- hero y) <= 2) then(continue)
-      tile := safe read map block(x, y, layer:base)
-      if(is a passage(tile)) then(
-        start spawn monster(x, y)
-        exit script
-      )
+    if(find monster spawn pos) then(
+        start spawn monster(find x, find y)
     )
   )
   reset spawn timer
+end
+
+script, find monster spawn pos, begin
+  # Results are returned in findx and findy
+  # Returns true if location was found.
+  variable(i, x, y, tile)
+  for(i, 0, 49) do( # make 50 attempts to spawn
+    x:= random(1, map width--2)
+    y:= random(1, map height--2)
+    if(abs(x -- hero x) <= 2 && abs(y -- hero y) <= 2) then(continue)
+    tile := read map block(x, y, layer:base)
+    if(is a passage(tile)) then(
+      find x := x
+      find y := y
+      exit returning(true)
+    )
+  )
+  exit returning(false)
 end
 
 script, monster count, begin
@@ -2303,10 +2345,12 @@ end
 
 script, random monster for this map, begin
   switch(current map) do(
-    case(last map) do(exit returning(bacon body))
     case(0) do(exit returning(random(0,2))) # only first 3 monsters on map 0
     case(1) do(exit returning(random(0,3))) # only first 4 monsters on map 1
     case(2) do(exit returning(random(0,4))) # only first 5 monsters on map 2
+    case(3) do(exit returning(random(0,5))) # only first 6 monsters on map 3
+    case(4) do(exit returning(random(0,6))) # All monsters on map 4
+    case(last map) do(exit returning(bacon body))
     else(exit returning(random(0, last monster slot)))
   )
 end
@@ -2342,6 +2386,7 @@ script, get monster max hp, ref, begin
     case(3) do(max := 3) # Bird-jellyfish slightly stronger
     case(4) do(max := 4) # Purple Cogre stronger
     case(5) do(max := 4) # Monocular Blarb stronger
+    case(6) do(max := 1) # Meat Man is weak (but fast!)
     case(bacon body) do(max := 8) # bacon body is very strong
     else(max := 2)
   )
