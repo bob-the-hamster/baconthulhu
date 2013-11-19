@@ -47,6 +47,7 @@ global variable(40, repel level)
 global variable(41, repel meter)
 global variable(42, force save steps)
 global variable(43, money sl)
+global variable(44, passage ms)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -222,7 +223,7 @@ script, show select screen, begin
   )
   while(select menu done == false) do(
     open menu(3)
-    if(keyval(key:ESC) >> 0) then(reset to title screen)
+    if(keyval(key:ESC) > 0) then(reset to title screen)
     wait for text box
     wait(1)
   )
@@ -301,7 +302,7 @@ script, save progress, begin
   )
   write global(how many p, how many)
   # Flush the remainder of the globals
-  while(p << 16383) do(
+  while(p < 16383) do(
     write global(p, 0)
     p += 1
   )
@@ -413,7 +414,7 @@ script, try to load map, begin
     p += 1
     if(is monster(ref)) then(
       max hp := get monster max hp(ref)
-      if(hp >> max hp) then(
+      if(hp > max hp) then(
         $msg="SANITY: monster "
         append number(msg, id)
         $msg+" "
@@ -501,7 +502,7 @@ script, do idle save, begin
 end
 
 script, metabolize jiffy potion, begin
-  if(jiffy level >> 0) then(
+  if(jiffy level > 0) then(
     jiffy level -= 1
     update jiffy meter
     if(jiffy level == 0) then(
@@ -513,7 +514,7 @@ script, metabolize jiffy potion, begin
 end
 
 script, diffuse repel spell, begin
-  if(repel level >> 0) then(
+  if(repel level > 0) then(
     repel level -= 1
     update repel meter
     if(repel level == 0) then(
@@ -525,7 +526,7 @@ script, diffuse repel spell, begin
 end
 
 script, adjust speed for jiffy, begin
-  if(jiffy level >> 0) then(
+  if(jiffy level > 0) then(
     set hero speed(0, 10)
   )else(
     set hero speed(0, 4)
@@ -533,29 +534,29 @@ script, adjust speed for jiffy, begin
 end
 
 plotscript, on keypress, begin
-  if(keyval(key:tilde)>>0) then(
+  if(keyval(key:tilde)>0) then(
     # cheat keys
-    if(keyval(key:M)>>1) then(reveal map)
-    if(keyval(key:G)>>1) then(get money(100), update money display)
-    if(keyval(key:D)>>1) then(use shop(4))
+    if(keyval(key:M)>1) then(reveal map)
+    if(keyval(key:G)>1) then(get money(100), update money display)
+    if(keyval(key:D)>1) then(use shop(4))
   )
   while(true) do( # hack loop so we can use "break"
-    if(keyval(key:up)>>1)    then(hero motion(up),    break)
-    if(keyval(key:right)>>1) then(hero motion(right), break)
-    if(keyval(key:down)>>1)  then(hero motion(down),  break)
-    if(keyval(key:left)>>1)  then(hero motion(left),  break)
+    if(keyval(key:up)>1)    then(hero motion(up),    break)
+    if(keyval(key:right)>1) then(hero motion(right), break)
+    if(keyval(key:down)>1)  then(hero motion(down),  break)
+    if(keyval(key:left)>1)  then(hero motion(left),  break)
     if(current text box >= 0) then(
-      if(keyval(key:E)>>1)     then(advance text box)
-      if(keyval(key:I)>>1)     then(advance text box)
-      if(keyval(key:Z)>>1)     then(advance text box)
-      if(keyval(key:X)>>1)     then(advance text box)
-      if(keyval(key:C)>>1)     then(advance text box)
+      if(keyval(key:E)>1)     then(advance text box)
+      if(keyval(key:I)>1)     then(advance text box)
+      if(keyval(key:Z)>1)     then(advance text box)
+      if(keyval(key:X)>1)     then(advance text box)
+      if(keyval(key:C)>1)     then(advance text box)
     )else(
       if(tool key pressed)     then(talk or use tool)
-      if(keyval(key:E)>>1)     then(show equip)
-      if(keyval(key:I)>>1)     then(show inventory)
-      if(keyval(key:X)>>1)     then(drink potion)
-      if(keyval(key:C)>>1)     then(read scroll)
+      if(keyval(key:E)>1)     then(show equip)
+      if(keyval(key:I)>1)     then(show inventory)
+      if(keyval(key:X)>1)     then(drink potion)
+      if(keyval(key:C)>1)     then(read scroll)
     )
     break
   )
@@ -578,7 +579,7 @@ script, talk or use tool, begin
 end
 
 script, tool key pressed, begin
-  exit returning(keyval(key:Z)>>1 || keyval(key:space) >> 1 || keyval(key:enter) >> 1)
+  exit returning(keyval(key:Z)>1 || keyval(key:space) > 1 || keyval(key:enter) > 1)
 end
 
 script, each tick, begin
@@ -680,7 +681,7 @@ plotscript, scroll of bat, begin
 end
 
 plotscript, scroll of monarch, begin
-  if(current map << last map) then(
+  if(current map < last map) then(
     create weapon effect(magic:monarch, hero x, hero y, 999)
   )else(
     $msg = "This is the final floor of the crypt."
@@ -897,7 +898,7 @@ plotscript, chalk action, num, begin
     )else(
       # Create/change mark
       ctile := first chalk floor + num
-      if(ctile << first chalk floor || ctile >> last chalk floor) then(exit script)
+      if(ctile < first chalk floor || ctile > last chalk floor) then(exit script)
       wear down chalk
     )
     write map block(hero x(0), hero y(0), ctile, layer:chalk)
@@ -1432,7 +1433,7 @@ script, update jiffy meter, begin
   cur := jiffy level
   max := full jiffy charge
   update meter(jiffy meter, cur, max)
-  set slice visible(jiffy meter, jiffy level >> 0)
+  set slice visible(jiffy meter, jiffy level > 0)
 end
 
 script, update repel meter, begin
@@ -1440,7 +1441,7 @@ script, update repel meter, begin
   cur := repel level
   max := full repel charge
   update meter(repel meter, cur, max)
-  set slice visible(repel meter, repel level >> 0)
+  set slice visible(repel meter, repel level > 0)
 end
 
 script, start hero victory, begin
@@ -1544,7 +1545,7 @@ script, hero dies, begin
 end
 
 script, update hero, begin
-  if(hero atk frames >> 0) then(
+  if(hero atk frames > 0) then(
     hero atk frames -= 1
     if(hero atk frames == 0) then(
       set hero picture(0, hero walking)
@@ -1621,7 +1622,7 @@ script, hero attack monster, ref, begin
 end
 
 script, percent, n, begin
-  exit returning(random(0, 99) << n)
+  exit returning(random(0, 99) < n)
 end
 
 script, hero attack attempt, begin
@@ -1632,7 +1633,7 @@ script, hero can attack, begin
   variable(stamina, burden)
   stamina := get hero stat(0, stat:stamina, current stat)
   burden := get hero stat(0, stat:burden)
-  if (stamina -- burden << 0) then(exit returning(false))
+  if (stamina -- burden < 0) then(exit returning(false))
   exit returning(true)
 end
 
@@ -1683,8 +1684,8 @@ script, modify hero stamina, amount, begin
   n := get hero stat(0, stat:stamina, current stat)
   max := get hero stat(0, stat:stamina, maximum stat)
   n += amount
-  if(n << 0) then(n := 0)
-  if(n >> max) then(n := max) 
+  if(n < 0) then(n := 0)
+  if(n > max) then(n := max) 
   set hero stat(0, stat:stamina, n, current stat)
   update stamina meter
 end
@@ -1711,7 +1712,7 @@ script, hero regen, begin
   )
   variable(delay)
   delay := 26 -- get hero stat(0, stat:recovery)
-  if(delay << 8) then(delay := 8)
+  if(delay < 8) then(delay := 8)
   set timer(regen timer, 1, delay, @hero regen)
 end
 
@@ -1772,12 +1773,12 @@ script, update effects, begin
     update effect(sl)
     age := age effect(sl, 1)
     ticks := get effect ticks(sl)
-    if(age >= ticks && ticks >> -1) then(deleteme := sl)
+    if(age >= ticks && ticks > -1) then(deleteme := sl)
     sl := next sibling(sl)
     if(deleteme) then(free slice(deleteme))
   )
   update counter += 1
-  if(update counter>>9999999) then(update counter := 0)
+  if(update counter>9999999) then(update counter := 0)
 end
 
 script, update effect, sl, begin
@@ -1820,10 +1821,10 @@ script, explode toward hero, sl, begin
   variable(diff x, diff y)
   diff x := hero x -- slice x(sl) / 20
   diff y := hero y -- slice y(sl) / 20
-  if(diff x << 0) then(diff x := random(-5, -2))
-  if(diff x >> 0) then(diff x := random(2, 5))
-  if(diff y << 0) then(diff y := random(-5, -2))
-  if(diff y >> 0) then(diff y := random(2, 5))
+  if(diff x < 0) then(diff x := random(-5, -2))
+  if(diff x > 0) then(diff x := random(2, 5))
+  if(diff y < 0) then(diff y := random(-5, -2))
+  if(diff y > 0) then(diff y := random(2, 5))
   if(diff x == 0 && diff y == 0) then(diff x := random(-5, 5), diff y := random(-5, 5))
   set slice x(sl, slice x(sl) + diff x)
   set slice y(sl, slice y(sl) + diff y)
@@ -1872,13 +1873,13 @@ script, effect follows pos, sl, x, y, speed=2, threshold=4, callback=none, begin
   )
   variable(xgo, ygo)
   xgo := speed
-  if(speed >> abs(diff x)) then(xgo := abs(diff x))
+  if(speed > abs(diff x)) then(xgo := abs(diff x))
   ygo := speed
-  if(speed >> abs(diff y)) then(ygo := abs(diff y))
-  if(diff x << 0) then(set slice x(sl, slice x(sl) -- speed))
-  if(diff x >> 0) then(set slice x(sl, slice x(sl) + speed))
-  if(diff y << 0) then(set slice y(sl, slice y(sl) -- speed))
-  if(diff y >> 0) then(set slice y(sl, slice y(sl) + speed))
+  if(speed > abs(diff y)) then(ygo := abs(diff y))
+  if(diff x < 0) then(set slice x(sl, slice x(sl) -- speed))
+  if(diff x > 0) then(set slice x(sl, slice x(sl) + speed))
+  if(diff y < 0) then(set slice y(sl, slice y(sl) -- speed))
+  if(diff y > 0) then(set slice y(sl, slice y(sl) + speed))
 end
 
 script, effect flutters after npc, sl, ref, threshold=4, callback=none, begin
@@ -2131,8 +2132,8 @@ end
 
 script, rotate, d, wise, begin
   d += wise
-  if(d << 0) then(d := 3)
-  if(d >> 3) then(d := 0)
+  if(d < 0) then(d := 3)
+  if(d > 3) then(d := 0)
   exit returning(d)
 end
 
@@ -2239,24 +2240,24 @@ script, turn npc towards hero, ref, begin
   diff x := hero x -- npc x(ref)
   diff y := hero y -- npc y(ref)
   if(diff x == 0) then(
-    if(diff y >> 0) then(d := down)
-    if(diff y << 0) then(d := up)
+    if(diff y > 0) then(d := down)
+    if(diff y < 0) then(d := up)
   )
   if(diff y == 0) then(
-    if(diff x >> 0) then(d := right)
-    if(diff x << 0) then(d := left)
+    if(diff x > 0) then(d := right)
+    if(diff x < 0) then(d := left)
   )
   if(diff x <> 0 && diff y <> 0) then(
-    if(diff x >> diff y) then(
-      if(diff y >> 0) then(d := down)
-      if(diff y << 0) then(d := up)
+    if(diff x > diff y) then(
+      if(diff y > 0) then(d := down)
+      if(diff y < 0) then(d := up)
     )
-    if(diff x << diff y) then(
-      if(diff x >> 0) then(d := right)
-      if(diff x << 0) then(d := left)
+    if(diff x < diff y) then(
+      if(diff x > 0) then(d := right)
+      if(diff x < 0) then(d := left)
     )
   )
-  if(repel level >> 0) then(
+  if(repel level > 0) then(
     d := (d + 2) ,mod, 4
   )
   set npc direction(ref, d)
@@ -2266,14 +2267,14 @@ script, distance to monster in pixels under, ref, dist, begin
   variable(diff x, diff y)
   diff x := hero pixel x -- npc pixel x(ref)
   diff y := hero pixel y -- npc pixel y(ref)
-  exit returning(diff x ^ 2 + diff y ^ 2 << dist ^ 2)
+  exit returning(diff x ^ 2 + diff y ^ 2 < dist ^ 2)
 end
 
 script, distance from effect to monster in pixels under, sl, ref, dist, begin
   variable(diff x, diff y)
   diff x := slice x(sl) -- npc pixel x(ref)
   diff y := slice y(sl) -- npc pixel y(ref)
-  exit returning(diff x ^ 2 + diff y ^ 2 << dist ^ 2)
+  exit returning(diff x ^ 2 + diff y ^ 2 < dist ^ 2)
 end
 
 #-----------------------------------------------------------------------
@@ -2281,12 +2282,12 @@ end
 script, max monsters for this map, begin
   variable(n)
   n := ((monsters per kilotile * 1000) / 1024 * (map width * map height)) / 1000
-  if (n >> 64) then(n := 64) # Max of 64
+  if (n > 64) then(n := 64) # Max of 64
   exit returning(n)
 end
 
 script, random monster spawn, begin
-  if(monster count << max monsters for this map && generating == false) then(
+  if(monster count < max monsters for this map && generating == false) then(
     if(find monster spawn pos) then(
       start spawn monster(find x, find y)
       exit script
@@ -2403,7 +2404,7 @@ script, decrement monster atk frames, ref, begin
   variable(n)
   n := get monster atk frames(ref)
   n -= 1
-  if(n << 0) then(n := 0)
+  if(n < 0) then(n := 0)
   set monster atk frames(ref, n)
 end
 
@@ -2411,7 +2412,7 @@ script, damage monster, ref, amount, begin
   variable(hp)
   hp := get monster hp(ref)
   hp -= amount
-  if(hp << 0) then(hp := 0)
+  if(hp < 0) then(hp := 0)
   set monster hp(ref, hp)
   if(hp == 0) then(kill monster(ref))
 end
@@ -2666,26 +2667,26 @@ end
 #-----------------------------------------------------------------------
 
 script, safe write map block, x, y, tile, layer=0, begin
-  if(x << 0) then(exit returning(true))
+  if(x < 0) then(exit returning(true))
   if(x >= map width) then(exit returning(true))
-  if(y << 0) then(exit returning(true))
+  if(y < 0) then(exit returning(true))
   if(y >= map height) then(exit returning(true))
   write map block(x, y, tile, layer)
   exit returning(false)
 end
 
 script, safe read map block, x, y, layer=0, begin
-  if(x << 0) then(exit returning(-1))
+  if(x < 0) then(exit returning(-1))
   if(x >= map width) then(exit returning(-1))
-  if(y << 0) then(exit returning(-1))
+  if(y < 0) then(exit returning(-1))
   if(y >= map height) then(exit returning(-1))
   exit returning(read map block(x, y, layer))
 end
 
 script, safe write pass block, x, y, pass, begin
-  if(x << 0) then(exit returning(true))
+  if(x < 0) then(exit returning(true))
   if(x >= map width) then(exit returning(true))
-  if(y << 0) then(exit returning(true))
+  if(y < 0) then(exit returning(true))
   if(y >= map height) then(exit returning(true))
   write pass block(x, y, pass)
   exit returning(false)
@@ -2707,6 +2708,7 @@ plotscript, generate map, begin
   wait(1)
   generating := true
   cur floor variant := 0
+  passage ms := milliseconds
   recursion := 0
   create passage(x, y)
   create more passages
@@ -2717,17 +2719,6 @@ plotscript, generate map, begin
   set map creation(current map, true)
   $msg="The dungeon has matured."
   update console
-
-#  $msg="ok="
-#  append number(msg, c:okay)
-#  $msg+" nok="
-#  append number(msg, c:not okay)
-#  $msg+" r="
-#  append number(msg, c:recursion)
-#  $msg+" z="
-#  append number(msg, c:zone)
-#  update console
-
   resume all
   save progress
 end
@@ -2746,13 +2737,19 @@ script, create passage, x, y, begin
   #  append number(msg, c:zone)
   #  trace(msg)
   #)
-  if(recursion >> 100) then(
+  if(recursion > 100) then(
     c:recursion += 1
     exit returning(false)
   )
   if(read zone(1, x, y)) then(
     c:zone += 1
     exit returning(false)
+  )
+  # Avoid unresponsive script timeouts
+  if(milliseconds -- passage ms > 1000) then(
+    write map block(hero x(0), hero y(0), void, layer:fog)
+    wait(1)
+    passage ms := milliseconds
   )
   if(passage okay(x, y) == false) then(
     write zone(1, x, y, true)
@@ -2783,7 +2780,7 @@ script, create passage, x, y, begin
       iy := compass y(i)
       ok := create passage(x + ix, y + iy)
       safety += 1
-      if(safety >> 5) then(ok := true)
+      if(safety > 5) then(ok := true)
     )
   )
   recursion -= 1
@@ -2805,7 +2802,7 @@ end
 
 script, next floor variant, begin
   cur floor variant += 1
-  if(first floor + cur floor variant >> last floor) then(
+  if(first floor + cur floor variant > last floor) then(
     cur floor variant := 0
   )
 end
@@ -2889,17 +2886,17 @@ script, is nearby passage, x, y, begin
 end
 
 script, pos is on map, x, y, begin
-  if(x << 0) then(exit returning(false))
+  if(x < 0) then(exit returning(false))
   if(x >= map width) then(exit returning(false))
-  if(y << 0) then(exit returning(false))
+  if(y < 0) then(exit returning(false))
   if(y >= map height) then(exit returning(false))
   exit returning(true)
 end
 
 script, pos is on map minus edge, x, y, begin
-  if(x << 1) then(exit returning(false))
+  if(x < 1) then(exit returning(false))
   if(x >= map width--1) then(exit returning(false))
-  if(y << 1) then(exit returning(false))
+  if(y < 1) then(exit returning(false))
   if(y >= map height--1) then(exit returning(false))
   exit returning(true)
 end
@@ -3024,7 +3021,7 @@ script, is a wall, tile, begin
 end
 
 script, is item icon, tile, begin
-  exit returning(tile >> item icons)
+  exit returning(tile > item icons)
 end
 
 script, fix all walls, begin
@@ -3209,7 +3206,7 @@ end
 
 script, place stairs up, x, y, begin
   if(get up stairs x(current map) == 0 && get up stairs y(current map) == 0) then(
-    if(current map >> 0) then(
+    if(current map > 0) then(
       safe write map block(x, y, stairs up)
     end
     set up stairs x(current map, x)
@@ -3232,7 +3229,7 @@ script, place stairs down, up x, up y, begin
         down y := find y
       )
     )
-    if(current map << last map) then(
+    if(current map < last map) then(
       safe write map block(down x, down y, stairs down)
       safe write map block(down x, down y, void, layer:item) # no treasure on stairs!
     end
@@ -3244,7 +3241,7 @@ end
 script, find tunnel end, begin
   variable(x, y, tile, safety, count)
   # try 50 times to find a tunnel ending
-  while(safety << 50) do(
+  while(safety < 50) do(
     x := random(1, map width--2)
     y := random(1, map height--2)
     tile := safe read map block(x, y)
@@ -3269,7 +3266,7 @@ script, found was further, origin x, origin y, compare x, compare y, begin
   variable(dist1, dist2)
   dist1 := diff1 x^2 + diff1 y^2
   dist2 := diff2 x^2 + diff2 y^2
-  exit returning(dist1 >> dist2)
+  exit returning(dist1 > dist2)
 end
 
 #-----------------------------------------------------------------------
@@ -3286,7 +3283,7 @@ script, create treasure, x, y, rate=-1, level=0, begin
     if(level >= treasure types) then(level := treasure types -- 1)
     safe write map block(x, y, first treasure+level, layer:item)
   )else(
-    if(level << treasure types--1) then(
+    if(level < treasure types--1) then(
       create treasure(x, y, -1, level+1)
     )
   )
@@ -3295,7 +3292,7 @@ end
 script, read treasure, x, y, begin
   variable(tile)
   tile := safe read map block(x, y, layer:item)
-  if(tile >= first treasure && tile << first treasure + treasure types) then(
+  if(tile >= first treasure && tile < first treasure + treasure types) then(
     exit returning(tile)
   )
   exit returning(false)
@@ -3322,7 +3319,7 @@ end
 script, console decay, begin
   variable(i)
   for(i, 4, 1, -1) do(
-    if(string length(msg+i) >> 0) then(
+    if(string length(msg+i) > 0) then(
       $msg+i=""
       set timer(timer:console decay, 7, 18, @console decay)
       exit script
