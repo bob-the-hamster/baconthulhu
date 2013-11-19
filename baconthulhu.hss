@@ -2288,7 +2288,8 @@ end
 script, random monster spawn, begin
   if(monster count << max monsters for this map && generating == false) then(
     if(find monster spawn pos) then(
-        start spawn monster(find x, find y)
+      start spawn monster(find x, find y)
+      exit script
     )
   )
   reset spawn timer
