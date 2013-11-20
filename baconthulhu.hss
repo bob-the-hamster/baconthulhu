@@ -927,6 +927,9 @@ script, wear down chalk, begin
       update console
     )
     delete item(item:chalk)
+    play sound(sfx:chalk snap)
+  )else(
+    play sound(sfx:chalk write)
   )
   update chalk meter
 end
