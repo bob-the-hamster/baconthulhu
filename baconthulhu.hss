@@ -1105,6 +1105,7 @@ script, setup map specials, begin
       place special item(item:burning)
       place special item(item:brew, 3)
       place special item(item:telepo)
+      place cultist
       place misa
     )
   )
@@ -1127,6 +1128,7 @@ script, sanity check talkers, begin
       ensure cultist
     )
     case(4) do(
+      ensure cultist
       ensure misa
     )
     case(5) do(
@@ -1172,6 +1174,7 @@ script, talker action for this map, ref, begin
         case(1) do(talk menu(menu:shop 2))
         case(2) do(talk menu(menu:shop 3))
         case(3) do(talk menu(menu:shop 4))
+        case(4) do(talk menu(menu:shop 5))
       )
     )
     case(bacontologist) do(
@@ -3249,12 +3252,12 @@ script, find tunnel end, begin
     y := random(1, map height--2)
     tile := safe read map block(x, y)
     if(is a passage(tile)) then(
-      safety += 1
       count := count compass walls(x, y)
       if(count == 3) then(
         break
       )
     )
+    safety += 1
   )
   find x := x
   find y := y
