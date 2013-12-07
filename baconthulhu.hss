@@ -879,7 +879,11 @@ script, use maul, begin
   )else(
     play sound(sfx:solid wall)
   )
-  modify hero stamina(-2)
+  modify hero stamina(-1)
+  if(percent(66)) then(
+    # take an extra point of stamina 2/3 of the time 
+    modify hero stamina(-1)
+  )
 end
 
 script, use chalk, begin
