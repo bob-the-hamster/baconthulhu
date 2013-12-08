@@ -48,6 +48,7 @@ global variable(41, repel meter)
 global variable(42, force save steps)
 global variable(43, money sl)
 global variable(44, passage ms)
+global variable(45, baconthulhu anim)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -1811,7 +1812,7 @@ script, update effect, sl, begin
     )
     case(spritetype:large enemy) do(
       switch(get sprite set number(sl)) do(
-        case(1) do(
+        case(1,2,3) do(
           update baconthulhu(sl)
         )
       )
@@ -2029,7 +2030,7 @@ script, update baconthulhu, sl, begin
     x := slice x(sl) / 20
     y := slice y(sl) / 20
     create walkabout effect(effect:bacon explosion, x, y, random(0, 3), 99)
-    flutter slice(sl)
+    animate baconthulhu(sl)
     exit script
   )
   ref := get effect ref(sl)
@@ -2046,7 +2047,7 @@ script, update baconthulhu, sl, begin
   )
   if(ref == 0) then(
     # still no bacon body, flutter for awhile
-    flutter slice(sl)
+    animate baconthulhu(sl)
   )else(
     if(distance from effect to monster in pixels under(sl, ref, 20)) then(
       # close to the bacon body, latch onto it
@@ -2056,9 +2057,15 @@ script, update baconthulhu, sl, begin
       # far from the bacon body, seek it
       effect follows npc(sl, ref, 6, 10)
     )
-    flutter slice(sl)
+    animate baconthulhu(sl)
   )
   set effect ref(sl, ref)
+end
+
+script, animate baconthulhu, sl, begin
+  baconthulhu anim += 1
+  if(baconthulhu anim > 2) then(baconthulhu anim := -1)
+  set sprite set number(sl, 1 + abs(baconthulhu anim))
 end
 
 script, baconthulhu kill attempt, sl, begin
