@@ -49,6 +49,12 @@ global variable(42, force save steps)
 global variable(43, money sl)
 global variable(44, passage ms)
 global variable(45, baconthulhu anim)
+global variable(46, step count)
+global variable(47, v:hour)
+global variable(48, v:min)
+global variable(49, v:sec)
+
+define constant(200, monster kill count)
 
 # Stair position variables are stored starting at global 500
 define constant(500, stair pos var)
@@ -64,6 +70,7 @@ define constant(1008, tilestart)
 define constant(1, msg) # +4 strings used by console
 define constant(6, money str)
 define constant(7, tmp str)
+define constant(9, str:end thanks)
 
 # timer constants
 define constant(0, main loop timer)
@@ -257,6 +264,9 @@ end
 
 script, save progress, begin
   force save steps := 0
+  
+  if(baconthulhu dead) then(exit script)
+  
   # This only knows how to save the state of the current map, so it is 
   # vital that it should always be called before you change maps.
   save in slot(1)
@@ -330,6 +340,8 @@ end
 
 plotscript, on load game, begin
    init for new game and load game
+   # Even if you somehow save after killing baconthulhu, reset him
+   baconthulhu dead := false
    set hero position(0, hero x(0), hero y(0))
    init map
    money sl := 0
@@ -482,6 +494,7 @@ plotscript, first step, begin
 end
 
 plotscript, each step, x, y, d, no stairs=false, begin
+  step count += 1
   fix more surrounding walls(x, y)
   clear fog of war(x, y)
   pick up treasure(x, y)
@@ -540,6 +553,7 @@ plotscript, on keypress, begin
     if(keyval(key:M)>1) then(reveal map)
     if(keyval(key:G)>1) then(get money(100), update money display)
     if(keyval(key:D)>1) then(use shop(4))
+    if(keyval(key:V)>1) then(show ending)
   )
   while(true) do( # hack loop so we can use "break"
     if(keyval(key:up)>1)    then(hero motion(up),    break)
@@ -1537,6 +1551,7 @@ end
 #-----------------------------------------------------------------------
 
 script, hero dies, begin
+  if(baconthulhu dead) then(exit script)
   $msg = "You have been defeated!"
   update console
   suspend all
@@ -2114,15 +2129,91 @@ script, show ending, begin
   fade screen out
   wait(seconds)
   if(check tag(tag:save scummer)) then(
-    show text box(105)
+    bad ending
   )else(
-    show text box(107)
+    good ending
   )
+  game over
+end
+
+script, bad ending, begin
+  show text box(105)
   wait(1)
   fade screen in
   wait for text box
   fade screen out
-  game over
+  scroll credits(1)
+end
+
+script, good ending, begin
+  show text box(107)
+  wait(1)
+  fade screen in
+  wait for text box
+  fade screen out
+  scroll credits(0)
+end
+
+script, scroll credits, collection, begin
+  variable(col sl)
+  col sl := load slice collection(collection)
+  variable(text sl, bob sl, misa sl)
+  text sl := lookup slice(sli:credits text, col sl)
+  bob sl := lookup slice(sli:credits bob, col sl)
+  misa sl := lookup slice(sli:credits misa, col sl)
+
+  if(has donated) then(
+    $str:end thanks="Thank you for donating!"
+  )else(
+    $str:end thanks="Please consider donating."
+  )
+  v:hour := hours of play + days of play * 24
+  v:min := minutes of play
+  v:sec := seconds of play
+  
+  get slice text(tmpstr, text sl)
+  expand string(tmpstr)
+  set slice text(text sl, tmpstr)
+  
+  variable(ticks)
+  set slice screen y(text sl, 200)
+  ticks := slice height(text sl) * 2
+  move slice to(text sl, slice x(text sl), slice height(text sl) * -1 + 100, ticks)
+  if(bob sl) then(
+    move slice by(bob sl, 5, 0, ticks)
+  )
+  if(misa sl) then(
+    move slice by(misa sl, -6, 0, ticks)
+  )
+
+  wait(1)
+  fade screen in
+
+  variable(fr)
+  while(slice is moving(text sl)) do(
+    fr := (fr + 1) ,mod, 4
+    if(bob sl) then(
+      set sprite set number(bob sl, 1 + (fr / 2))
+    )
+    if(misa sl) then(
+      set sprite set number(misa sl, 3 + (fr / 2))
+    )
+    wait(1)
+  )
+  
+  wait for key(any key)
+  
+  fade screen out
+    
+  free slice(col sl)
+end
+
+#-----------------------------------------------------------------------
+
+script, has donated, begin
+  if(check tag(tag:donation small)) then(exit returning(true))
+  if(check tag(tag:donation large)) then(exit returning(true))
+  exit returning(false)
 end
 
 #-----------------------------------------------------------------------
@@ -2435,6 +2526,9 @@ script, damage monster, ref, amount, begin
 end
 
 script, kill monster, ref, begin
+  variable(id)
+  id := get npc id(ref)
+  write global(monster kill count + id, read global(monster kill count + id) + 1)
   monster drops treasure(ref)
   destroy npc(ref)
   play sound(sfx:enemy die)
