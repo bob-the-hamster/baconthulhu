@@ -2112,9 +2112,7 @@ end
 script, baconthulhu defeated, sl, begin
   suspend all
   show text box(103)
-  $msg = "In his weakened state, Baconthulhu", update console
-  $msg = "can't survive the sight of Misa's", update console
-  $msg = "growing affection for Bob!", update console
+  $msg = "You have defeated Baconthulhu!", update console
   wait for text box
   resume all
   baconthulhu dead := true
@@ -2149,8 +2147,96 @@ script, good ending, begin
   show text box(107)
   wait(1)
   fade screen in
+  teleport to map(8, 15, 14)
+  
+  if(find hero(hero:misa the hamster) == -1) then(
+    # Normally it is impossible to win without Misa, but you might have used the ~V cheat code
+    add hero(hero:misa the hamster)
+    # Same with the Tofu dagger
+    force equip(0, slot:melee, item:tofu)
+  )
+
+  # Ending textboxes
   wait for text box
+  
+  # Ending walkabout scene
+  set hero position(0, 15, 14)
+  set hero position(1, 14, 14)
+  set hero direction(0, left)
+  set hero direction(1, right)
+  
+  wait(18)
+  
+  variable(i)
+  for(i, 0, 3) do(
+    set hero direction(0, i)
+    wait(3)
+  )
+  
+  show text box(144)
+  wait for text box
+  
+  wait(2)
+  set hero direction(0, right)
+  wait(2)
+  set hero picture(0, hero attacking)
+  hero attack effect(16, 14, right)
+  wait(3)
+  set hero picture(0, hero walking)
+  expire all effects, update effects
+  wait(3)
+  set hero direction(0, down)
+  set hero picture(0, hero attacking)
+  hero attack effect(15, 15, down)
+  wait(3)
+  set hero picture(0, hero walking)
+  expire all effects, update effects
+  wait(3)
+  set hero direction(0, left)
+  wait(2)
+  
+  show text box(146)
+  wait for text box
+  
+  wait(2)
+  set hero direction(1, down)
+  wait(4)
+  set hero direction(1, left)
+  wait(4)
+  set hero direction(1, down)
+  wait(2)
+  set hero direction(1, right)
+  
+  show text box(147)
+  wait for text box
+
+  show text box(148)
+  wait for text box
+
+  heart above misa
+  show text box(149)
+  wait for text box
+  expire all effects, update effects
+  
+  suspend caterpillar
+  swap by position(0, 1)
+  set hero position(0, 14, 14)
+  set hero position(1, 15, 14)
+  walk hero(0, down, 1)
+  walk hero(0, right, 1)
+  wait for hero(0)
+  resume caterpillar
+
+  walk hero to y(0, 25)
+  wait for hero(0)
+  pan camera(right, 10, 1)
+  walk hero to x(0, 27)
+  wait for hero(0)
+  
   fade screen out
+  wait(1)
+  swap by position(0, 1)
+  
   scroll credits(0)
 end
 
