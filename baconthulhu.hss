@@ -686,23 +686,40 @@ end
 plotscript, scroll of bat, begin
   variable(ref)
   ref := npc reference(robed cultist)
-  if(ref) then(
-    create weapon effect(magic:bat, hero x, hero y, 999)
-  )else(
+  if(not(ref)) then(
     $msg = "There are no cultists on this floor."
     update console
   )
+  create weapon effect(magic:bat, hero x, hero y, 999)
   play sound(sfx:bat)
+  if(check tag(tag:date with Misa)) then(
+    if(not(check tag(tag:misa saw bat))) then(
+      suspend all
+      show text box(152)
+      wait for text box
+      resume all
+      set tag(tag:misa saw bat, ON)
+    )
+  )
 end
 
 plotscript, scroll of monarch, begin
-  if(current map < last map) then(
-    create weapon effect(magic:monarch, hero x, hero y, 999)
+  if(current map == last map) then(
   )else(
     $msg = "This is the final floor of the crypt."
     update console
   )
+  create weapon effect(magic:monarch, hero x, hero y, 999)
   play sound(sfx:monarch)
+  if(check tag(tag:date with Misa)) then(
+    if(not(check tag(tag:misa saw monarch))) then(
+      suspend all
+      show text box(153)
+      wait for text box
+      resume all
+      set tag(tag:misa saw monarch, ON)
+    )
+  )
 end
 
 plotscript, scroll of vegify, begin
@@ -1910,15 +1927,25 @@ end
 
 script, effect flutters after npc, sl, ref, threshold=4, callback=none, begin
   variable(x, y)
-  x := npc pixel x(ref)
-  y := npc pixel y(ref)
+  if(ref) then(
+    x := npc pixel x(ref)
+    y := npc pixel y(ref)
+  )else(
+    x := random(0, map width) * 20
+    y := random(0, map height) * 20
+  )
   effect flutters after pos(sl, x, y, threshold, callback)
 end
 
 script, effect flutters after stairs down, sl, threshold=4, callback=none, begin
   variable(x, y)
-  x := get down stairs x(current map) * 20
-  y := get down stairs y(current map) * 20
+  if(current map < last map) then(
+    x := get down stairs x(current map) * 20
+    y := get down stairs y(current map) * 20
+  )else(
+    x := random(0, map width) * 20
+    y := random(0, map height) * 20
+  )
   effect flutters after pos(sl, x, y, threshold, callback)
 end
 
@@ -2111,10 +2138,13 @@ end
 
 script, baconthulhu defeated, sl, begin
   suspend all
+  hide all strings
+  wait(1)
   show text box(103)
   $msg = "You have defeated Baconthulhu!", update console
   wait for text box
   resume all
+  show all strings
   baconthulhu dead := true
   set effect age(sl, 1)
   set effect ticks(sl, seconds * 10)
