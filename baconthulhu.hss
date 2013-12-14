@@ -3510,8 +3510,8 @@ end
 
 script, find tunnel end, begin
   variable(x, y, tile, safety, count)
-  # try 50 times to find a tunnel ending
-  while(safety < 50) do(
+  # try 100 times to find a tunnel ending
+  while(safety < 100) do(
     x := random(1, map width--2)
     y := random(1, map height--2)
     tile := safe read map block(x, y)
@@ -3522,6 +3522,22 @@ script, find tunnel end, begin
       )
     )
     safety += 1
+  )
+  if(safety >= 100) then(
+    # Failed to find a tunnel end. Find a floor instead.
+    while(safety < 1000) do(
+      x := random(1, map width--2)
+      y := random(1, map height--2)
+      tile := safe read map block(x, y)
+      if(is a passage(tile)) then(
+        break
+      )
+      safety += 1
+    )
+  )
+  if(safety >= 1000) then(
+    $tmpstr="Failed to find a tunnel ending after 1000 tries!"
+    trace(tmpstr)
   )
   find x := x
   find y := y
