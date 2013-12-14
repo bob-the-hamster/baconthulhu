@@ -2237,7 +2237,39 @@ script, good ending, begin
   wait(1)
   swap by position(0, 1)
   
+  # Show the good credits
   scroll credits(0)
+
+  # After the credits
+  wait(18)
+  teleport to map(9, 0, 0)
+  
+  wait(1)
+  fade screen in
+  wait(12)
+  
+  show text box(150)
+  wait for text box
+  
+  for(i, 0, 2) do(
+    walk npc(89, left, 1)
+    wait for npc(89)
+    play sound(0)
+    write map block(npc x(89), npc y(89), void, layer:item)
+  )
+  walk npc(89, left, 1)
+  wait for npc(89)
+  play sound(1)
+  write map block(npc x(89), npc y(89), void, layer:item)
+  
+  wait(2)
+  set NPC direction(89, right)
+  wait(4)
+  
+  show text box(151)
+  wait for text box
+  fade screen out
+  wait(3)
 end
 
 script, scroll credits, collection, begin
@@ -2278,20 +2310,31 @@ script, scroll credits, collection, begin
   variable(fr)
   while(slice is moving(text sl)) do(
     fr := (fr + 1) ,mod, 4
-    if(bob sl) then(
-      set sprite set number(bob sl, 1 + (fr / 2))
-    )
-    if(misa sl) then(
-      set sprite set number(misa sl, 3 + (fr / 2))
-    )
+    animate bob and misa walking(bob sl, misa sl, fr)
     wait(1)
   )
   
-  wait for key(any key)
+  while(true) do(
+    if(key is pressed(key:enter) || key is pressed(key:space) || key is pressed(key:ctrl) || key is pressed(key:esc) || key is pressed(key:alt)) then(
+      break
+    )
+    fr := (fr + 1) ,mod, 4
+    animate bob and misa walking(bob sl, misa sl, fr)
+    wait(1)
+  )
   
   fade screen out
     
   free slice(col sl)
+end
+
+script, animate bob and misa walking, bob sl, misa sl, fr, begin
+  if(bob sl) then(
+    set sprite set number(bob sl, 1 + (fr / 2))
+  )
+  if(misa sl) then(
+    set sprite set number(misa sl, 3 + (fr / 2))
+  )
 end
 
 #-----------------------------------------------------------------------
