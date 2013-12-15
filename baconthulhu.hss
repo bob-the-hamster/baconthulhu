@@ -635,8 +635,8 @@ script, climb stairs, begin
       dest := current map + 1
       teleport to map(dest, get up stairs x(dest), get up stairs y(dest))
     )
-    set timer(temp timer, 0, 1, @init map)
     stairs ignore := true
+    init map
     exit script
   )
   stairs ignore := false
