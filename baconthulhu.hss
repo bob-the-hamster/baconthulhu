@@ -2118,6 +2118,7 @@ script, animate baconthulhu, sl, begin
 end
 
 script, baconthulhu kill attempt, sl, begin
+  if(current map <> 5) then(exit script)
   if(check equipment(0, slot:melee) == item:tofu) then(
     if(check tag(tag:date with misa)) then(
       baconthulhu defeated(sl)
