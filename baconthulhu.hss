@@ -377,7 +377,7 @@ script, try to load map, begin
   set down stairs y(current map, read global(1006))
   set map creation(current map, read global(1007))
   # Load the map tile state
-  variable(p, x, y, v, tile)
+  variable(p, x, y, v, tile, passage count)
   p := tilestart
   for(y, 0, read global(1002) -- 1) do(
     for(x, 0, read global(1001) -- 1) do(
@@ -390,8 +390,15 @@ script, try to load map, begin
       write map block(x, y, (v ,AND, 65535) / 256, layer:item)
       write map block(x, y, (v ,AND, 16777215) / 65536 , layer:fog)
       write map block(x, y, v / 16777216 , layer:chalk)
+      if(is a passage(tile)) then(
+        passage count += 1
+      )
       p += 1
     )
+  )
+  # Sanity test
+  if(passage count == 0) then(
+    exit returning(false)
   )
   # Load the NPC state
   variable(i, how many, ref, id, d, hp, max hp)
