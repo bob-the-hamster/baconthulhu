@@ -2699,6 +2699,7 @@ script, monster drops treasure, ref, begin
   variable(x, y)
   x := npc x(ref)
   y := npc y(ref)
+  if(is item at spot(x, y)) then(exit script)
   if(percent(monster item rate)) then(
     # create an item
     create item(x, y, get monster item(ref))
@@ -3586,6 +3587,12 @@ end
 
 script, create item, x, y, item, begin
   safe write map block(x, y, item + item icons, layer:item)
+end
+
+script, is item at spot, x, y, begin
+  variable(tile)
+  tile := read map block(x, y, layer:item)
+  exit returning(is item icon(tile))
 end
 
 #-----------------------------------------------------------------------
