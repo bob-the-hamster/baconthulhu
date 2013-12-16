@@ -608,6 +608,7 @@ script, each tick, begin
   update hero
   update effects
   update monsters
+  if(keyval(key:1) > 1) then(show help)
   set timer(main loop timer, 0, 1, @each tick)
 end
 
@@ -656,8 +657,25 @@ end
 
 plotscript, show help, begin
   suspend all
-  show text box(1)
-  wait for text box
+  if(running on console) then(
+    variable(sl)
+    sl := load slice collection(2)
+    wait(1)
+    while(true) do(
+      if(
+           keyval(key:enter) > 1
+        || keyval(key:space) > 1
+        || keyval(key:ctrl) > 1
+        || keyval(key:esc) > 1
+        || keyval(key:alt) > 1
+        || keyval(key:1) > 1
+        ) then(break)
+      wait(1)
+    )
+  )else(
+    show text box(1)
+    wait for text box
+  )
   resume all
 end
 
