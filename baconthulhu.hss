@@ -657,6 +657,7 @@ end
 
 plotscript, show help, begin
   suspend all
+  hide all strings
   if(running on console) then(
     variable(sl)
     sl := load slice collection(2)
@@ -672,10 +673,12 @@ plotscript, show help, begin
         ) then(break)
       wait(1)
     )
+    free slice(sl)
   )else(
     show text box(1)
     wait for text box
   )
+  show all strings
   resume all
 end
 
