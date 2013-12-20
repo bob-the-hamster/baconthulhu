@@ -2648,11 +2648,11 @@ end
 
 script, random monster for this map, begin
   switch(current map) do(
-    case(0) do(exit returning(random(0,2))) # only first 3 monsters on map 0
-    case(1) do(exit returning(random(0,3))) # only first 4 monsters on map 1
-    case(2) do(exit returning(random(0,4))) # only first 5 monsters on map 2
-    case(3) do(exit returning(random(0,5))) # only first 6 monsters on map 3
-    case(4) do(exit returning(random(0,6))) # All monsters on map 4
+    case(0) do(exit returning(random(0,3))) #4
+    case(1) do(exit returning(random(0,4))) #5
+    case(2) do(exit returning(random(0,5))) #6
+    case(3) do(exit returning(random(1,7))) #7
+    case(4) do(exit returning(random(2,9))) #8
     case(last map) do(exit returning(bacon body))
     else(exit returning(random(0, last monster slot)))
   )
@@ -2686,12 +2686,18 @@ script, get monster max hp, ref, begin
   variable(id, max)
   id := get npc id(ref)
   switch(id) do(
-    case(3) do(max := 3) # Bird-jellyfish slightly stronger
-    case(4) do(max := 4) # Purple Cogre stronger
-    case(5) do(max := 4) # Monocular Blarb stronger
+    case(0) do(max := 2) # Pink Plip
+    case(1) do(max := 2) # Skellyton
+    case(2) do(max := 2) # Octo-Peril
+    case(3) do(max := 3) # Wellsian Martian
+    case(4) do(max := 4) # Purple Cogre
+    case(5) do(max := 4) # Monocular Blarb
     case(6) do(max := 1) # Meat Man is weak (but fast!)
-    case(bacon body) do(max := 8) # bacon body is very strong
-    else(max := 2)
+    case(7) do(max := 4) # Crypt Yuk
+    case(8) do(max := 5) # Jelly Coiler
+    case(9) do(max := 6) # Doom Sponge
+    case(bacon body) do(max := 8) # Bacon Spawn is very strong
+    else(max := 2) 
   )
   exit returning(max)
 end
@@ -2768,6 +2774,13 @@ script, get monster item, ref, begin
         item := item:brew
       )else(
         item := item:jiffy
+      )
+    )
+    else( # Meat Man, Crypt Yuk, Jelly Coiler, Doom Sponge
+      if(percent(50)) then(
+        item := item:tonic
+      )else(
+        item := item:brew
       )
     )
   )
