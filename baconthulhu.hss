@@ -559,6 +559,7 @@ plotscript, on keypress, begin
     if(keyval(key:D)>1) then(use shop(4))
     if(keyval(key:V)>1) then(show ending)
   )
+  if(keyval(key:period)>0 && keyval(key:comma)>0) then(try cheat shop)
   while(true) do( # hack loop so we can use "break"
     if(keyval(key:up)>1)    then(hero motion(up),    break)
     if(keyval(key:right)>1) then(hero motion(right), break)
@@ -599,6 +600,27 @@ end
 
 script, tool key pressed, begin
   exit returning(keyval(key:Z)>1 || keyval(key:space) > 1 || keyval(key:enter) > 1)
+end
+
+script, try cheat shop, begin
+  # To enter the cheat shop, unequip your potion and scroll,
+  # then stand next to a diamond and hold: comma+period+x+c
+  # Or on OUYA L2+R2+U+Y
+  if(check equipment(0, slot:scroll) > -1) then(exit script)
+  if(check equipment(0, slot:potion) > -1) then(exit script)
+  if(keyval(key:X) == 0) then(exit script)
+  if(keyval(key:C) == 0) then(exit script)
+  variable(i, x, y, tile)
+  for(i, 0, 3) do(
+    x := hero x(0) + compass x(i)
+    y := hero y(0) + compass y(i)
+    tile := read map block(x, y, layer:item)
+    if(tile == 4) then(
+      # Standing next to diamond
+      use shop(4)
+      exit script
+    )
+  )
 end
 
 script, each tick, begin
