@@ -111,6 +111,7 @@ define constant(5, effect:sword)
 define constant(6, effect:axe)
 define constant(15, effect:tofu)
 define constant(14, effect:bacon explosion)
+define constant(29, effect:wavy)
 
 # attack effects
 define constant(0, teleport cloud)
@@ -125,11 +126,6 @@ define constant(4, magic:love)
 define constant(0, regen:stamina)
 define constant(1, regen:health)
 define constant(2, regen:health skip)
-
-# slot constants
-define constant(2,slot:Tool)
-define constant(3,slot:Potion)
-define constant(4,slot:Scroll)
 
 # Map Layer constants
 define constant(0, layer:base)
@@ -1169,6 +1165,9 @@ script, setup map specials, begin
       place special item(item:burning)
       place special item(item:brew, 3)
       place special item(item:telepo)
+      place special item(item:blade)
+      place special item(item:pommel)
+      place special item(item:tape)
       place cultist
       place misa
     )
@@ -1259,6 +1258,37 @@ plotscript, bacontologist long explanation, begin
   show text box after fade(73)
   show text box after fade(77)
   show text box after fade(74)
+  resume all
+end
+
+plotscript, high priest wavy sword repair, begin
+  suspend all
+  show text box(163)
+  wait for text box
+  if(check tag(tag:own broken blade) || check tag(tag:own broken pommel)) then(
+    show text box(165)
+    wait for text box
+    if(check tag(tag:own broken blade) && check tag(tag:own broken pommel)) then(
+      # Have both parts
+      show text box(167)
+      wait for text box
+      variable(i)
+      for(i, 0, 5) do(
+        wait(12)
+        play sound(sfx:fixing)
+      )
+      delete item(item:blade)
+      delete item(item:pommel)
+      delete item(item:tape)
+      show get item(item:wavy)
+      show text box(168)
+      wait for text box
+    )else(
+      # Need both parts
+      show text box(166)
+      wait for text box
+    )
+  )
   resume all
 end
 
@@ -1735,6 +1765,7 @@ script, hero attack effect, x, y, d, begin
     case(item:sword) do(effect := effect:sword, play sound(sfx:slash))
     case(item:axe) do(effect := effect:axe, play sound(sfx:slash))
     case(item:tofu) do(effect := effect:tofu, play sound(sfx:slash))
+    case(item:wavy) do(effect := effect:wavy, play sound(sfx:slash))
   )
   create walkabout effect(effect, x, y, d, 4)
 end
@@ -2149,6 +2180,7 @@ script, baconthulhu kill attempt, sl, begin
     update console
     $msg = "not quite enough! What can weaken him?"
     update console
+    set tag(tag:tofu failed, ON)
     exit script
   )
   $msg = "Mundane weapons can't kill Baconthulhu!"
@@ -2944,17 +2976,21 @@ script, pick up treasure, x, y, begin
     safe write map block(x, y, void, layer:item)
     variable(item)
     item := tile -- item icons
-    get item(item)
-    $msg="Found "
-    get item name(tmp str, item)
-    msg $+ tmp str
-    update console
-    $msg=""
-    get item description(tmp str, item)
-    msg $+ tmp str
-    update console
-    play sound(sfx:item pickup)
+    show get item(item)
   )
+end
+
+script, show get item, item, begin
+  get item(item)
+  $msg="Found "
+  get item name(tmp str, item)
+  msg $+ tmp str
+  update console
+  $msg=""
+  get item description(tmp str, item)
+  msg $+ tmp str
+  update console
+  play sound(sfx:item pickup)
 end
 
 script, update money display, begin
