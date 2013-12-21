@@ -146,10 +146,11 @@ define constant(0, void)
 define constant(64, first floor)
 define constant(67, last floor)
 define constant(1, first chalk floor)
-define constant(7, last chalk floor)
+define constant(8, last chalk floor)
 define constant(1, chalk x mark)
 define constant(2, chalk circle)
 define constant(7, chalk heart)
+define constant(8, chalk spiral)
 define constant(3, chalk up)
 define constant(4, chalk right)
 define constant(5, chalk down)
@@ -782,6 +783,9 @@ plotscript, scroll of telepo, begin
     find directional teleport spot(stand -- chalk up)
     $msg="You advance slightly through hyperspace."
     update console
+  )else if(is backtrack chalk mark(stand) && find backtrack teleport spot) then(
+    $msg="You backtrack through hyperspace."
+    update console
   )else(
     find random teleport spot
     $msg="You stumble through hyperspace!"
@@ -800,6 +804,11 @@ end
 
 script, is directional chalk mark, tile, begin
   if(tile >= chalk up && tile <= chalk left) then(exit returning(true))
+  exit returning(false)
+end
+
+script, is backtrack chalk mark, tile, begin
+  if(tile == chalk spiral) then(exit returning(true))
   exit returning(false)
 end
 
@@ -834,6 +843,26 @@ script, find teleportable chalk mark, mark, begin
   find y := slice y(dest sl)
   free slice(sl)
   exit returning(true)
+end
+
+script, find backtrack teleport spot, begin
+  # returns results in findx and findy
+  # Return true if a valid destination was found
+  variable(sx, sy, i, x, y, tile)
+  # Find the up stairs
+  sx := get up stairs x(current map)
+  sy := get up stairs y(current map)
+  for(i, 0, 3) do(
+    x := sx + compass x(i)
+    y := sy + compass y(i)
+    tile := read map block(x, y, layer:base)
+    if(is a passage(tile)) then(
+      find x := x
+      find y := y
+      exit returning(true)
+    )
+  )
+  exit returning(false)
 end
 
 script, find random teleport spot, begin
