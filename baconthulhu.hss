@@ -3217,7 +3217,7 @@ plotscript, generate map, begin
   create more passages
   generating := false
   place stairs down(x, y)
-  crack some walls(10)
+  crack some walls(10 + current map * 2)
   setup map specials
   set map creation(current map, true)
   $msg="The dungeon has matured."
@@ -3443,7 +3443,20 @@ end
 
 script, crack a wall, begin
   variable(i, x, y, tile)
-  for(i, 0, 100) do( # try repeatedly to find a good wall
+  for(i, 0, 100) do( # first try to find a good wall
+    x := random(1, map width -- 2)
+    y := random(1, map height -- 2)
+    tile := read map block(x, y, layer:base)
+    if(is a wall(tile)) then(
+      if(detect opposing passages(x,y)) then(
+        if(count compass void(x,y) == 0) then(
+          crack wall(x, y)
+          exit script
+        )
+      )
+    )
+  )
+  for(i, 0, 100) do( # then settle for an adequate wall
     x := random(1, map width -- 2)
     y := random(1, map height -- 2)
     tile := read map block(x, y, layer:base)
@@ -3472,6 +3485,17 @@ script, count surrounding walls, x, y, begin
     if(not(is a passage(tile))) then(count += 1) # actually count any non-passages as walls
   )
   exit returning(count)
+end
+
+script, detect opposing passages, x, y, begin
+  variable(n, e, s, w)
+  n := safe read map block(x, y -- 1, layer:base)
+  e := safe read map block(x + 1, y, layer:base)
+  s := safe read map block(x, y + 1, layer:base)
+  w := safe read map block(x -- 1, y, layer:base)
+  if (not(is a passage(n)) && not(is a passage(s)) && is a passage(e) && is a passage(w)) then(exit returning(true))
+  if (not(is a passage(e)) && not(is a passage(w)) && is a passage(n) && is a passage(s)) then(exit returning(true))
+  exit returning(false)
 end
 
 script, count compass walls, x, y, begin
