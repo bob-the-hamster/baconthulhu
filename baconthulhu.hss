@@ -2154,8 +2154,11 @@ end
 script, toggle effect frame, sl, begin
   if(update counter,mod,2 <> 0) then(exit script)
   if(slice is ellipse(sl)) then(
-    if(get effect age(sl) < 10) then(
-      # Only show up afrer a couple ticks
+    # burst particles
+    variable(age)
+    age := get effect age(sl)
+    if(age <= 11) then(
+      # Only show up after a couple ticks
       set slice visible(sl, true)
     )
     set slice width(sl, slice width(sl) -- 1)
@@ -2861,13 +2864,13 @@ end
 script, create burst on npc, ref, begin
   variable(i)
   for(i, 0, 7) do(
-   create burst particle(npc x(ref), npc y(ref), monster blood color(ref))
+   create burst particle(npc x(ref), npc y(ref), monster blood color(ref), monster blood color(ref))
   )
 end
 
-script, create burst particle, x, y, color, begin
+script, create burst particle, x, y, color, border, begin
   variable(sl)
-  sl := create ellipse(8, 8, 0, color)
+  sl := create ellipse(8, 8, border, color)
   set horiz anchor(sl, edge:center)
   set vert anchor(sl, edge:center)
   create effect(sl, x, y, 12)
