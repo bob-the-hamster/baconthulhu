@@ -534,6 +534,7 @@ end
 script, diffuse repel spell, begin
   if(repel level > 0) then(
     repel level -= 1
+    create burst particle(hero x(0), hero y(0), 241, 154, 0, -14, 0, 3)
     update repel meter
     if(repel level == 0) then(
       $msg="Beware! The repel effect has expired!"
@@ -1068,6 +1069,11 @@ script, drink potion, begin
     update console
     exit script
   )
+  switch(item) do(
+    case(item:tonic) do(potion particle effect(85, 90))
+    case(item:brew) do(potion particle effect(217, 212))
+    case(item:jiffy) do(potion particle effect(248, 245))
+  )
   variable(atk)
   atk := lookup item attack(item)
   if(atk) then(
@@ -1109,6 +1115,7 @@ plotscript, drink soma potion, begin
   update console
   update meters
   play sound(sfx:tonic)
+  potion particle effect(240, 109)
 end
 
 plotscript, drink jiffy potion, begin
@@ -2876,21 +2883,37 @@ end
 script, create burst on npc, ref, begin
   variable(i)
   for(i, 0, 7) do(
-   create burst particle(npc x(ref), npc y(ref), monster blood color(ref), monster blood color(ref))
+   create burst particle(
+     npc x(ref),
+     npc y(ref),
+     monster blood color(ref),
+     monster blood color(ref),
+     random(-5, 5),
+     random(-5, 5),
+     random(-20, 20),
+     random(-20, 20),
+   )
   )
 end
 
-script, create burst particle, x, y, color, border, begin
+script, create burst particle, x, y, color, border, rand x, rand y, dest x, dest y, begin
   variable(sl)
   sl := create ellipse(8, 8, border, color)
   set horiz anchor(sl, edge:center)
   set vert anchor(sl, edge:center)
   create effect(sl, x, y, 12)
-  set slice x(sl, slice x(sl) + 10 + random(-5, 5))
-  set slice y(sl, slice y(sl) + 10 + random(-5, 5))
-  move slice to(sl, slice x(sl) + random(-20, 20), slice y(sl) + random(-20, 20), 12)
+  set slice x(sl, slice x(sl) + 10 + rand x)
+  set slice y(sl, slice y(sl) + 10 + rand y)
+  move slice to(sl, slice x(sl) + dest x, slice y(sl) + dest y, 12)
   set slice visible(sl, false) # hide at first
   slice to back(sl)
+end
+
+script, potion particle effect, color, border, begin
+  create burst particle(hero x(0), hero y(0), color, border, 0, 0, 0, -14)
+  create burst particle(hero x(0), hero y(0), color, border, 0, 0, 14, 0)
+  create burst particle(hero x(0), hero y(0), color, border, 0, 0, 0, 14)
+  create burst particle(hero x(0), hero y(0), color, border, 0, 0, -14, 0)
 end
 
 script, monster drops treasure, ref, begin
