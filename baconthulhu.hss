@@ -1059,6 +1059,26 @@ script, use debug goggles, begin
   $msg+" Wall="
   append number(msg, read pass block(x,y))
   update console
+  # NPC location
+  $msg=""
+  variable(ref)
+  ref := npc reference(97)
+  if(ref) then(
+    $msg+"NPC@", append number(msg, npc x(ref)), $msg+",", append number(msg, npc y(ref))
+  )
+  ref := npc reference(98)
+  if(ref) then(
+    $msg+"NPC@", append number(msg, npc x(ref)), $msg+",", append number(msg, npc y(ref))
+  )
+  if(string length(msg)) then($msg+" ")
+  ref := npc reference(99)
+  if(ref) then(
+    $msg+"SHOP@", append number(msg, npc x(ref)), $msg+",", append number(msg, npc y(ref))
+  )
+  # Stairs locations
+  $msg+" ", append ascii(msg, 186), append number(msg, get up stairs x(current map)), $msg+",", append number(msg, get up stairs y(current map))
+  $msg+" ", append ascii(msg, 188), append number(msg, get down stairs x(current map)), $msg+",", append number(msg, get down stairs y(current map))
+  update console
 end
 
 script, drink potion, begin
