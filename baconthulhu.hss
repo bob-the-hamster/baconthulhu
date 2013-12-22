@@ -2153,6 +2153,15 @@ end
 
 script, toggle effect frame, sl, begin
   if(update counter,mod,2 <> 0) then(exit script)
+  if(slice is ellipse(sl)) then(
+    if(get effect age(sl) < 10) then(
+      # Only show up afrer a couple ticks
+      set slice visible(sl, true)
+    )
+    set slice width(sl, slice width(sl) -- 1)
+    set slice height(sl, slice height(sl) -- 1)
+    exit script
+  )
   variable(frame)
   frame := get sprite frame(sl)
   switch(get sprite type(sl)) do(
@@ -2807,10 +2816,66 @@ script, kill monster, ref, begin
   id := get npc id(ref)
   write global(monster kill count + id, read global(monster kill count + id) + 1)
   monster drops treasure(ref)
+  create burst on npc(ref)
   destroy npc(ref)
   play sound(sfx:enemy die)
   misa reaction to monster kill
   hero victory
+end
+
+script, monster blood color, ref, begin
+  variable(id)
+  id := get npc id(ref)
+  switch(id) do(
+    case(0) do(exit returning(rand num(91, 90, 23))) #Pink Plip
+    case(1) do(exit returning(rand num(240, 160))) #Skellyton
+    case(2) do(exit returning(rand num(171, 168, 166))) #Octo-Peril
+    case(3) do(exit returning(rand num(107, 105, 232))) #Wellsian Martian
+    case(4) do(exit returning(rand num(54, 116, 57))) #Purple Cogre
+    case(5) do(exit returning(rand num(37, 70, 35, 185))) #Monocular Blarb
+    case(6) do(exit returning(rand num(86, 88))) #Meat Man
+    case(7) do(exit returning(rand num(27, 25, 22))) #Crypt Yuk
+    case(8) do(exit returning(rand num(75, 73, 71, 69))) #Jelly Coiler
+    case(9) do(exit returning(rand num(183, 217, 214, 219))) #Doom Sponge
+    case(bacon body) do(exit returning(rand num(89, 240, 88))) #Bacon Spawn
+  )
+end
+
+script, rand num, n1, n2, n3=-99999, n4=-99999, n5=-99999, n6=-99999, n7=-99999, n8=-99999, begin
+  variable(i)
+  while(true) do(
+    i := random(1, 8)
+    switch(i) do(
+      case(1) do(exit returning(n1))
+      case(2) do(exit returning(n2))
+      case(3) do(if(n3 <> -99999) then(exit returning(n3)))
+      case(4) do(if(n4 <> -99999) then(exit returning(n4)))
+      case(5) do(if(n5 <> -99999) then(exit returning(n5)))
+      case(6) do(if(n6 <> -99999) then(exit returning(n6)))
+      case(7) do(if(n7 <> -99999) then(exit returning(n7)))
+      case(8) do(if(n8 <> -99999) then(exit returning(n8)))
+    )
+  )
+end
+
+script, create burst on npc, ref, begin
+  variable(i)
+  for(i, 0, 7) do(
+   create burst particle(npc x(ref), npc y(ref), monster blood color(ref))
+  )
+end
+
+script, create burst particle, x, y, color, begin
+  variable(sl)
+  sl := create ellipse(8, 8, 0, color)
+  set horiz anchor(sl, edge:center)
+  set vert anchor(sl, edge:center)
+  create effect(sl, x, y, 12)
+  set slice x(sl, slice x(sl) + 10 + random(-5, 5))
+  set slice y(sl, slice y(sl) + 10 + random(-5, 5))
+  move slice to(sl, slice x(sl) + random(-20, 20), slice y(sl) + random(-20, 20), 12)
+  set slice visible(sl, false) # hide at first
+  slice to back(sl)
 end
 
 script, monster drops treasure, ref, begin
