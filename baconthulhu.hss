@@ -3672,6 +3672,12 @@ script, get fog edge, x, y, begin
   if(two of four fogged(n, e, s, w)) then(exit returning(fog of war + 2))
   if(two of four fogged(e, s, w, n)) then(exit returning(fog of war + 3))
   if(two of four fogged(s, w, n, e)) then(exit returning(fog of war + 4))
+  if(one of four fogged(n, e, s, w)) then(exit returning(fog of war + 5))
+  if(one of four fogged(e, s, w, n)) then(exit returning(fog of war + 6))
+  if(one of four fogged(s, w, n, e)) then(exit returning(fog of war + 7))
+  if(one of four fogged(w, n, s, e)) then(exit returning(fog of war + 8))
+  if(two of four fogged(n, s, e, w)) then(exit returning(fog of war + 9))
+  if(two of four fogged(e, w, n, s)) then(exit returning(fog of war + 10))
   exit returning(void)
 end
 
@@ -3923,6 +3929,14 @@ end
 script, two of four fogged, d1, d2, d3, d4, begin
   if(d1 <> fog of war) then(exit returning(false))
   if(d2 <> fog of war) then(exit returning(false))
+  if(d3 == fog of war) then(exit returning(false))
+  if(d4 == fog of war) then(exit returning(false))
+  exit returning(true)
+end
+
+script, one of four fogged, d1, d2, d3, d4, begin
+  if(d1 <> fog of war) then(exit returning(false))
+  if(d2 == fog of war) then(exit returning(false))
   if(d3 == fog of war) then(exit returning(false))
   if(d4 == fog of war) then(exit returning(false))
   exit returning(true)
