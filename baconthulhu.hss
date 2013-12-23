@@ -951,6 +951,7 @@ script, use tool, begin
     case(item:debug) do(use debug goggles)
     case(item:chalk) do(use chalk)
     case(item:maul) do(use maul)
+    case(item:lazy) do(use lazy maul)
   )
 end
 
@@ -988,9 +989,52 @@ script, use maul, begin
     play sound(sfx:solid wall)
   )
   modify hero stamina(-1)
-  if(percent(66)) then(
-    # take an extra point of stamina 2/3 of the time 
+  if(percent(50)) then(
+    # take an extra point of stamina 1/2 of the time 
     modify hero stamina(-1)
+  )
+end
+
+script, use lazy maul, begin
+  if(not(hero can attack)) then(
+    $msg="Too exhausted to swing the maul"
+    update console
+    exit script
+  )
+  variable(x, y, tile)
+  x := hero x(0) + compass x(hero direction(0))
+  y := hero y(0) + compass y(hero direction(0))
+  tile := safe read map block(x, y, layer:base)
+  if(is a wall(tile)) then(
+    if(count compass void(x,y) == 0) then(
+      create walkabout effect(effect:punch, x, y, 0, 4)
+      tile := safe read map block(x, y, layer:chalk)
+      if(tile >= first crack tile && tile <= last crack tile) then(
+        # Broke the wall
+        write map block(x, y, smashed wall floor, layer:base)
+        write map block(x, y, void, layer:chalk)
+        write pass block(x, y, none)
+        $msg="There goes another perfectly good wall."
+        update console
+        play sound(sfx:wallcrumble)
+        modify hero stamina(-1)
+      )else(
+        # Crack this solid wall
+        crack wall(x, y)
+        play sound(sfx:impact)
+        create walkabout effect(effect:punch, x, y, 0, 4)
+        modify hero stamina(-1)
+        exit script
+      )
+    )else(
+      # Not safe to crack
+      create walkabout effect(effect:punch, x, y, 0, 4)
+      play sound(sfx:solid wall)
+      exit script
+    )
+  )else(
+    miss effect(x, y)
+    exit script
   )
 end
 
