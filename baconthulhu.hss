@@ -2372,12 +2372,14 @@ script, show ending, begin
 end
 
 script, bad ending, begin
+  play song(2)
   show text box(105)
   wait(1)
   fade screen in
   wait for text box
   fade screen out
   scroll credits(1)
+  play song(0)
 end
 
 script, good ending, begin
@@ -2480,6 +2482,8 @@ script, good ending, begin
   # After the credits
   wait(18)
   teleport to map(9, 0, 0)
+
+  play song(0)
   
   wait(1)
   fade screen in
