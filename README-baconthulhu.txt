@@ -1,5 +1,5 @@
 Bob the Hamster in The Crypt of Baconthulhu
-(C) Copyright 2013 James Paige
+(C) Copyright 2014 James Paige
 
 After eating so much bacon that he passes out, Bob awakens in a
 mysterious crypt filled with monsters and cultists who worship the

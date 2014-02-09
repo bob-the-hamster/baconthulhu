@@ -1643,7 +1643,7 @@ end
 script, do level up, begin
   $msg = "Your experience level has increased!"
   update console
-  $msg = "You have reached level ", append number(get hero level(0))
+  $msg = "You have reached level ", append number(msg, get hero level(0))
   update console
   open menu(12)
   wait(1)
