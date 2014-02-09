@@ -1633,7 +1633,21 @@ end
 script, hero victory, begin
   suspend player
   set hero picture(0, hero celebrating, outside battle)
+  give experience(0, 1)
+  if(hero levelled > 0) then(
+    do level up
+  )
   set timer(victory timer, 0, 1, @start hero victory)
+end
+
+script, do level up, begin
+  $msg = "Your experience level has increased!"
+  update console
+  $msg = "You have reached level ", append number(get hero level(0))
+  update console
+  open menu(12)
+  wait(1)
+  save progress
 end
 
 script, update chalk meter, begin
@@ -1642,6 +1656,32 @@ script, update chalk meter, begin
   max := chalk use count
   update meter(chalk meter, cur, max)
   set slice visible(chalk meter, using chalk)
+end
+
+plotscript, level up max hp, begin
+  $msg="You feel healthier"
+  update console
+  max stat bonus(stat:health)
+end
+
+plotscript, level up max stamina, begin
+  $msg="You feel more energetic"
+  update console
+  max stat bonus(stat:stamina)
+end
+
+plotscript, level up max hit rate, begin
+  $msg="You feel more precise"
+  update console
+  max stat bonus(stat:hit rate, 2)
+end
+
+script, max stat bonus, stat, amount=1, begin
+  set hero stat(0, stat, get hero stat(0, stat, maximum stat) + amount, maximum stat)
+  set hero stat(0, stat, get hero stat(0, stat) + amount)
+  update meters
+  play sound(sfx:level up)
+  potion particle effect(240, 109)
 end
 
 script, using chalk, begin
