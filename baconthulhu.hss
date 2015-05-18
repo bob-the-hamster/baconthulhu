@@ -694,6 +694,9 @@ plotscript, show help, begin
       wait(1)
     )
     free slice(sl)
+  )else if(running on mobile) then(
+    show text box(201)
+    wait for text box
   )else(
     show text box(1)
     wait for text box
