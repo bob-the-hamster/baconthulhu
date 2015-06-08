@@ -680,7 +680,11 @@ plotscript, show help, begin
   hide all strings
   if(running on console) then(
     variable(sl)
-    sl := load slice collection(2)
+    if(running on ouya) then(
+      sl := load slice collection(2)
+    )else(
+      sl := load slice collection(3)
+    )
     wait(1)
     while(true) do(
       if(
