@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg3350"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="titlescreen.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0">
+  <defs
+     id="defs3352">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3358" />
+    <filter
+       inkscape:collect="always"
+       id="filter5341">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5343" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5345">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5347" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5349">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5351" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5353">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5355" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5357">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5359" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5361">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5363" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5365"
+       x="-0.1013651"
+       width="1.2027302"
+       y="-0.014169862"
+       height="1.0283397">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5367" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5369"
+       x="-0.040117502"
+       width="1.080235"
+       y="-0.25574124"
+       height="1.5114825">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5371" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5373"
+       x="-0.024171453"
+       width="1.0483429"
+       y="-0.12155239"
+       height="1.2431048">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5375" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5377"
+       x="-0.018000823"
+       width="1.0360016"
+       y="-0.12490427"
+       height="1.2498085">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5379" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5381">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5383" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5385">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5387" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5389"
+       x="-0.013586134"
+       width="1.0271723"
+       y="-0.110154"
+       height="1.2203079">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5391" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5393"
+       x="-0.014020229"
+       width="1.0280405"
+       y="-0.10182199"
+       height="1.203644">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5395" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5397">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5399" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5401"
+       x="-0.015384824"
+       width="1.0307696"
+       y="-0.11748429"
+       height="1.2349685">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9959256"
+         id="feGaussianBlur5403" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.6357127"
+     inkscape:cx="466.48086"
+     inkscape:cy="337.41658"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="885"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata3355">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.94061452;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3577"
+       width="1038.2643"
+       height="674.89252"
+       x="20.419796"
+       y="20.467474"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#fff6f6;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 671.95954,458.50526 C 671.81532,468.20664 672.78121,478.11418 669.89781,487.53999 C 669.22951,493.12935 670.09533,498.8374 668.47687,504.32452 C 667.8824,509.20947 668.70448,517.85696 661.37183,516.91449 C 656.30507,515.95177 650.64506,517.23597 648.50168,522.46359 C 644.81491,527.32935 645.11457,535.2523 650.48209,538.72388 C 656.47794,541.69143 663.80928,540.22054 669.14063,536.49452 C 673.015,534.17956 675.95335,525.16834 681.07969,531.30401 C 685.63197,535.12343 690.54568,540.07051 697.09252,538.92124 C 703.02578,539.08217 705.8645,533.34669 709.02291,529.36004 C 710.19092,523.67959 705.03548,519.00937 701.48577,515.19753 C 698.23505,510.23888 691.4925,510.93406 687.66996,506.97067 C 683.86529,499.62 684.29164,490.89744 684.17471,482.81818 C 684.43879,475.03436 683.17035,466.97809 686.10168,459.53443 C 687.47404,453.6441 687.10017,447.49934 687.89285,441.50762 C 688.33305,433.69526 687.14733,425.71877 688.62546,418.01524 C 691.79965,412.65897 698.8321,411.30821 703.23366,406.98607 C 710.6046,404.53761 709.21163,395.69459 709.54887,389.5299 C 711.58457,382.24329 703.2543,380.26745 697.73608,381.20137 C 691.06295,380.49623 686.8461,385.34875 685.76221,391.56442 C 684.39056,398.93004 676.37369,391.60697 673.00622,389.32497 C 668.7987,385.7373 660.1198,387.80814 660.17954,394.00367 C 658.48713,400.76163 662.75529,405.76006 669.14125,407.42405 C 675.35337,408.86397 679.48754,413.49632 677.43515,420.13681 C 676.32958,426.71757 673.20668,432.96761 673.81218,439.81258 C 673.56362,446.03478 674.90155,452.71813 671.95954,458.50526 z"
+       id="path3911"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <g
+       id="g3977"
+       transform="matrix(0.5973345,0,0,0.5973345,-64.710191,123.05745)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795">
+      <path
+         id="path3918"
+         d="M 1241.1267,504.94506 C 1218.4622,486.30593 1189.0784,474.356 1173.9591,447.8228 C 1156.0793,427.70841 1137.6985,407.29564 1127.602,381.94773 C 1109.3195,347.12456 1085.0569,311.31375 1088.0486,270.21973 C 1087.3491,246.13819 1088.8447,221.60969 1097.9166,199.02895 C 1105.5339,166.60123 1108.337,131.01916 1131.1329,104.68505 C 1157.2918,73.950763 1198.7195,62.551153 1237.1217,57.035443 C 1271.3085,55.711253 1305.5878,57.021313 1339.8176,56.704403 C 1362.0387,60.012443 1385.6552,55.595853 1406.232,64.178503 C 1428.0473,79.087463 1432.3668,107.27859 1439.2402,130.94769 C 1452.154,187.5921 1448.8771,246.35795 1441.4559,303.504 C 1442.4775,344.43084 1416.9286,378.70402 1397.8114,412.76023 C 1376.1216,442.80858 1345.9208,465.91205 1314.4205,484.85986 C 1290.8367,497.33374 1264.3808,503.71672 1237.8633,505.54659 L 1241.1267,504.94506 L 1241.1267,504.94506 z"
+         style="opacity:1;fill:#ee6e3b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <path
+         id="path3924"
+         d="M 1212.812,86.517073 C 1208.3084,86.517073 1197.3362,94.127653 1193.9356,97.528333 C 1188.4476,103.01625 1182.0282,114.15484 1175.0591,121.1239 C 1169.598,126.58495 1166.8218,131.3063 1164.0478,136.85427 C 1160.2389,144.47219 1159.4382,153.4874 1153.0366,162.02287 C 1149.8357,166.29066 1149.8905,180.77554 1149.8905,187.19148 C 1149.8905,197.75129 1145.1714,206.23669 1145.1714,217.07919 C 1145.1714,225.80752 1150.8115,238.0665 1153.0366,246.96691 C 1155.2846,255.95881 1155.647,265.27396 1157.7557,273.70855 C 1160.0958,283.06917 1164.3949,294.23925 1168.767,305.1693 C 1172.4397,314.35127 1176.9947,320.8587 1182.9243,328.76486 C 1188.3019,335.93498 1188.0562,342.94819 1193.9356,350.78739 C 1199.9584,358.81791 1202.2,364.17023 1206.5199,372.80992 C 1211.085,381.94011 1219.3069,392.09188 1222.2502,397.97852 C 1227.4352,408.34848 1229.278,412.8715 1236.4076,420.00105 C 1243.6015,427.19501 1249.3461,435.67932 1255.284,443.59661 C 1262.2758,452.91897 1268.6605,460.90003 1277.3065,460.90003 C 1283.0217,460.90003 1292.8965,450.02918 1296.183,446.74269 C 1301.5882,441.33748 1306.4206,436.50507 1310.3403,432.58535 C 1315.4239,427.50174 1322.7715,422.08223 1327.6438,418.42801 C 1334.836,413.0338 1339.8399,407.93431 1344.9472,401.1246 C 1349.4266,395.15197 1357.322,391.89581 1363.8236,385.39422 C 1369.2921,379.92573 1373.4044,372.52481 1376.4079,366.51777 C 1380.577,358.17966 1385.6671,348.53658 1387.4192,339.77613 C 1388.722,333.26224 1395.9057,324.37605 1398.4304,319.32664 C 1402.6269,310.93377 1407.3204,301.07038 1409.4417,292.585 C 1411.7192,283.47512 1415.7339,274.60267 1415.7339,264.27032 C 1415.7339,257.1184 1418.701,246.10951 1420.453,239.10172 C 1422.4976,230.92307 1420.453,219.23798 1420.453,210.78704 C 1420.453,198.15853 1419.5767,187.52926 1417.3069,176.18021 C 1415.2218,165.75458 1413.3849,155.77304 1411.0147,146.2925 C 1408.6561,136.85776 1406.083,128.56377 1401.5765,119.55086 C 1397.5558,111.50939 1394.0201,105.05568 1392.1383,97.528333 C 1390.3479,90.366893 1377.7634,86.462683 1371.6888,84.944033 C 1360.3112,82.099643 1353.334,80.750623 1341.8011,86.517073 C 1323.8602,95.487503 1289.3571,88.090103 1269.4414,88.090103 C 1256.1048,88.090103 1246.3995,83.880673 1237.9806,88.090103 C 1232.557,90.801913 1218.0318,87.561043 1212.812,86.517073 z"
+         style="opacity:1;fill:#f8946d;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g3407"
+       transform="matrix(0.5973345,0,0,0.5973345,754.64693,106.14411)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795">
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5341);enable-background:accumulate"
+         d="M -187.19148,105.39352 C -192.78653,134.36567 -197.3163,163.57416 -200.93231,192.84077 C -203.00173,224.88692 -199.3108,257.04761 -195.43898,288.785 C -191.03772,313.15691 -190.275,338.21375 -182.6767,361.94964 C -174.5379,400.58263 -165.60046,439.46656 -148.03401,475.08705 C -142.13252,490.65215 -135.64675,506.14038 -130.90138,522.04297 L -130.63477,524.49811 L -130.56212,526.96761"
+         id="path3926" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5345);enable-background:accumulate"
+         d="M -136.85426,88.090116 C -143.51044,106.0403 -149.67615,124.17213 -151.23382,143.37638 C -157.6233,170.83963 -155.07267,199.04938 -157.06742,226.93942 C -157.37106,246.35339 -154.87769,265.63203 -155.78829,285.07194 C -156.42037,308.84633 -151.23922,332.122 -150.54234,355.7904 C -148.18257,370.37108 -146.42308,384.93826 -143.7798,399.46756 C -135.61905,428.74557 -131.15745,458.91408 -121.67494,487.84613 C -121.64851,501.31343 -124.57489,515.02375 -121.64276,528.33746 C -111.62706,502.85933 -101.22496,475.02355 -108.21462,447.40925 C -115.11678,420.72326 -109.91541,392.99063 -111.99434,365.8219 C -112.51739,348.38855 -117.82122,331.38835 -114.11995,313.95229 C -111.9707,284.13378 -111.86208,254.17065 -108.57492,224.41458 C -110.01941,202.25299 -103.00584,180.29089 -106.90199,158.10485 C -109.51262,138.63758 -104.93679,119.56739 -103.61429,100.31263"
+         id="path3928"
+         sodipodi:nodetypes="cccccccccccccc" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5349);enable-background:accumulate"
+         d="M -70.78671,91.236176 C -77.46448,111.69224 -72.49327,127.39113 -71.80349,148.52142 C -68.07171,169.37624 -55.8807,188.6733 -57.85471,210.43569 C -54.12246,230.39894 -50.03282,250.55846 -51.95577,270.95516 C -51.29668,297.27761 -51.52076,323.82585 -56.62121,349.72162 C -58.34728,382.23544 -67.79863,413.66892 -71.58918,445.87671 C -77.15417,467.18139 -84.639,487.93217 -90.92793,509.03455 C -93.17459,515.2135 -95.81142,521.26764 -99.10139,526.9676"
+         id="path3930"
+         sodipodi:nodetypes="cccccccc" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5353);enable-background:accumulate"
+         d="M -59.7754,512.81025 C -50.59809,469.46651 -21.30781,432.07987 -18.75825,387.06007 C -18.36235,355.50159 -12.96383,324.19117 -14.0948,292.56017 C -13.50612,249.36914 -16.45071,206.24254 -15.73559,163.05969 C -16.18092,138.95508 -20.81221,114.23126 -32.81617,93.211236 C -34.27069,91.332386 -35.93907,89.623056 -37.7529,88.090106"
+         id="path3932" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5357);enable-background:accumulate"
+         d="M -7.86516,91.236176 C -9.61572,106.14399 3.03913,114.10723 3.9195,128.82413 C 14.08561,163.00996 27.77875,197.04277 27.02735,233.30908 C 27.36679,257.48301 24.22461,281.5172 24.90127,305.68841 C 21.64302,327.16266 18.22254,348.80574 12.8751,369.87786 C 1.19485,402.3731 4.63613,438.86812 -11.60853,469.98738 C -13.91077,474.37472 -16.75997,478.43174 -18.87647,482.92256"
+         id="path3934"
+         sodipodi:nodetypes="ccccccc" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5361);enable-background:accumulate"
+         d="M -162.0229,506.51814 C -170.35859,492.82413 -169.58898,475.30812 -180.00063,462.48244 C -188.56793,442.90327 -195.3247,422.33368 -207.71219,404.68792 C -222.37848,377.65963 -227.33841,346.94977 -238.57235,318.57112 C -246.9762,293.72363 -242.95158,267.0449 -243.75807,241.32909 C -243.58971,220.51568 -245.71373,199.13991 -238.95837,179.05797 C -235.41044,157.57573 -227.51325,137.31149 -221.7983,116.40479"
+         id="path3936" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5365);enable-background:accumulate"
+         d="M 22.02251,92.809216 C 34.47119,104.71103 42.91292,120.41961 47.232,137.00987 C 57.72022,154.08607 59.88672,174.31803 63.43662,193.60101 C 65.54482,209.80688 63.37552,226.20214 66.07412,242.35157 C 67.71282,256.28732 58.98222,268.64782 59.98142,282.64171 C 59.70492,298.9261 60.46612,315.41976 56.37822,331.32587 C 53.74176,348.68921 50.4386,366.00198 46.97779,383.18802 C 43.20588,396.82318 39.5434,410.71327 32.45386,423.07807 L 31.93333,425.46684 L 31.46076,427.86624"
+         id="path3955" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5369);enable-background:accumulate"
+         d="M -166.74198,504.94508 C -162.15016,501.72285 -146.5606,501.14654 -138.42731,497.0799 C -131.93119,493.83184 -122.0593,493.93382 -114.83174,493.93382 C -106.44221,493.93382 -98.05267,493.93382 -89.66314,493.93382 C -79.59781,493.93382 -76.23035,498.07854 -67.64061,500.22597 C -61.37018,501.79358 -55.43035,505.84433 -50.3372,509.6642"
+         id="path3959" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5373);enable-background:accumulate"
+         d="M -12.5843,476.63041 C -4.81948,478.57161 -25.87498,467.62551 -33.03379,464.04611 C -41.74978,459.68811 -47.14055,456.99272 -55.05631,453.03484 C -62.47582,449.32509 -68.60213,445.32253 -75.5058,443.59662 C -82.15375,441.93463 -90.37169,440.45054 -97.52833,440.45054 C -106.07902,440.45054 -112.5787,442.02358 -121.12389,442.02358 C -131.89608,442.02358 -144.36693,442.72197 -154.15768,445.16965 C -155.17506,445.424 -156.25507,445.16965 -157.30376,445.16965 C -166.90796,445.16965 -174.17338,449.80201 -182.47236,451.4618 C -189.26275,452.81988 -197.07638,457.19077 -201.34881,459.32699 C -204.77885,461.04201 -204.08852,461.15347 -206.06793,462.47307"
+         id="path3961" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5377);enable-background:accumulate"
+         d="M -235.95564,421.57409 C -245.81557,426.50406 -216.30321,411.51087 -206.06793,407.41675 C -195.81971,403.31746 -184.69333,399.99576 -174.60717,397.97853 C -160.65903,395.1889 -148.00615,393.25941 -133.70819,393.25941 C -126.5363,393.25941 -113.59306,391.12403 -108.53959,390.11334 C -97.39369,387.88416 -84.35352,391.17526 -73.93276,393.25941 C -61.80233,395.6855 -47.75198,392.51803 -36.17986,394.83245 C -28.37858,396.39271 -19.33003,399.32477 -12.5843,402.69764 C -4.24587,406.86685 4.5704,412.02432 11.01127,416.85498 C 16.7032,421.12392 21.11236,420.66392 25.16861,424.72017"
+         id="path3963" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5381);enable-background:accumulate"
+         d="M 53.48329,390.11334 C 59.94742,394.96141 43.01448,379.3733 29.88772,372.80992 C 19.67867,367.7054 9.55981,361.07293 -1.57303,355.50651 C -11.35901,350.61352 -22.11716,348.79744 -33.03379,346.06828 C -44.47614,343.20769 -55.71426,341.34917 -67.64061,341.34917 C -82.39151,341.34917 -98.09509,339.77613 -113.2587,339.77613 C -125.86074,339.77613 -137.45495,340.52548 -149.43857,342.92221 C -164.76899,345.98829 -181.31459,344.5783 -196.6297,347.64132 C -206.23433,349.56225 -211.04479,352.48931 -220.22526,357.07955 C -228.0148,360.97432 -237.05161,363.91968 -245.39387,368.09081 C -249.85317,370.32046 -251.62095,371.20435 -254.83209,372.80992"
+         id="path3965" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5385);enable-background:accumulate"
+         d="M -268.98943,336.63006 C -270.89458,337.58263 -250.29344,324.9962 -224.94438,317.75361 C -211.47387,313.90489 -196.46575,307.44688 -182.47236,300.45019 C -173.25628,295.84215 -161.4693,297.30412 -151.01161,297.30412 C -133.30334,297.30412 -115.44127,292.585 -97.52833,292.585 C -76.9915,292.585 -55.6508,289.43893 -34.60682,289.43893 C -26.45016,289.43893 -15.29018,296.73769 -7.86518,300.45019 C -0.05731,304.35413 7.42443,307.30848 15.73038,311.46145 C 25.26883,316.23068 33.13126,320.16189 40.89898,324.04576 C 50.66965,328.93109 56.72352,333.57817 61.34852,338.20309"
+         id="path3967" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5389);enable-background:accumulate"
+         d="M 72.35972,292.585 C 82.02822,297.41923 52.95894,282.62243 42.47202,280.0007 C 30.06218,276.89824 21.26126,270.96836 11.01127,265.84336 C 0.29413,260.48479 -15.25812,260.84905 -26.74163,257.97817 C -35.4202,255.80853 -44.80501,257.00166 -53.48327,254.8321 C -63.56063,252.31276 -75.89618,253.25906 -86.51707,253.25906 C -98.05267,253.25906 -109.58828,253.25906 -121.12389,253.25906 C -132.05908,253.25906 -143.79208,252.2407 -154.15768,254.8321 C -163.19122,257.09048 -172.66275,257.09881 -182.47236,259.55121 C -198.75183,263.62108 -214.20084,266.69681 -229.66349,270.56248 C -231.76087,271.08682 -233.85826,271.61117 -235.95564,272.13551 C -244.63235,274.30469 -251.08011,277.33819 -259.55121,281.57374 C -267.90433,285.7503 -270.71912,286.4495 -275.28158,291.01197"
+         id="path3969" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5393);enable-background:accumulate"
+         d="M -272.13551,240.67476 C -282.51703,245.86552 -250.36205,232.47858 -239.10172,229.6635 C -208.19186,221.93603 -179.11176,225.39722 -149.43857,215.50616 C -140.41585,212.49858 -123.99323,212.36008 -114.83174,212.36008 C -97.91344,212.36008 -82.99612,213.93312 -66.06758,213.93312 C -56.39487,213.93312 -35.84617,219.75654 -23.59556,221.79831 C -20.95829,222.23785 -18.3521,222.847 -15.73037,223.37135 C -7.58833,224.99975 -2.16664,229.12184 6.29216,231.23654 C 16.35677,233.75269 29.17313,238.95904 37.75291,245.39387 C 43.96538,250.05322 52.61874,250.46723 58.20242,253.25906 C 61.01622,254.66597 62.52552,255.42061 64.49452,256.40514"
+         id="path3971" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5397);enable-background:accumulate"
+         d="M 75.50582,217.0792 C 82.22072,220.43665 61.77122,210.99842 55.05632,207.64097 C 45.75635,202.99098 39.05549,193.3484 29.88772,188.76452 C 20.73485,184.18809 11.91089,182.13566 3.14608,177.75326 C -6.53549,172.91247 -18.01441,172.46313 -28.31467,169.88807 C -37.94669,167.48006 -48.1984,168.31503 -58.20239,168.31503 C -76.55449,168.31503 -94.9066,168.31503 -113.2587,168.31503 C -121.64824,168.31503 -130.03777,168.31503 -138.42731,168.31503 C -150.01931,168.31503 -156.64031,171.4611 -166.74198,171.4611 C -178.77475,171.4611 -195.43669,175.70301 -204.49489,179.32629 C -216.16967,183.9962 -224.69551,189.88208 -232.80957,191.91059 C -240.08316,193.72899 -250.30138,202.22954 -254.83209,204.4949 C -254.55333,206.96407 -257.23518,205.69644 -257.97817,206.06793"
+         id="path3973" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ab2323;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;filter:url(#filter5401);enable-background:accumulate"
+         d="M -251.68602,160.44984 C -252.77629,160.99498 -233.774,150.46621 -217.07919,146.2925 C -191.25519,139.8365 -164.35417,132.60142 -138.42731,127.41605 C -123.46829,124.42425 -106.38205,124.26998 -91.23618,124.26998 C -78.46856,124.26998 -65.00133,122.69694 -51.91024,122.69694 C -37.94095,122.69694 -25.51756,128.98909 -9.43822,128.98909 C -1.61788,128.98909 9.11631,134.33376 14.15734,136.85428 C 22.11726,140.83423 31.22319,143.81416 39.32595,147.86554 C 44.17353,150.28933 50.31,154.13048 53.48329,157.30377 C 54.31235,158.13283 55.58067,158.35246 56.62932,158.8768"
+         id="path3975" />
+    </g>
+    <path
+       style="opacity:1;fill:#fff6f6;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 813.19226,100.5969 C 808.04902,108.82399 803.74907,117.80187 796.40444,124.37579 C 792.94044,128.81294 790.7278,134.14545 786.50363,138.00346 C 783.46729,141.87602 779.69625,149.70125 773.9092,145.10061 C 770.07159,141.65507 764.56371,139.82531 760.02463,143.18964 C 754.35206,145.44572 750.50889,152.38062 753.30567,158.12868 C 756.90096,163.77055 763.93564,166.30535 770.42577,165.87553 C 774.939,165.8993 782.11612,159.70858 783.32805,167.61156 C 785.24724,173.23543 786.89223,180.01128 793.08918,182.41538 C 798.08314,185.62316 803.48003,182.18403 808.24558,180.40684 C 812.18433,176.1503 810.18924,169.48628 809.12405,164.38767 C 808.9081,158.4624 802.77863,155.56846 801.55841,150.19898 C 802.10613,141.94017 806.98432,134.69669 811.06473,127.72258 C 815.31833,121.19842 818.40149,113.64817 824.76149,108.79521 C 828.9837,104.46483 831.84329,99.013171 835.62192,94.296061 C 840.04099,87.838619 843.15365,80.399431 848.40459,74.572162 C 853.89234,71.631123 860.60908,74.114068 866.61203,72.693025 C 874.18642,74.411795 877.57012,66.123853 881.04852,61.023095 C 886.56084,55.841099 880.45481,49.839969 875.24949,47.783831 C 869.90401,43.727526 863.7847,45.697992 859.64098,50.456046 C 854.65601,56.049236 851.58499,45.634521 849.88416,41.939309 C 848.14007,36.692157 839.64181,33.973458 836.48716,39.306033 C 831.54212,44.213256 832.60813,50.699035 837.21174,55.427254 C 841.78252,59.873785 842.9233,65.976953 837.73101,70.597398 C 833.37985,75.656654 827.47351,79.389059 824.44984,85.559777 C 821.01756,90.755631 818.70426,97.167032 813.19226,100.5969 z"
+       id="path3461"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#d13b16;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.48937678;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 767.80175,123.99708 C 746.02287,138.05355 730.32845,169.41912 746.25546,193.26022 C 758.41345,215.47534 796.50095,218.40667 809.41416,195.30136 C 819.1505,170.78522 823.83151,144.56104 824.12756,118.29357 C 809.28551,130.61087 822.27253,95.959596 804.34082,113.33593 C 814.66622,91.764399 775.64697,132.29992 767.80175,123.99708 z"
+       id="path3458"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#fff6f6;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 578.66217,115.83625 C 572.65702,108.21549 565.66027,101.13469 561.95493,92.000685 C 558.94933,87.241062 554.67819,83.356633 552.47454,78.077262 C 549.85579,73.910931 543.76517,67.717445 550.05073,63.825444 C 554.59038,61.377884 558.1737,56.812293 556.5411,51.403355 C 556.33459,45.302119 551.10629,39.341595 544.75129,40.031499 C 538.22639,41.508814 533.46356,47.273143 531.67497,53.526732 C 530.12751,57.766446 533.52879,66.613342 525.68117,65.083425 C 519.73959,64.989322 512.80646,64.24788 508.44973,69.267922 C 503.7431,72.884148 505.15622,79.125714 505.21853,84.211488 C 507.8937,89.356895 514.83991,89.731029 519.99853,90.451396 C 525.64823,92.250412 530.4432,87.459422 535.90915,88.125388 C 543.49706,91.431695 548.66602,98.470619 553.85106,104.66766 C 558.55409,110.87567 564.61835,116.32882 567.03669,123.95459 C 569.68559,129.39174 573.85025,133.92532 577.01303,139.07567 C 581.59734,145.41686 587.54711,150.86025 591.25722,157.77143 C 592.17087,163.9302 587.56427,169.4128 586.87323,175.54284 C 582.69606,182.09087 589.35306,188.07616 592.97837,193.07357 C 595.99283,200.01271 603.70429,196.29375 607.39844,192.08944 C 613.02246,188.42908 613.23572,182.00388 610.15778,176.49609 C 606.5781,169.91432 617.41793,170.54325 621.47051,170.19114 C 626.99837,170.32274 632.42884,163.24308 628.47596,158.47203 C 625.5284,152.15965 619.06393,150.9713 613.0582,153.70637 C 607.32869,156.50574 601.19905,155.51703 598.60496,149.06885 C 595.31362,143.26404 593.79663,136.4439 589.01063,131.5129 C 585.28024,126.52675 580.02769,122.18302 578.66217,115.83625 z"
+       id="path3463"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#d13b16;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.48937678;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 566.72098,131.51411 C 564.99683,133.70275 563.9021,139.54147 563.9021,145.60856 C 563.9021,149.79563 562.84552,155.47266 562.02284,158.76337 C 560.99848,162.86078 562.02284,168.60932 562.02284,172.85782 C 562.02284,176.51898 564.79911,180.20438 565.78136,184.13337 C 566.60405,187.42415 570.46421,189.74057 572.35877,193.52967 C 573.89231,196.59676 579.01373,199.20622 582.69469,201.0467 C 586.94448,203.17161 592.75103,204.73533 596.78914,205.74486 C 603.46394,207.41355 611.35221,206.68449 618.40062,206.68449 C 623.21102,206.68449 627.14245,201.84376 630.61581,200.10708 C 634.50337,198.16329 636.25589,192.58542 638.13284,188.83153 C 640.00634,185.08454 640.0121,180.92815 640.0121,176.61634 C 640.0121,172.96927 640.95173,167.74647 640.95173,163.46152 C 640.95173,159.68873 636.34627,155.37562 635.31396,151.24633 C 634.14853,146.58463 631.10245,144.37817 627.79692,139.97078 C 627.3767,139.41049 627.17049,138.71794 626.85729,138.09152 C 625.51806,135.41306 616.81004,132.99572 614.6421,132.45374 C 609.71629,131.22229 607.70587,129.07533 602.42692,127.75559 C 597.60016,126.5489 593.91284,125.84763 590.21173,123.99708 C 585.76658,121.7745 585.06837,119.54613 580.81543,117.41966 C 577.29413,115.65902 579.27128,124.39788 579.8758,126.81596 C 581.92514,135.01328 574.29681,124.38866 573.2984,123.05745 C 568.51376,116.67793 569.57345,127.94853 566.72098,131.51411 C 565.46814,133.08016 570.96592,134.26661 570.47951,136.21226 C 569.99309,138.1579 567.97383,133.08016 566.72098,131.51411 z"
+       id="path3456"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#6e7b4a;fill-opacity:1;fill-rule:evenodd;stroke:#030000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 649.40839,234.87337 C 649.40839,231.86519 642.68175,240.3177 641.89136,244.26968 C 640.55525,250.95025 643.57553,252.15898 648.46876,254.6056 C 653.92018,257.3313 659.12251,254.28779 662.56322,250.84708 C 666.37207,247.03823 667.43425,243.08197 666.32173,238.63189 C 665.02763,233.45543 658.64341,233.89342 655.04618,232.99412 C 653.12442,232.51368 651.28767,234.24695 649.40839,234.87337 z"
+       id="path3871"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#6e7b4a;fill-opacity:1;fill-rule:evenodd;stroke:#030000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 658.8047,270.57931 C 655.44806,269.74015 649.69252,274.141 648.46877,279.03598 C 646.94214,285.14248 649.28873,287.4328 653.16693,289.3719 C 657.06039,291.31863 660.34062,291.33699 664.44248,290.31153 C 669.02756,289.16526 669.21983,283.41735 670.08026,279.97561 C 671.71107,273.45238 668.21786,270.81843 663.50285,269.63968 C 661.95347,269.25233 660.37075,270.2661 658.8047,270.57931 z"
+       id="path3873"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#6e7b4a;fill-opacity:1;fill-rule:evenodd;stroke:#030000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 742.43175,232.99412 C 738.11641,231.91529 734.87899,238.77477 733.97508,242.39041 C 732.68167,247.56408 732.85963,251.43506 734.91471,255.54524 C 736.65125,259.01831 745.78983,255.37575 748.06953,253.66598 C 751.11071,251.38509 751.80737,244.35236 752.76768,240.51115 C 754.39267,234.01116 747.28557,232.99412 742.43175,232.99412 z"
+       id="path3875"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#6e7b4a;fill-opacity:1;fill-rule:evenodd;stroke:#030000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 735.85434,266.82079 C 735.91302,266.58604 726.87918,268.89472 725.51841,274.33783 C 724.36423,278.95457 725.9881,284.67352 727.39767,287.49265 C 729.76941,292.23613 739.4621,288.03784 740.55249,287.49265 C 745.13687,285.20045 744.31101,277.8497 744.31101,273.3982 C 744.31101,269.79737 739.91421,266.82079 735.85434,266.82079 z"
+       id="path3877"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="fill:#c9b9b9;fill-opacity:1;fill-rule:evenodd;stroke:#030000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 672.89914,318.50042 C 670.73585,313.46767 664.24622,317.37343 660.29887,315.39682 C 656.09089,313.35095 652.615,310.01154 649.14883,306.91643 C 642.91353,300.00904 636.94393,292.72635 629.31634,287.26804 C 624.89505,284.11291 620.54879,280.80889 617.18573,276.48658 C 613.2369,271.90686 608.99471,267.16149 603.39812,264.66151 C 598.16786,263.75739 601.48627,270.21579 601.83525,272.94022 C 603.23759,277.39549 604.32853,282.44883 601.87627,286.77087 C 599.79978,291.15385 599.0555,296.04083 599.99357,300.81022 C 600.83529,307.76452 600.19827,314.82365 601.18793,321.74964 C 601.96807,327.39327 606.87327,330.85552 610.98922,334.13797 C 615.04133,336.87824 619.82594,338.19209 624.132,340.48434 C 628.62148,342.35042 632.93784,345.22342 637.98544,345.03212 C 642.08271,344.99649 646.28834,345.0526 650.28488,344.15855 C 657.54267,341.94311 664.43182,338.00035 669.35664,332.14658 C 670.06897,328.01652 674.69822,326.1026 677.65131,326.28995 C 678.14242,323.07308 675.54515,319.97388 672.89914,318.50042 z"
+       id="path3879"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#c9b9b9;fill-opacity:1;fill-rule:evenodd;stroke:#030000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 709.54472,327.89673 C 714.45134,327.07353 712.55179,320.5277 715.27692,317.51451 C 719.23606,313.40062 726.42398,315.05726 729.64944,309.71313 C 733.27983,305.84009 738.4082,304.05636 742.14985,300.32585 C 746.14434,297.08981 750.77443,294.65606 754.24685,290.77761 C 760.87585,283.82532 767.73387,277.06965 775.46162,271.32711 C 777.12381,269.55644 782.3405,265.32206 781.88015,270.51782 C 780.9537,276.07824 779.18114,281.70872 780.56633,287.3761 C 781.61775,293.65439 785.16355,299.13831 786.2162,305.42271 C 788.50019,315.47817 785.64967,327.06961 777.67907,333.91542 C 772.28461,337.39947 765.979,339.09651 760.45984,342.36909 C 754.24428,345.66761 747.58668,349.1353 740.31626,348.50794 C 733.99505,348.74164 726.7969,350.45766 721.37693,346.14149 C 716.55044,344.4312 712.70054,340.17598 714.86476,334.9424 C 715.56404,332.58769 713.41988,328.4949 711.4258,332.01129 C 709.06624,333.55507 709.76872,328.98237 709.54472,327.89673 z"
+       id="path3881"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 658.8047,367.36118 C 659.00911,372.41924 654.88008,375.00279 651.28767,377.6971 C 648.80425,379.55966 639.29906,379.0499 637.19321,379.57636 C 633.09581,380.60071 627.34727,379.57636 623.09877,379.57636 C 618.22333,379.57636 613.80111,378.37715 609.00432,379.57636 C 604.26078,380.76224 598.23016,380.51598 593.97025,380.51598 C 588.83504,380.51598 585.20485,384.11677 580.81543,385.21413 C 576.83158,386.2101 574.53721,390.70232 570.47951,392.73117 C 567.72872,394.10656 566.07811,403.46257 565.78135,404.94635 C 564.91823,409.26196 563.51557,412.29682 562.02284,415.28229 C 559.99896,419.33003 554.39688,419.06804 550.74728,419.98044 C 545.38232,421.32167 540.71699,419.19362 536.65284,417.16155 C 532.46529,415.06777 529.56926,413.33032 527.25653,408.70488 C 525.37068,404.93319 523.67177,402.99622 522.55839,397.42932 C 521.45792,391.92696 516.40993,393.45633 514.10172,394.61043 C 510.46857,396.42701 511.58412,403.33259 512.22246,405.88598 C 513.33019,410.31691 513.16209,415.07792 513.16209,419.98044 C 513.16209,424.30449 514.13237,428.31449 513.16209,432.19563 C 512.01871,436.76916 511.28283,439.22923 511.28283,440.65229 C 511.28283,445.0484 520.17279,440.52571 524.43765,441.59192 C 529.4365,442.84164 533.79608,445.34097 537.59247,446.29006 C 542.14502,447.4282 545.32853,447.98918 549.80765,449.10896 C 554.55382,450.2955 559.71234,450.04859 564.84172,450.04859 C 569.5484,450.04859 572.56206,448.11851 576.11728,447.22969 C 581.40006,445.90901 583.61081,440.69931 585.51358,436.89377 C 587.36917,433.18261 587.32844,427.75505 588.33247,423.73896 C 589.85418,417.65211 590.37219,416.06146 593.97025,412.46339 C 597.35806,409.07558 601.72597,408.64521 605.2458,407.76525 C 610.19867,406.52703 616.88329,408.79536 620.27988,409.64451 C 626.22513,411.13082 631.09857,407.40317 634.37433,404.94635 C 637.81257,402.36767 640.30167,401.35036 644.71025,400.24822 C 649.321,399.09553 652.93741,398.48371 656.92543,396.48969 C 662.24091,393.83196 663.27903,392.08997 666.32173,388.03303 C 669.1769,384.22613 670.82533,378.47533 671.95951,373.93858 C 673.35806,368.34439 675.97738,366.42154 668.20099,366.42154 C 665.99193,366.42154 661.46583,367.36118 658.8047,367.36118 z"
+       id="path3887"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 685.11433,370.18006 C 680.43531,370.18006 677.31075,371.73278 672.89914,373.93858 C 668.6722,376.05206 667.03078,377.92768 664.44247,380.51598 C 663.0383,381.92016 664.44247,392.37779 664.44247,394.61043 C 664.44247,397.93506 660.26604,402.54537 658.8047,404.00673 C 655.99665,406.81476 652.51893,409.96851 649.40839,411.52377 C 645.95728,413.24932 639.19239,414.54758 636.25359,415.28229 C 630.91436,416.61709 628.29636,417.38164 623.09877,419.98044 C 619.67773,421.69096 617.49427,425.88706 615.58173,428.4371 C 613.56551,431.12539 614.6865,438.01099 615.58173,441.59192 C 616.9753,447.16621 616.63408,450.83791 613.70247,454.74673 C 610.49356,459.02529 609.89926,459.93704 605.2458,462.26377 C 600.85903,464.45716 595.99694,465.47876 593.03061,466.96192 C 587.89857,469.52795 583.73882,471.52075 580.81543,475.41859 C 577.2938,480.1141 573.89858,483.6145 571.41914,488.5734 C 569.8361,491.73945 570.47951,497.27164 570.47951,501.72822 C 570.47951,508.03909 571.87301,510.15302 574.23802,514.88304 C 576.34806,519.1031 579.26672,521.79099 581.75506,524.27933 C 584.62193,527.1462 587.68855,530.06497 591.15136,531.79638 C 594.69143,533.56641 598.43395,538.13933 598.66839,538.37378 C 601.68076,541.38614 599.41456,529.17095 602.42692,526.15859 C 605.64442,522.94109 613.22785,522.28383 616.52135,521.46045 C 622.22284,520.03508 626.08317,519.06999 631.55544,517.70192 C 636.78201,516.39528 639.95399,516.26343 633.43469,513.00378 C 628.82704,510.69995 626.07418,509.32352 622.15914,507.366 C 617.34412,504.95849 616.21963,501.12476 614.6421,497.96971 C 611.63295,491.95141 616.57915,491.3345 620.27988,487.63377 C 623.43272,484.48094 628.9469,483.82267 632.49506,482.93563 C 637.03587,481.80042 639.92633,479.21999 643.77063,477.29785 C 648.18207,475.09212 650.24849,472.7988 652.2273,468.84118 C 654.49584,464.30407 653.40369,458.74202 650.34803,455.68636 C 647.25937,452.59771 646.58951,447.67953 646.58951,443.47118 C 646.58951,437.28845 649.64412,435.71841 652.2273,433.13525 C 654.53907,430.82346 659.71954,429.38293 663.50285,428.4371 C 668.86144,427.09745 673.20905,424.44616 676.65766,421.85969 C 680.80101,418.75219 682.89069,417.50592 686.05396,414.34265 C 688.31917,412.07745 687.93322,404.62205 687.93322,401.18784 C 687.93322,396.14179 686.978,391.85386 687.93322,388.03303 C 689.01629,383.70073 690.7521,382.06408 690.7521,375.81784 C 690.7521,371.63426 689.5644,370.18006 685.11433,370.18006 z"
+       id="path3889"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 697.32951,369.24043 C 697.32951,364.2193 697.60769,379.40329 696.38988,384.27451 C 695.1566,389.20763 693.571,391.46217 693.571,397.42932 C 693.571,401.18772 697.8164,406.85978 699.20877,409.64451 C 701.40441,414.03577 703.26856,416.82445 704.84655,419.98044 C 707.15428,424.59589 706.86371,428.16133 704.84655,432.19563 C 702.61142,436.6659 699.37459,439.98902 698.26914,444.4108 C 696.89717,449.89869 694.51063,452.28257 694.51063,458.50526 C 694.51063,463.58346 698.69941,466.34499 702.02767,468.84118 C 705.50706,471.45072 707.79061,474.72928 709.5447,478.23748 C 711.49396,482.13599 710.48433,487.97552 710.48433,492.33192 C 710.48433,497.73934 711.32385,501.32781 712.36359,505.48674 C 712.89017,507.59304 716.64701,498.79917 717.06174,497.96971 C 718.82305,494.4471 722.47894,493.38184 726.45804,491.3923 C 730.26373,489.48945 733.42397,489.51304 738.67322,489.51304 C 743.30882,489.51304 748.84733,490.45267 749.00915,490.45267 C 751.53873,490.45267 745.39185,477.43906 745.25063,477.29785 C 741.48906,473.53628 740.50234,470.6703 736.79396,466.96192 C 733.83742,464.00538 731.1923,458.2402 729.27692,455.68636 C 726.56731,452.07354 726.38328,449.40798 727.39767,445.35043 C 728.49355,440.96689 731.53341,437.07894 733.03545,434.07488 C 735.24136,429.66306 729.8276,424.8403 728.33729,421.85969 C 726.17496,417.53503 725.17026,414.19168 721.75989,409.64451 C 718.89251,405.82134 718.14111,402.68647 717.06174,398.36895 C 716.23805,395.07423 718.00137,388.34146 718.00137,384.27451 C 718.00137,378.62223 717.21869,375.19212 715.18248,371.11969 C 712.80013,366.355 708.32286,366.42154 704.84655,366.42154 C 703.01982,366.42154 699.37401,368.83153 697.32951,369.24043 z"
+       id="path3891"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 722.69952,378.63673 C 717.51497,378.63673 726.95833,388.09398 729.27692,392.73117 C 731.05515,396.28762 735.2137,400.23756 737.73359,402.12747 C 742.49731,405.70026 743.98613,406.46575 745.25063,411.52377 C 746.50452,416.53934 747.4236,420.56786 749.00915,423.73896 C 750.9396,427.59984 752.50439,429.31091 756.52619,430.31636 C 760.22994,431.2423 764.71292,435.34936 767.80175,436.89377 C 772.12555,439.05567 774.1981,440.86769 775.31879,445.35043 C 776.62428,450.57241 778.90013,454.03801 780.01692,458.50526 C 781.06412,462.69402 787.5682,465.10834 791.29249,467.90155 C 794.38586,470.22157 800.16878,469.88571 803.50767,470.72044 C 807.60508,471.74479 813.35362,470.72044 817.60212,470.72044 C 823.05778,470.72044 827.1223,469.71887 830.75694,467.90155 C 834.85425,465.85289 837.71906,463.95067 841.09286,462.26377 C 842.97212,461.32414 844.85138,460.38451 846.73064,459.44489 C 849.86275,457.87883 842.8818,453.44582 842.03249,450.04859 C 841.06531,446.17987 838.35669,443.802 837.33434,439.71266 C 836.09143,434.741 837.23313,430.72121 838.27397,426.55784 C 839.04708,423.46544 828.96432,431.16935 828.87767,431.25599 C 825.86544,434.26823 822.42715,435.68751 817.60212,436.89377 C 812.01533,438.29047 808.71563,435.52431 806.32657,433.13525 C 803.14576,429.95445 800.84505,429.58509 797.8699,425.61821 C 794.16166,420.6739 791.31393,418.58171 786.59434,416.22192 C 782.32254,414.08602 778.46919,414.50842 774.37916,412.46339 C 770.02151,410.28458 769.02098,407.38483 766.86212,403.0671 C 764.90577,399.15442 765.48616,393.73777 764.04322,390.85192 C 761.51993,385.80532 757.11587,385.59646 751.82804,384.27451 C 748.68322,383.4883 743.82596,379.09132 741.49212,376.75747 C 738.32403,373.58938 734.79814,370.32755 732.09582,368.30081 C 727.13085,364.57708 727.56385,362.49684 723.63915,366.42154 C 720.54346,369.51722 721.88569,374.56759 722.69952,378.63673 z"
+       id="path3893"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 744.311,363.60265 C 742.41399,365.49966 745.46386,373.85185 746.19026,376.75747 C 747.12683,380.5037 750.92693,383.48894 751.82804,387.0934 C 752.77785,390.89262 754.80318,396.17506 755.58656,399.30859 C 757.03526,405.10338 758.46338,407.82318 762.16397,411.52377 C 765.26739,414.62719 767.5172,414.99775 770.62063,418.10118 C 773.51614,420.99668 780.24837,420.92006 783.77545,420.92006 C 788.47359,420.92006 793.17175,420.92006 797.8699,420.92006 C 804.24633,420.92006 810.60699,421.00361 815.72286,419.98044 C 820.75138,418.97473 823.98434,416.31951 827.93804,414.34265 C 831.97118,412.32609 834.34755,411.25575 835.45509,406.82562 C 836.52762,402.53549 836.39471,397.57975 836.39471,392.73117 C 836.39471,388.60542 833.57583,384.4154 833.57583,379.57636 C 833.57583,373.67496 834.14016,371.30873 832.6362,368.30081 C 831.81991,366.66823 819.69815,368.95133 818.54175,369.24043 C 813.87659,370.40672 812.21137,369.11692 808.20582,371.11969 C 804.69787,372.87367 810.3998,380.20579 811.02471,381.45561 C 812.71455,384.8353 813.8436,387.85978 813.8436,392.73117 C 813.8436,394.85452 806.71634,398.17406 804.4473,399.30859 C 799.61871,401.72288 795.8939,401.39856 791.29249,400.24822 C 786.62225,399.08065 781.69597,399.49343 777.19804,398.36895 C 772.19515,397.11823 772.32856,392.38853 770.62063,388.97265 C 768.2997,384.33076 767.00083,383.47358 763.1036,379.57636 C 760.95369,377.42645 759.23357,369.95705 757.46582,366.42154 C 755.0305,361.5509 750.69736,362.32538 744.311,363.60265 z"
+       id="path3895"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 637.19321,359.84414 C 635.15374,355.76518 635.47417,368.92 633.43469,372.99894 C 632.28827,375.29178 624.80758,379.23437 623.09877,380.51598 C 617.41808,384.77651 616.7399,386.37231 610.88359,380.51598 C 607.03454,376.66694 604.91115,375.4189 603.36655,369.24043 C 602.22199,364.6622 596.09828,360.34168 593.97025,356.08561 C 591.71407,351.57326 586.20453,356.97684 583.63432,358.90451 C 581.15652,360.76284 574.78358,361.92043 571.41914,363.60265 C 565.63162,366.49641 562.77134,367.53629 561.08321,360.78376 C 558.9988,352.44613 553.92507,364.98593 553.56617,366.42154 C 552.17127,372.00114 550.86448,373.26316 557.32468,374.87821 C 562.29996,376.12203 567.31357,374.02534 571.41914,372.99894 C 576.4012,371.75343 579.78047,370.18006 585.51358,370.18006 C 592.81056,370.18006 592.37042,371.29776 593.97025,377.6971 C 595.26057,382.85838 597.34682,384.626 598.66839,389.91228 C 600.17925,395.95571 604.63793,399.30859 609.94395,399.30859 C 614.42984,399.30859 620.66482,397.27535 624.97802,395.55006 C 630.21285,393.45613 631.41912,392.32951 636.25359,389.91228 C 641.4601,387.30903 641.56488,383.70115 642.831,378.63673 C 643.97098,374.07676 645.63731,370.23037 646.58951,366.42154 C 648.1011,360.37517 641.92645,359.84414 637.19321,359.84414 z"
+       id="path3897"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 640.95173,361.72339 C 642.07334,357.23698 635.49593,369.45217 634.37433,373.93858 C 633.46066,377.59323 629.12656,379.73596 627.79692,382.39525 C 626.4275,385.13408 621.68944,387.79806 619.34025,388.97265 C 613.89523,391.69516 611.71092,388.86037 609.00432,386.15377 C 606.37444,383.52388 605.68036,378.90294 603.36655,375.81784 C 600.43921,371.91473 599.61645,369.24886 596.78913,366.42154 C 593.6088,363.2412 590.41747,363.55122 586.45321,364.54228 C 582.30102,365.58033 577.53559,366.30187 573.29839,367.36118 C 568.85277,368.47258 563.57327,368.21859 560.14357,367.36118 C 556.47392,366.44375 554.5058,358.39799 554.5058,367.36118 C 554.5058,369.03758 566.11063,368.30081 567.66061,368.30081 C 572.67198,368.30081 577.68334,368.30081 582.69469,368.30081 C 588.54875,368.30081 592.40455,369.86703 596.78913,372.05932 C 600.4601,373.8948 599.66797,378.87654 600.54765,382.39525 C 601.26408,385.26094 605.78031,389.50716 607.12506,390.85192 C 610.818,394.54486 609.54741,396.62547 616.52135,398.36895 C 616.71515,398.4174 625.14063,391.62894 625.91766,390.85192 C 630.0474,386.72217 631.59222,388.89909 634.37433,383.33488 C 635.83437,380.4148 638.42319,376.17677 640.0121,372.99894 C 642.07737,368.86841 642.0723,367.32624 640.95173,361.72339 z"
+       id="path3899"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 665.3821,368.30081 C 667.28728,364.49043 660.87742,375.62437 657.86506,378.63673 C 654.84937,381.65242 652.89094,382.53323 649.40839,384.27451 C 644.71963,386.61889 641.22409,388.03303 636.25359,388.03303 C 630.6742,388.03303 628.23794,389.31781 623.09877,388.03303 C 617.70002,386.68334 614.91678,385.85019 609.94395,387.0934 C 605.53388,388.19592 601.27742,387.66814 596.78913,389.91228 C 592.69349,391.96011 589.33239,392.68595 585.51358,395.55006 C 581.82015,398.32014 580.81543,403.39004 580.81543,407.76525 C 580.81543,413.57928 578.16181,416.83102 576.11728,420.92006 C 574.01184,425.13094 570.34042,428.47187 566.72098,429.37673 C 563.60026,430.15692 557.17452,427.30011 552.62654,428.4371 C 549.083,429.32299 543.26667,425.39241 540.41135,424.67858 C 537.14033,423.86083 531.60031,422.53354 528.19617,419.98044 C 525.09667,417.65582 520.43335,415.33287 517.86024,413.40302 C 514.55014,410.92045 511.67541,406.51669 513.16209,412.46339 C 514.20283,416.62635 514.10172,422.41198 514.10172,426.55784 C 514.10172,433.1126 512.74686,435.47341 519.7395,434.07488 C 524.03462,433.21586 529.43746,434.07488 533.83394,434.07488 C 538.41455,434.07488 542.68033,436.149 546.04913,437.8334 C 550.62457,440.12112 553.93378,441.44892 558.26431,442.53155 C 563.31592,443.79445 568.00413,440.95034 570.47951,439.71266 C 574.23547,437.83468 576.81458,432.68027 578.93617,428.4371 C 581.22012,423.8692 582.46641,420.89355 583.63432,416.22192 C 584.49128,412.79409 588.81893,407.74306 590.21173,405.88598 C 593.02665,402.13275 594.87176,402.3719 599.60802,401.18784 C 604.31276,400.01165 606.60667,398.36895 611.82322,398.36895 C 615.07359,398.36895 620.95395,396.35488 624.97802,395.55006 C 630.43952,394.45777 634.01564,394.93501 639.07247,393.6708 C 643.67386,392.52045 647.73389,392.67999 651.28767,391.79155 C 655.9141,390.63493 659.28303,387.5547 662.56322,384.27451 C 665.55974,381.27798 666.70867,377.31016 669.14062,374.87821 C 672.15963,371.8592 668.77439,369.65772 665.3821,368.30081 z"
+       id="path3901"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 678.53692,370.18006 C 681.51036,367.20662 675.24146,376.77097 671.95951,383.33488 C 670.35804,386.53782 668.79851,390.59652 667.26137,393.6708 C 665.77187,396.6498 666.36534,402.89271 665.3821,406.82562 C 663.97946,412.4362 660.56405,413.72786 655.98581,417.16155 C 652.30047,419.92555 647.21809,421.70254 642.831,422.79932 C 637.54663,424.12041 632.90763,424.94211 629.67618,426.55784 C 624.92376,428.93406 623.73852,429.11686 624.97802,434.07488 C 626.25736,439.19223 629.37055,438.49015 630.61581,443.47118 C 631.97838,448.92147 628.79363,452.7533 626.85729,456.626 C 625.05958,460.2214 620.19236,462.32942 616.52135,465.08266 C 612.01214,468.46457 607.88444,469.21127 603.36655,472.5997 C 598.41064,476.31662 596.16139,476.5688 592.09099,481.996 C 589.84156,484.99524 586.11125,487.97573 582.69469,491.3923 C 579.43543,494.65155 580.07431,500.64298 580.81543,503.60748 C 581.53926,506.50282 586.9667,510.27226 588.33247,513.00378 C 591.17303,518.68491 591.63879,521.00824 595.84951,525.21896 C 600.42916,529.79862 599.29724,524.90455 604.30618,522.40008 C 608.05153,520.52739 613.93639,520.87367 616.52135,519.58119 C 619.71548,517.98412 612.46913,513.6497 609.94395,511.12452 C 607.18974,508.3703 603.9887,503.91214 602.42692,500.78859 C 600.41027,496.75529 598.90254,494.20814 597.72876,489.51304 C 597.37405,488.09417 606.97138,482.14969 608.06469,481.05637 C 611.79824,477.32282 614.48723,475.49602 618.40062,473.53933 C 622.27628,471.60151 624.21194,470.16385 628.73654,467.90155 C 633.26535,465.63715 635.48537,464.52714 640.0121,462.26377 C 642.28315,461.12825 640.95173,450.46075 640.95173,448.16933 C 640.95173,443.66512 640.14766,438.37561 639.07247,434.07488 C 638.26576,430.84802 645.35332,426.85441 646.58951,425.61821 C 648.38652,423.8212 655.51781,422.5635 658.8047,420.92006 C 663.58267,418.53108 665.88233,416.91143 669.14062,415.28229 C 672.1955,413.75485 675.66373,410.63844 677.59729,408.70488 C 682.11248,404.18969 683.11633,406.58814 679.47655,399.30859 C 677.65362,395.66271 676.65766,392.13102 676.65766,387.0934 C 676.65766,381.05612 679.98263,377.40858 678.53692,370.18006 z"
+       id="path3903"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 703.90693,367.36118 C 703.90693,362.45866 699.52198,376.13104 697.32951,380.51598 C 694.96327,385.24848 695.17557,389.75313 696.38988,394.61043 C 697.46575,398.91385 700.41838,403.26959 703.90693,405.88598 C 707.03611,408.23288 708.85075,414.83402 710.48433,418.10118 C 712.62156,422.37563 714.24285,423.39092 714.24285,427.49747 C 714.24285,431.76885 710.65322,437.49563 709.5447,439.71266 C 707.57109,443.65988 705.78618,448.14998 705.78618,450.98822 C 705.78618,454.09834 712.32713,458.35938 713.30322,462.26377 C 714.29331,466.22412 715.18248,470.37289 715.18248,475.41859 C 715.18248,480.42696 718.00137,483.56419 718.00137,488.5734 C 718.00137,495.96724 720.22741,493.86441 723.63915,490.45267 C 725.814,488.27781 731.51987,488.48248 734.91471,487.63377 C 738.83465,486.65379 732.64235,482.54253 730.21655,480.11673 C 727.01214,476.91232 726.61178,472.90718 724.57878,468.84118 C 722.35982,464.40327 720.10113,462.70477 718.00137,458.50526 C 715.8535,454.20952 718.10797,451.41465 717.06174,447.22969 C 715.69844,441.77651 714.73058,439.67683 717.06174,435.01451 C 719.03842,431.06117 720.82026,428.28517 720.82026,422.79932 C 720.82026,417.05563 720.1158,414.3437 718.941,409.64451 C 718.4365,407.6265 711.50796,402.29548 710.48433,400.24822 C 708.14453,395.56862 705.53486,392.22853 703.90693,388.97265 C 702.38983,385.93848 706.06257,378.47081 706.72581,375.81784 C 707.96209,370.87272 708.66233,373.30543 703.90693,367.36118 z"
+       id="path3905"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 721.75989,366.42154 C 723.01272,361.41018 724.26557,376.44426 725.51841,381.45561 C 726.70068,386.18471 728.78276,388.36713 732.09582,390.85192 C 735.2499,393.21747 739.39119,393.61539 743.37138,394.61043 C 746.54931,395.40492 750.87952,401.4892 752.76767,404.00673 C 755.05102,407.05118 755.58656,413.21484 755.58656,417.16155 C 755.58656,420.67282 761.27045,423.30373 763.1036,424.67858 C 766.30697,427.08111 768.87147,427.62757 771.56026,430.31636 C 775.17545,433.93156 777.95678,434.83362 780.95656,437.8334 C 782.46714,439.34398 783.47418,447.45444 784.71508,449.10896 C 787.02937,452.19467 791.98625,454.50087 794.11138,456.626 C 796.69017,459.20479 806.16979,459.44489 811.02471,459.44489 C 815.08796,459.44489 819.76762,458.6686 824.17953,457.56563 C 829.38362,456.2646 833.03686,455.48603 836.39471,453.8071 C 842.76267,450.62313 840.22528,449.25305 837.33434,443.47118 C 834.85265,438.50778 834.47367,436.93555 829.8173,441.59192 C 827.8196,443.58963 819.74654,444.57942 816.66249,445.35043 C 811.94937,446.52872 807.95487,447.22969 803.50767,447.22969 C 800.13968,447.22969 797.7998,440.51209 796.93026,438.77303 C 794.82755,434.56759 792.84346,432.47869 791.29249,429.37673 C 788.07981,422.95138 779.88886,427.3694 775.31879,422.79932 C 771.64981,419.13035 768.09595,419.62921 765.92249,415.28229 C 764.00224,411.44178 764.20801,407.48473 763.1036,403.0671 C 761.98569,398.59548 759.21787,394.35603 757.46582,390.85192 C 756.08309,388.08647 747.55408,386.72962 745.25063,386.15377 C 742.50725,385.46792 738.32742,382.04944 735.85434,379.57636 C 730.54596,374.26798 731.05397,368.28035 721.75989,366.42154 z"
+       id="path3907"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 745.25063,362.66302 C 742.27926,359.69165 749.00915,370.18006 750.88841,373.93858 C 752.86159,377.88494 754.4255,382.44913 755.58656,387.0934 C 756.839,392.10318 760.32473,395.6301 762.16397,399.30859 C 763.76216,402.50497 767.31477,405.85166 768.74137,408.70488 C 771.09566,413.41345 776.86191,412.46339 781.89619,412.46339 C 786.17981,412.46339 790.77554,414.34265 795.99063,414.34265 C 802.11337,414.34265 806.72509,413.77321 811.96434,412.46339 C 817.78397,411.00849 820.05421,411.89057 823.2399,408.70488 C 825.11708,406.82769 827.12106,400.00291 827.93804,398.36895 C 830.0159,394.21324 828.11985,389.69986 826.99842,385.21413 C 826.01516,381.28114 825.11916,378.51765 825.11916,372.99894 C 825.11916,366.69724 821.73759,369.56958 816.66249,368.30081 C 808.99086,366.38289 811.55683,369.36502 813.8436,373.93858 C 815.93163,378.11464 816.53534,383.76594 817.60212,388.03303 C 818.70086,392.42797 820.20566,394.68866 821.36063,399.30859 C 822.64362,404.44049 815.23066,405.66228 812.90397,406.82562 C 808.38363,409.08579 803.52118,408.4666 798.80953,409.64451 C 795.39558,410.49799 789.02915,406.7296 785.65471,405.88598 C 781.5573,404.86164 775.80876,405.88598 771.56026,405.88598 C 768.0776,405.88598 765.9572,398.43837 764.98286,396.48969 C 763.2034,392.93077 761.27565,388.72786 759.34508,386.15377 C 757.33309,383.47112 756.65994,377.96459 754.64693,373.93858 C 752.02631,368.69735 752.45015,365.54283 745.25063,362.66302 z"
+       id="path3909"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 721.75989,328.83635 C 723.08972,332.72891 727.80079,335.95101 732.09582,339.17228 C 735.35188,341.61433 739.37623,341.05153 744.311,341.05153 C 748.97751,341.05153 754.17585,339.05514 757.46582,338.23265 C 761.74385,337.16314 765.01257,335.40633 768.74137,334.47413 C 771.90785,333.68251 774.98576,328.56276 776.25841,326.01747 C 778.46381,321.60666 778.8329,319.478 780.01692,314.7419 C 781.20426,309.99257 779.35867,304.96872 778.13767,302.52672 C 775.23268,296.71675 773.12361,295.63341 769.681,292.19079 C 766.96866,289.47844 758.37494,291.4937 755.58656,292.19079 C 751.54452,293.20131 748.94712,295.96482 745.25063,296.88894 C 742.77201,297.5086 738.85684,302.34311 736.79396,304.40598 C 733.43644,307.76351 730.63816,308.68251 727.39767,311.92302 C 723.22395,316.09673 720.91101,323.74309 721.75989,328.83635 z"
+       id="path3425"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 657.86506,324.1382 C 652.11293,313.67428 646.52396,301.94476 635.6383,295.904 C 629.09048,292.57986 620.65654,290.75006 613.9346,294.63793 C 601.53145,302.21222 600.62581,323.15667 612.99018,331.22125 C 622.53613,337.64521 634.11073,342.94758 645.87551,340.97849 C 651.01763,339.84772 656.80627,337.4091 659.00743,332.26837 C 660.03187,329.58519 659.62202,326.42409 657.86506,324.1382 z"
+       id="path3427"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 638.13284,297.82857 C 638.13284,293.46606 634.49276,305.81151 633.43469,310.04376 C 632.50785,313.75114 629.66417,318.54844 628.73654,322.25894 C 627.43338,327.4716 629.65164,331.5571 630.6158,335.41376 C 631.80288,340.16206 633.43469,342.81698 633.43469,335.41376 C 633.43469,331.95715 637.26822,327.5967 638.13284,324.1382 C 639.14076,320.10656 639.07247,315.55674 639.07247,310.98339 C 639.07247,305.57267 636.79394,304.52306 638.13284,297.82857 z"
+       id="path3440"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 739.61285,303.46635 C 739.61285,305.57472 739.61285,313.53948 739.61285,318.50043 C 739.61285,320.26423 743.69771,325.44353 744.311,327.89673 C 745.25022,331.6536 748.04762,333.44689 749.00915,337.29302 C 749.13258,337.78675 750.88841,330.12103 750.88841,326.9571 C 750.88841,322.97226 748.03663,320.24813 747.12989,316.62116 C 745.96621,311.96645 741.60808,308.45442 739.61285,303.46635 z"
+       id="path3442"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 625.91766,374.87821 C 628.09159,369.619 630.31595,368.84558 636.25359,367.36118 C 641.80575,365.97313 644.09477,370.34213 647.52914,372.05932 C 648.01742,372.30346 656.08187,367.36118 659.74433,367.36118 C 663.13423,367.36118 665.3821,373.73927 665.3821,376.75747 C 665.3821,382.35491 668.1832,380.53378 671.01988,377.6971 C 673.72304,374.99394 679.98988,375.94617 683.23507,376.75747 C 686.0365,377.45782 686.83097,381.29299 688.87284,383.33488 C 690.12072,384.58274 695.56481,375.70328 696.38988,374.87821 C 699.60361,371.66448 703.35212,372.05932 708.60507,372.05932 C 712.09731,372.05932 715.15532,377.66993 717.06174,379.57636 C 720.25586,382.77049 724.29702,374.07946 728.33729,372.05932 C 733.94738,369.25428 733.39113,367.53901 738.67322,370.18006 C 744.86166,373.27427 741.2586,375.93459 747.12989,372.99894 C 752.25289,370.43745 750.78383,368.30081 756.52619,368.30081 C 761.19653,368.30081 761.67917,371.7107 767.80175,370.18006 C 768.93061,369.89784 772.33086,359.58066 772.49989,358.90451 C 773.99612,352.91959 772.17124,357.57722 766.86212,358.90451 C 761.96467,360.12887 758.29252,355.97269 756.52619,354.20635 C 753.92347,351.60364 753.7073,345.35962 753.7073,354.20635 C 753.7073,358.21433 745.56155,357.57279 743.37138,357.02524 C 738.17278,355.72559 738.37922,354.44273 736.79396,360.78376 C 735.16943,367.28191 730.26121,365.03442 727.39767,363.60265 C 722.97881,361.39322 727.03323,356.17672 719.88063,357.96487 C 716.92037,358.70494 718.47937,363.24824 713.30322,364.54228 C 707.36992,366.02561 704.31969,361.45996 701.08804,359.84414 C 696.81002,357.70513 693.384,365.8559 692.63137,367.36118 C 690.79113,371.04164 683.89334,363.86144 682.29544,362.66302 C 676.74953,358.50359 676.39132,363.86899 673.83877,366.42154 C 669.56677,370.69355 669.09322,361.67598 666.32173,358.90451 C 663.5702,356.15297 660.20748,366.39492 657.86506,357.02524 C 656.14921,350.16183 652.64101,354.73227 649.40839,357.96487 C 645.63396,361.73931 644.91505,355.19718 640.95173,354.20635 C 638.47605,353.58743 631.66017,360.94013 630.61581,361.72339 C 627.95605,363.71821 626.8236,370.3485 625.91766,374.87821 z"
+       id="path3444"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 631.55544,363.60265 C 637.18631,360.32774 638.98206,360.69334 642.831,364.54228 C 646.11672,367.82801 650.23492,362.71958 652.2273,361.72339 C 657.00961,359.33223 659.94608,362.57942 662.56322,364.54228 C 666.28824,367.33605 666.47518,370.25678 670.08025,372.05932 C 674.16029,374.09934 679.22796,373.93858 684.1747,373.93858 C 690.34773,373.93858 689.9138,377.29178 691.69174,370.18006 C 692.29119,367.78226 701.14322,367.11247 703.90693,366.42154 C 708.13922,365.36346 712.91966,369.98186 715.18248,372.99894 C 718.80918,377.83456 718.59842,378.03968 722.69952,373.93858 C 725.82988,370.80821 727.09066,369.39393 731.15618,367.36118 C 735.3055,365.28652 737.79368,365.51195 741.49212,367.36118 C 745.23875,369.23449 747.54228,370.88998 746.19026,365.48191 C 745.20017,361.52153 757.33754,363.33567 758.40545,363.60265 C 764.99044,365.2489 762.01397,359.10192 757.46582,357.96487 C 752.90164,356.82384 749.68736,359.84414 744.311,359.84414 C 740.10478,359.84414 737.46264,365.14758 734.91471,366.42154 C 730.21935,368.76921 729.14337,369.17365 725.51841,367.36118 C 720.36142,364.78267 718.9531,366.41246 715.18248,369.24043 C 711.8525,371.73791 705.75709,365.94446 703.90693,365.48191 C 698.912,364.23318 697.61316,360.21646 694.51063,366.42154 C 692.04479,371.35323 691.18495,371.33611 686.99359,369.24043 C 682.91328,367.20028 680.37029,365.49339 676.65766,366.42154 C 669.46544,368.21959 671.65912,368.94003 667.26137,364.54228 C 663.49668,360.7776 665.097,359.33738 657.86506,360.78376 C 651.37713,362.08135 653.78946,354.83472 645.64988,358.90451 C 643.2766,360.09114 638.64101,357.24098 635.31396,358.90451 C 633.52016,359.8014 632.80827,362.03661 631.55544,363.60265 z"
+       id="path3446"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#d13b16;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 570.47951,312.86265 C 571.45723,310.56663 576.82145,305.34783 577.99654,300.64746 C 578.90393,297.01791 581.93196,293.71625 583.63431,290.31153 C 585.58678,286.4066 586.41608,282.00338 587.39284,278.09635 C 588.5974,273.27809 589.91332,269.8937 591.15136,264.94153 C 592.64301,258.97488 591.61312,255.8477 589.2721,252.72635 C 586.95742,249.64011 577.48029,252.51465 575.17765,253.66598 C 569.41458,256.54752 568.02999,259.50464 565.78135,264.0019 C 563.67311,268.21839 562.96247,273.31698 562.96247,278.09635 C 562.96247,282.28685 562.04769,286.45361 561.08321,290.31153 C 559.36976,297.16527 562.26105,296.42573 559.20394,290.31153 C 556.95154,285.80673 557.5816,282.11178 554.5058,279.03598 C 552.2241,276.75428 549.68967,271.04703 548.86802,267.76042 C 547.54592,262.47205 546.04913,260.94204 546.04913,254.60561 C 546.04913,248.59888 539.9162,261.23368 539.47172,262.12264 C 537.43621,266.19365 537.70137,270.1437 536.65284,274.33782 C 535.53438,278.81167 535.7132,283.60723 535.7132,288.43228 C 535.7132,293.8416 536.91507,296.47378 538.5321,299.70783 C 540.631,303.90564 539.98777,307.74091 543.23024,310.98339 C 546.11789,313.87104 544.16987,302.85196 544.16987,298.7682 C 544.16987,293.8587 543.99978,289.11263 545.10951,284.67376 C 546.23963,280.15324 548.47123,285.75944 549.80765,288.43228 C 552.03452,292.88603 553.56617,294.13239 553.56617,299.70783 C 553.56617,302.52833 556.63601,308.22868 557.32468,310.98339 C 558.39586,315.26805 560.73436,316.53396 564.84172,317.5608 C 568.07904,318.37013 568.40256,315.45883 570.47951,312.86265 z"
+       id="path3448"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#d13b16;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 810.89817,315.83492 C 809.92043,313.53891 804.55622,308.32011 803.38113,303.61974 C 802.47373,299.99019 799.4457,296.68853 797.74335,293.28381 C 795.79088,289.37889 794.96159,284.97566 793.98483,281.06862 C 792.78026,276.25036 791.46435,272.86597 790.2263,267.91381 C 788.73465,261.94716 789.76455,258.81997 792.10557,255.69863 C 794.42024,252.61239 803.89738,255.48694 806.20002,256.63826 C 811.96309,259.51979 813.34768,262.47691 815.59631,266.97418 C 817.70456,271.19067 818.41521,276.28925 818.41521,281.06862 C 818.41521,285.25913 819.32998,289.42589 820.29446,293.28381 C 822.0079,300.13756 819.11663,299.398 822.17372,293.28381 C 824.42613,288.77901 823.79608,285.08405 826.87188,282.00825 C 829.15356,279.72656 831.68799,274.01931 832.50965,270.7327 C 833.83174,265.44432 835.32854,263.91431 835.32854,257.57788 C 835.32854,251.57116 841.46147,264.20596 841.90595,265.09492 C 843.94145,269.16593 843.67631,273.11597 844.72484,277.31011 C 845.8433,281.78394 845.66447,286.57951 845.66447,291.40455 C 845.66447,296.81388 844.4626,299.44607 842.84558,302.68011 C 840.74667,306.87792 841.3899,310.71319 838.14743,313.95566 C 835.25977,316.84332 837.2078,305.82424 837.2078,301.74048 C 837.2078,296.83097 837.37788,292.0849 836.26817,287.64604 C 835.13804,283.12551 832.90643,288.73172 831.57001,291.40455 C 829.34315,295.8583 827.8115,297.10467 827.8115,302.68011 C 827.8115,305.50061 824.74166,311.20096 824.05298,313.95566 C 822.98182,318.24034 820.64331,319.50623 816.53595,320.53308 C 813.29863,321.34241 812.97511,318.4311 810.89817,315.83492 z"
+       id="path3450"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#d13b16;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.48937678;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 561.5524,266.685 C 563.48704,264.49363 571.24503,260.79564 574.3215,255.97198 C 576.69713,252.24723 581.21411,249.75842 584.35301,246.61196 C 587.95308,243.00325 590.54466,238.37366 593.10189,234.36415 C 596.25553,229.4195 598.97322,226.1382 602.21451,221.05615 C 606.11979,214.93299 606.22874,210.98398 604.93303,206.50614 C 603.65191,202.07868 592.40209,201.45209 589.49343,201.81086 C 582.21358,202.70879 579.58784,205.47997 575.44169,209.63609 C 571.55439,213.53272 568.82054,218.99535 566.97038,224.38799 C 565.34819,229.11621 562.75672,233.44409 560.23163,237.4032 C 555.74572,244.43673 559.12461,244.78293 558.22152,236.6358 C 557.55614,230.63318 559.66042,226.72139 557.56113,221.99491 C 556.00381,218.48869 555.50227,211.01418 555.89569,206.97031 C 556.52872,200.46347 555.51997,198.12591 557.97289,190.9764 C 560.29816,184.19891 548.84711,195.95059 548.02755,196.77212 C 544.27437,200.53432 543.02888,205.09949 540.28374,209.40363 C 537.35551,213.99482 535.69037,219.47877 533.82255,224.92294 C 531.72854,231.02638 531.99514,234.4871 532.47282,238.79644 C 533.09286,244.39 530.92016,248.45474 533.13321,253.43735 C 535.1041,257.87471 537.28604,244.64622 538.86691,240.03844 C 540.76744,234.49896 542.42277,229.07442 545.3281,224.51913 C 548.28687,219.88004 548.50363,227.11689 548.89842,230.67842 C 549.55626,236.61302 550.71208,238.64475 548.55375,244.93562 C 547.46191,248.11804 548.53883,255.80342 548.20908,259.19282 C 547.6962,264.4647 549.70748,266.84797 553.70336,269.68382 C 556.85278,271.91896 558.32583,268.76619 561.5524,266.685 z"
+       id="path3452"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#d13b16;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.48937678;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 819.30603,269.07383 C 817.3714,266.88246 809.61341,263.18448 806.53694,258.36082 C 804.16131,254.63606 799.64433,252.14724 796.50543,249.00079 C 792.90536,245.39209 790.31378,240.76249 787.75655,236.75298 C 784.60291,231.80834 781.88522,228.52703 778.64393,223.44498 C 774.73864,217.32182 774.62969,213.37281 775.9254,208.89497 C 777.20653,204.46751 788.45635,203.84092 791.36501,204.19969 C 798.64486,205.09763 801.27059,207.8688 805.41675,212.02491 C 809.30405,215.92154 812.0379,221.38418 813.88806,226.77682 C 815.51025,231.50504 818.10172,235.83292 820.62681,239.79203 C 825.11271,246.82555 821.73383,247.17176 822.63692,239.02463 C 823.3023,233.02201 821.19802,229.11022 823.29731,224.38373 C 824.85463,220.87753 825.35617,213.40301 824.96275,209.35913 C 824.32972,202.8523 825.33846,200.51475 822.88555,193.36524 C 820.56028,186.58774 832.01133,198.33942 832.83089,199.16095 C 836.58407,202.92315 837.82956,207.48832 840.5747,211.79246 C 843.50292,216.38365 845.16806,221.8676 847.03589,227.31178 C 849.12989,233.41521 848.86329,236.87594 848.38562,241.18527 C 847.76558,246.77883 849.93827,250.84356 847.72523,255.82618 C 845.75434,260.26355 843.57239,247.03505 841.99152,242.42727 C 840.091,236.88779 838.43566,231.46325 835.53034,226.90796 C 832.57157,222.26887 832.35481,229.50572 831.96002,233.06725 C 831.30218,239.00185 830.14636,241.03359 832.30469,247.32445 C 833.39653,250.50687 832.31961,258.19225 832.64935,261.58166 C 833.16224,266.85353 831.15096,269.2368 827.15508,272.07265 C 824.00566,274.30779 822.53261,271.15503 819.30603,269.07383 z"
+       id="path3454"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 654.10655,286.55302 C 652.32714,281.59876 648.17575,280.37217 642.831,279.03598 C 637.55026,277.71579 635.4929,276.93288 634.37433,272.45857 C 633.30443,268.17897 635.31396,264.44923 635.31396,259.30375 C 635.31396,253.99703 631.06735,253.1779 628.73654,250.84708 C 626.20471,248.31525 619.37555,248.74174 616.52135,248.0282 C 612.46652,247.01449 608.28561,244.49061 605.2458,241.45078 C 601.84161,238.0466 607.22733,234.46431 608.06469,231.11486 C 609.23326,226.44059 604.45785,223.20384 601.48728,221.71856 C 599.22869,220.58927 597.16847,219.08934 594.90988,217.96004 C 591.93191,216.47106 599.13299,212.7973 601.48728,210.443 C 605.17828,206.75202 602.42795,200.10812 608.06469,205.74486 C 610.69989,208.38006 613.37007,211.98986 615.58173,214.20153 C 618.14836,216.76817 618.40062,222.75901 618.40062,226.41671 C 618.40062,229.51284 615.08794,234.9693 614.6421,236.75265 C 614.38477,237.78196 627.62692,239.29412 628.73654,239.57153 C 634.44837,240.99948 634.35189,242.36798 638.13284,246.14894 C 642.28515,250.30123 638.13284,255.16837 638.13284,260.24338 C 638.13284,262.87158 644.63362,266.74416 645.64988,267.76042 C 648.71654,270.82707 652.35544,272.99246 655.04618,274.33782 C 659.22138,276.42543 660.60018,280.58015 661.62359,284.67376 C 663.44332,291.9527 657.79334,290.23981 654.10655,286.55302 z"
+       id="path3465"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 658.8047,288.43228 C 659.86004,292.65361 655.30409,280.23352 652.2273,277.15672 C 649.67019,274.59962 646.44222,272.85475 643.77063,271.51894 C 639.8919,269.57958 638.13284,268.4197 638.13284,262.12264 C 638.13284,259.13528 636.03292,253.72296 635.31396,250.84708 C 634.79726,248.78032 628.68676,245.18441 626.85729,244.26968 C 623.0756,242.37883 617.00942,242.16463 613.70247,240.51116 C 609.00024,238.16004 611.16869,236.46754 614.6421,232.99412 C 617.17472,230.4615 615.27656,223.31675 614.6421,220.77894 C 613.25914,215.2471 608.73339,212.32227 603.36655,212.32227 C 600.8409,212.32227 590.72053,214.20153 598.66839,214.20153 C 602.56981,214.20153 606.13357,217.90819 608.06469,219.83931 C 610.29969,222.07431 611.1926,227.65279 611.82322,230.17523 C 612.5549,233.10197 608.01936,238.72257 607.12506,240.51116 C 604.55145,245.65838 615.60383,245.20931 618.40062,245.20931 C 623.63151,245.20931 626.38569,248.61502 631.55544,249.90745 C 635.98897,251.01584 636.25359,255.27429 636.25359,260.24338 C 636.25359,263.89045 635.31396,269.11325 635.31396,273.39819 C 635.31396,276.10027 644.01006,276.74676 645.64988,277.15672 C 650.40479,278.34544 652.23098,279.03968 655.04618,281.85486 C 657.0952,283.90388 657.33209,284.75076 658.8047,288.43228 z"
+       id="path3467"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 661.62359,242.39041 C 664.51124,245.27807 654.17531,238.70066 651.28767,235.81301 C 647.99919,232.52455 648.36622,226.0065 647.52914,222.65819 C 646.68551,219.28366 652.11389,211.84704 653.16692,210.443 C 655.871,206.83757 656.92543,203.00802 656.92543,198.22782 C 656.92543,192.49929 653.90596,191.55011 650.34803,189.77115 C 646.95504,188.07466 645.09565,183.02491 643.77063,180.37486 C 642.2492,177.33201 640.65854,173.21105 639.07247,170.03893 C 637.30069,166.49537 631.64046,172.83656 627.79692,173.79745 C 623.84952,174.7843 621.25945,176.60635 617.46099,177.55596 C 614.74097,178.23597 619.84511,181.38458 621.21951,184.13337 C 623.2957,188.28578 626.62077,189.18308 629.67618,190.71078 C 634.54676,193.14607 636.61662,193.31613 639.07247,198.22782 C 641.53564,203.15418 636.67695,206.77739 635.31396,209.50337 C 633.29401,213.54326 633.43469,217.65143 633.43469,222.65819 C 633.43469,227.07631 633.26628,229.50155 634.37433,233.93375 C 635.04666,236.6231 639.42433,239.92339 640.95173,241.45078 C 642.94045,243.4395 650.3176,246.13372 652.2273,247.08857 C 656.97622,249.46303 659.55384,248.54563 661.62359,248.0282 C 663.44674,247.57241 661.62359,244.26968 661.62359,242.39041 z"
+       id="path3469"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 735.85434,283.73412 C 739.98725,282.7009 739.56101,275.30339 743.37138,273.39819 C 747.34124,271.41327 751.53111,273.55887 754.64693,274.33782 C 758.94313,275.41188 759.79597,279.89993 760.2847,281.85486 C 761.45594,286.53979 767.84133,287.50254 771.56026,288.43228 C 778.13979,290.07716 775.69018,289.91788 774.37916,284.67376 C 773.5088,281.19238 773.43953,276.28172 773.43953,271.51894 C 773.43953,267.74739 765.53734,272.26599 762.16397,270.57931 C 757.88081,268.43773 757.46059,264.2355 752.76767,263.06227 C 748.76391,262.06133 745.8387,261.03599 741.49212,262.12264 C 737.66618,263.07912 736.65034,268.33492 735.85434,271.51894 C 734.47928,277.01913 733.0804,276.79927 735.85434,283.73412 z"
+       id="path3471"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 734.91471,281.85486 C 733.88147,285.98779 736.76805,273.45005 738.67322,269.63968 C 740.47237,266.04138 745.14678,264.94153 749.94878,264.94153 C 754.51334,264.94153 756.10636,268.28023 758.40545,270.57931 C 762.31931,274.49317 762.67226,274.93472 767.80175,276.21709 C 773.79112,277.71444 773.43953,278.02342 773.43953,284.67376 C 773.43953,288.74549 765.04312,282.85476 762.16397,279.97561 C 758.73963,276.55127 756.79532,275.81572 754.64693,271.51894 C 752.71395,267.653 747.50991,268.60505 743.37138,269.63968 C 739.17324,270.68921 736.52322,277.83358 734.91471,281.85486 z"
+       id="path3473"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 656.92543,245.20931 C 653.38798,246.09367 649.23887,238.29284 647.52914,234.87338 C 645.65742,231.12993 644.48196,228.06768 641.89136,225.47708 C 639.77277,223.35848 645.1446,213.33283 645.64988,212.32227 C 647.89702,207.82798 648.27468,204.05969 651.28767,201.04671 C 653.95991,198.37446 646.06118,193.00134 644.71025,191.65041 C 642.71115,189.65132 641.01894,184.4022 640.0121,180.37486 C 639.16892,177.00209 636.72765,173.33188 634.37433,170.97856 C 631.97873,168.58297 628.94788,175.10123 625.91766,176.61634 C 620.9693,179.09052 624.24602,179.53904 627.79692,181.31448 C 631.94507,183.38856 635.09565,186.55363 638.13284,188.83153 C 641.49759,191.35509 642.77049,193.46916 645.64988,196.34857 C 649.29925,199.99792 642.21046,205.42576 640.95173,206.68449 C 638.9233,208.71292 636.25359,212.89332 636.25359,217.02042 C 636.25359,221.90122 636.10757,226.77229 637.19321,231.11486 C 638.13243,234.87173 641.74289,236.60416 643.77063,238.6319 C 647.41653,242.27781 651.57707,243.06995 656.92543,245.20931 z"
+       id="path3475"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 741.49212,253.66598 C 744.40513,256.57899 742.37221,245.44742 743.37138,241.45078 C 743.58598,240.59235 749.32389,236.12317 750.88841,232.99412 C 752.36911,230.03272 750.88841,222.29789 750.88841,218.89967 C 750.88841,213.21143 753.22639,210.4652 755.58656,205.74486 C 757.57848,201.76102 759.32133,199.26244 760.2847,195.40894 C 761.30905,191.31153 760.2847,185.56298 760.2847,181.31448 C 760.2847,177.61273 764.83539,174.88455 766.86212,172.85782 C 769.44238,170.27755 774.41521,167.68084 776.25841,167.22004 C 780.01692,166.28041 778.13767,174.73708 779.0773,178.4956 C 780.03724,182.33535 785.0276,185.38553 786.59434,186.95227 C 790.9357,191.29362 789.34906,189.08247 782.83582,190.71078 C 778.44395,191.80876 776.09051,194.80511 774.37916,198.22782 C 772.41952,202.14708 769.83745,203.23981 768.74137,207.62412 C 767.59141,212.22399 768.74137,214.59472 768.74137,219.83931 C 768.74137,223.09387 761.39376,226.332 759.34508,227.35634 C 756.38301,228.83738 756.52619,235.90029 756.52619,239.57153 C 756.52619,241.28171 749.82896,246.26875 749.00915,247.08857 C 746.1456,249.95212 745.36793,249.79016 741.49212,253.66598 z"
+       id="path3477"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#f84444;fill-opacity:1;fill-rule:evenodd;stroke:#fbdfdf;stroke-width:2.98667264;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 775.31879,175.67671 C 775.31879,174.60965 766.81895,183.36641 765.92249,186.95227 C 764.82693,191.33448 764.04322,194.9061 764.04322,200.10708 C 764.04322,204.80655 761.88703,207.99337 759.34508,211.38264 C 756.43812,215.25857 754.64693,216.73825 754.64693,221.71856 C 754.64693,227.17517 752.71757,231.16496 749.94878,233.93375 C 746.78501,237.09752 745.24253,240.52736 743.37138,244.26968 C 741.85484,247.30274 742.43175,252.99727 742.43175,257.42449 C 742.43175,262.20544 748.78923,249.8475 749.94878,245.20931 C 750.89514,241.42387 754.55939,238.04243 755.58656,233.93375 C 756.9553,228.45881 759.90661,226.04984 761.22433,220.77894 C 762.30793,216.44456 763.84627,212.51922 765.92249,210.443 C 768.13576,208.22974 767.80175,199.73999 767.80175,196.34857 C 767.80175,191.93037 772.63302,190.57766 775.31879,187.8919 C 779.00232,184.20835 782.67603,184.9132 778.13767,180.37486 C 776.84628,179.08346 776.25841,177.24276 775.31879,175.67671 z"
+       id="path3481"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <path
+       style="opacity:1;fill:#ec9116;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:4.87228440999999979;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 106.56185,43.437839 L 37.135571,309.01795 L 306.50952,278.46449 L 175.98812,66.940503 L 106.56185,43.437839 z"
+       id="path3565"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <text
+       xml:space="preserve"
+       style="font-size:74.05697632px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:4.87228394;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+       x="70.945618"
+       y="137.71606"
+       id="text3525"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0236129,0.9769318)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3527"
+         x="70.945618"
+         y="137.71606"
+         style="stroke-width:4.87228394">Bob</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:53.83508682px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:3.54186535;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+       x="63.290291"
+       y="217.26476"
+       id="text3529"
+       sodipodi:linespacing="125%"
+       transform="scale(1.1032939,0.9063768)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3531"
+         x="63.290291"
+         y="217.26476"
+         style="stroke-width:3.54186535">the</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:66.93888092px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:4.40397739;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+       x="74.435738"
+       y="215.85968"
+       id="text3533"
+       sodipodi:linespacing="125%"
+       transform="scale(0.7894405,1.26672)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3535"
+         x="74.435738"
+         y="215.85968"
+         style="stroke-width:4.40397739">Hamster</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:52.8997612px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+       x="136.90363"
+       y="374.30768"
+       id="text3537"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0814517,0.924683)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3539"
+         x="136.90363"
+         y="374.30768">in</tspan></text>
+    <path
+       style="fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 47.191129,470.38593 L 72.359732,396.45316 L 146.2925,372.8576 L 162.02288,470.38593 L 47.191129,470.38593 z"
+       id="path3569"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <text
+       xml:space="preserve"
+       style="font-size:57.70806885px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#ff0303;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Ani;-inkscape-font-specification:Ani"
+       x="54.092197"
+       y="437.93228"
+       id="text3541"
+       sodipodi:linespacing="125%"
+       transform="scale(0.9569211,1.0450183)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3543"
+         x="54.092197"
+         y="437.93228"
+         style="stroke-width:1">THE</tspan></text>
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.6065073;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 63.209361,520.53863 L 94.513008,594.33702 L 379.92861,539.95925 L 379.92861,448.68229 L 63.209361,520.53863 z"
+       id="path3571"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <text
+       xml:space="preserve"
+       style="font-size:100.20026398px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#ff0303;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.20216918px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Ani;-inkscape-font-specification:Ani"
+       x="81.748886"
+       y="524.4906"
+       id="text3545"
+       sodipodi:linespacing="125%"
+       transform="scale(0.9321385,1.0728019)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3547"
+         x="81.748886"
+         y="524.4906"
+         style="stroke-width:1.20216918">CRYPT</tspan></text>
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.80845022;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 259.26475,573.00939 L 204.92866,603.54012 L 255.08505,649.33622 L 292.70235,614.98915 L 259.26475,573.00939 z"
+       id="path3573"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <text
+       xml:space="preserve"
+       style="font-size:55.76824951px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#ff0303;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.26948345px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Ani;-inkscape-font-specification:Ani"
+       x="202.44847"
+       y="654.88647"
+       id="text3549"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0417651,0.9599093)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3551"
+         x="202.44847"
+         y="654.88647"
+         style="stroke-width:1.26948345">OF</tspan></text>
+    <path
+       style="opacity:1;fill:#ff9191;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.35336971;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 310.04526,592.08724 L 325.26766,676.17169 L 460.57793,648.75284 L 629.71577,677.99961 L 748.11226,646.92493 L 888.49667,679.82753 L 1011.9673,652.40869 L 1047.4863,667.03207 L 1032.2639,597.57101 L 1039.0294,579.29178 L 995.0535,559.18463 L 893.5708,593.91516 L 766.71742,555.52878 L 617.87612,586.60347 L 475.80033,566.49632 L 310.04526,592.08724 z"
+       id="path3575"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795" />
+    <text
+       xml:space="preserve"
+       style="font-size:71.26554108px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0303;fill-opacity:1;stroke:#000000;stroke-width:1.11778998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+       x="392.21304"
+       y="551.35614"
+       id="text3553"
+       sodipodi:linespacing="125%"
+       transform="scale(0.8157596,1.2258513)"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3555"
+         x="392.21304"
+         y="551.35614"
+         style="font-size:116.61634827px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff0303;fill-opacity:1;stroke:#000000;stroke-width:1.11778998;stroke-opacity:1;font-family:Ani;-inkscape-font-specification:Ani">BACONTHULHU</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+       x="15.730376"
+       y="715.77979"
+       id="text3581"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/james/src/ohr/games/baconthulhu/media/backdrops/title screen.png"
+       inkscape:export-xdpi="26.633795"
+       inkscape:export-ydpi="26.633795"><tspan
+         sodipodi:role="line"
+         id="tspan3583"
+         x="15.730376"
+         y="715.77979" /></text>
+  </g>
+</svg>
