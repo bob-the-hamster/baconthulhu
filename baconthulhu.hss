@@ -1821,6 +1821,12 @@ script, update hero, begin
       set hero picture(0, hero walking)
     )
   )
+  # auto-attack monsters in front of you
+  if(hero is aligned) then(
+    if(hero atk frames == 0) then(
+      hero motion action(hero direction(me), false)
+    )
+  )
 end
 
 script, hero motion, d, begin
@@ -1831,13 +1837,14 @@ script, hero motion, d, begin
   )
 end
 
-script, hero motion action, d, begin
+script, hero motion action, d, talk=true, begin
   variable(ref)
   ref := get monster ahead of hero(d)
+  if(ref && slice collide point(get npc slice(ref), mouse pixel x, mouse pixel y) && mouse release(left button)) then(talk := true)
   if(is attackable(ref)) then(
     hero attack monster(ref)
   )
-  if(is talker(ref)) then(
+  if(talk && is talker(ref)) then(
     if(current textbox == -1) then(
       talker action for this map(ref)
     )

@@ -1,0 +1,185 @@
+# HamsterSpeak constant definitions for baconthulhu.rpgdir
+
+define constant, begin
+2,tag:Heard Fhtagn
+3,tag:Heard Pork One
+4,tag:Heard Do you have
+5,tag:Heard Daynight
+6,tag:Save Scummer
+7,tag:Heard SelfSacrafice
+8,tag:Heard Fahrenheit
+9,tag:Heard deepest floor
+10,tag:Tofu Dagger Equipped
+11,tag:Have TinFoil Undies
+12,tag:Have Pocket Calulato
+13,tag:Know about Tofu Dagg
+14,tag:Heard One Weapon
+15,tag:Heard Lore
+16,tag:Heard Artifacts
+17,tag:Gave Calculator
+18,tag:Heard Bacontology
+19,tag:Heard conductive clo
+20,tag:Got science
+21,tag:Accused of cultist
+22,tag:Heard Bicycle
+23,tag:Heard Accident
+24,tag:Heard Green
+25,tag:Heard kinda sweet
+26,tag:Asked on Date
+27,tag:Date with Misa
+28,tag:Save game exists
+29,tag:Save scum choice
+30,tag:Drew heart for Misa
+31,tag:donation small
+32,tag:donation large
+33,tag:misa saw bat
+34,tag:misa saw monarch
+35,tag:own broken blade
+36,tag:own broken pommel
+37,tag:own wavy sword
+38,tag:own duct tape
+39,tag:ask wavy origins
+40,tag:tofu failed
+41,tag:high priest tofu
+42,tag:own tofu dagger
+43,tag:learned spiral
+44,tag:high priest backtrac
+0,song:baconthulhu2
+1,song:GoodBacon
+2,song:baconwin
+0,sfx:coinsinglequiet
+1,sfx:coinfewevensmaller
+2,sfx:coinplingsoftly
+3,sfx:diamondmuted
+4,sfx:coinsinglequietup
+5,sfx:coinsinglequietdown
+6,sfx:tonic
+7,sfx:teleport
+8,sfx:burning
+9,sfx:vegify
+10,sfx:monarch
+11,sfx:repel
+12,sfx:bat
+13,sfx:wallcrumble
+14,sfx:impact
+15,sfx:lowhpalert
+16,sfx:cursortick
+17,sfx:cursorsquip1
+18,sfx:enemydie
+19,sfx:miss
+20,sfx:itempickup
+21,sfx:solidwall
+22,sfx:npc05 low
+23,sfx:npc04 low
+24,sfx:npc00
+25,sfx:npc01 high
+26,sfx:npc02 high
+27,sfx:npc03 child
+28,sfx:stairsdown
+29,sfx:stairsup
+30,sfx:punch
+31,sfx:slash
+32,sfx:deathlaugh
+33,sfx:chalkwrite
+34,sfx:chalksnap
+35,sfx:fixing
+36,sfx:Level Up
+0,hero:Bob the Hamster
+1,hero:Misa the Hamster
+0,item:Punch
+1,item:Sword
+2,item:Axe
+3,item:Trowel
+4,item:Tonic
+5,item:Brew
+6,item:Burning
+7,item:Leather
+8,item:Tighty
+9,item:Bat
+10,item:Monarch
+11,item:Bone
+12,item:Soma
+13,item:Tofu
+14,item:Science
+15,item:Soybean
+16,item:Vegify
+17,item:Calcula
+18,item:TinFoil
+19,item:Debug
+20,item:Chalk
+21,item:Jiffy
+22,item:Repel
+23,item:Maul
+24,item:Telepo
+25,item:Blade
+26,item:Pommel
+27,item:Wavy
+28,item:Tape
+29,item:Lazy
+0,stat:Health
+1,stat:Stamina
+2,stat:Attack
+3,stat:Hit Rate
+4,stat:Burden
+5,stat:Recovery
+6,stat:Wisdom
+7,stat:Morality
+8,stat:Curiosity
+9,stat:Humility
+10,stat:Artistry
+11,stat:Spiffyness
+0,element:Fire
+1,element:Ice
+2,element:Lit
+3,element:Earth
+4,element:Other
+5,element:Other 2
+6,element:Other 3
+7,element:Other 4
+8,element:Type 1killer
+9,element:Type 2killer
+10,element:Type 3killer
+11,element:Type 4killer
+12,element:Type 5killer
+13,element:Type 6killer
+14,element:Type 7killer
+15,element:Type 8killer
+1,slot:Weapon
+1,slot:Melee
+2,slot:Tool
+3,slot:Potion
+4,slot:Scroll
+5,slot:Pants
+0,map:Crypt Narthex
+1,map:Crypt basement 1
+2,map:Crypt basement 2
+3,map:Crypt basement 3
+4,map:Crypt basement 4
+5,map:Baconthulhu's Lair
+8,map:Good Ending Map
+9,map:After Ending
+1,atk:Tonic
+2,atk:Brew
+3,atk:Soma
+0,shop:Novice Shop
+1,shop:Initiate Shop
+2,shop:Acolyte Shop
+3,shop:Artefact Shop
+4,shop:Debug Shop
+5,shop:HighPriest Shop
+1,menu:Shop 1
+2,menu:Shop 2
+3,menu:Select Screen
+4,menu:Death menuobsolete
+5,menu:Shop 3
+6,menu:Shop 4
+7,menu:Bacontologist
+8,menu:Misa
+9,menu:New game menu
+10,menu:Chalk Menu
+11,menu:Shop 5
+12,menu:Level Up
+1,sli:credits text
+2,sli:credits bob
+3,sli:credits misa
+end
